@@ -1,5 +1,13 @@
-import React from 'react';
+import Task from "./components/Example";
+import TaskList from "./components/ExampleList";
 
-const App: React.FC = () => <h1>Hello, Ones and Zeros E-commerce!</h1>;
+function App() {
+  return (
+    <div className="App">
+      <Task />
+      <TaskList />
+    </div>
+  );
+}
 
 export default App;
