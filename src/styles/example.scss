@@ -1,0 +1,51 @@
+// Define primary and secondary colors
+$primary-color: blue;
+$secondary-color: white;
+
+.tasklist {
+  background-color: $secondary-color;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.display-tasks {
+  h3 {
+    color: $primary-color;
+    margin-bottom: 10px;
+  }
+
+  .tasks {
+    list-style-type: none;
+    padding: 0;
+
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid $primary-color;
+      border-radius: 4px;
+      background-color: lighten($primary-color, 40%);
+      color: darken($primary-color, 20%);
+      
+      &:hover {
+        background-color: lighten($primary-color, 30%);
+      }
+
+      .delete-btn {
+        background-color: darken($primary-color, 20%);
+        color: $secondary-color;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: darken($primary-color, 30%);
+        }
+      }
+    }
+  }
+}

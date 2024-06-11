@@ -1,0 +1,45 @@
+// Define primary and secondary colors
+$primary-color: blue;
+$secondary-color: white;
+
+.task-component {
+  background-color: $secondary-color;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 0 auto;
+}
+
+.add-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskInput {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid $primary-color;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.taskInput::placeholder {
+  color: rgba(0, 0, 255, 0.5); // Light blue for placeholder text
+}
+
+button {
+  padding: 10px 15px;
+  background-color: $primary-color;
+  color: $secondary-color;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($primary-color, 20%);
+  }
+}
