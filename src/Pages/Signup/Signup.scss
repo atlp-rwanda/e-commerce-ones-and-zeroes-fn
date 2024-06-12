@@ -1,0 +1,174 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+    @include flex-center;
+    @include full-height;
+    width: 100%;
+    background-color: $background-color;
+    flex-wrap: wrap;
+    
+}
+
+.left-wrapper {
+    @include flex-center;
+    flex-direction: column;
+    background-color: $primary-color;
+    color: #fff;
+    width: 50%;
+    @include full-height;
+    @include box-sizing;
+
+    img {
+        max-height: 60%;
+        width: auto;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 920px) {
+        display: none;
+    }
+}
+
+.form-wrapper {
+    @include flex-center;
+    width: 50%;
+    @include full-height;
+    background-color: #fff;
+    color: #000;
+    overflow-y: scroll;
+
+    @media (max-width: 920px) {
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    @media (max-height: 520px) {
+        align-items: start;
+
+      }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    min-width: 250;
+    max-width: 400px;
+    width: 100%;
+    
+
+    .form-title {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 24px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        display: block;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            border: 2px solid $border-color;
+        }
+        input::placeholder {
+            color: grey;
+        }
+
+        .form-control {
+            padding: 5px;
+            font-size: $input-font-size;
+            border: 1px solid $border-color;
+            border-radius: 4px;
+            outline: none;
+
+            &:focus {
+                border: 2px solid $border-color;
+                box-shadow: 0 0 5px $focus-shadow;
+            }
+        }
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: $btn-padding;
+        margin: 0;
+        font-size: $btn-font-size;
+        color: $text-color;
+        background-color: $primary-color;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            background-color: $btn-hover-color;
+        }
+    }
+
+    .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: $btn-padding;
+        margin: 0;
+        font-size: $btn-font-size;
+        color: #fff;
+        background-color: $primary-color;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            background-color: $btn-hover-color;
+        }
+
+        img {
+            width: 18px;
+            height: 18x;
+            margin-right: 10px;
+        }
+    }
+
+    .or-with-google {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    .text-center {
+        text-align: center;
+        margin-top: 15px;
+
+        a {
+            color: $secondary-color;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .text-right {
+        text-align: right;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 992px) {
+        width: 60%;
+    }
+
+    @media (max-width: 572px) {
+        width: 80%;
+    }
+}

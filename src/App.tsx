@@ -1,14 +1,27 @@
 import React from 'react';
-import Task from "./components/Example";
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import './styles/index.scss';
-
-import TaskList from "./components/ExampleList";
+import Signup from './Pages/Signup/Signup';
+import Toast from './components/Toast/Toast';
+import DummyHomePage from './Pages/DummyHomePage/DummyHomePage';
 
 function App() {
   return (
     <div className="App">
-      <Task />
-      <TaskList />
+        <BrowserRouter>
+      <Routes>
+
+        <Route  path='/' element={<DummyHomePage />}/>
+        <Route  path='/signup' element={<Signup />}/>
+        
+      {/* <Task /> */}
+      {/* <TaskList /> */}
+
+      </Routes>
+      </BrowserRouter>
+      {/* <Toast /> */}
+
+
     </div>
   );
 }

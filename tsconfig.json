@@ -15,6 +15,6 @@
     "noEmit": false,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "__tests__/*", "react-dom.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

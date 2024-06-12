@@ -1,0 +1,22 @@
+@import '../styles//variables.scss';
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin full-height {
+    height: 100vh;
+}
+
+@mixin full-width{
+    width: 100vw;
+}
+
+@mixin box-sizing {
+    box-sizing: border-box;
+}
+
+@mixin btn-hover {
+   background-color: $btn-hover-color;
+}
