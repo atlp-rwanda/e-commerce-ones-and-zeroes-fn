@@ -1,14 +1,23 @@
 import React from 'react';
 import Task from "./components/Example";
 import './styles/index.scss';
-
-import TaskList from "./components/ExampleList";
+import Signup from './Pages/Signup/Signup';
+import DummyHomePage from './Pages/DummyHomePage/DummyHomePage';
 
 function App() {
   return (
     <div className="App">
-      <Task />
-      <TaskList />
+        <BrowserRouter>
+      <Routes>
+
+        <Route  path='/' element={<DummyHomePage />}/>
+        <Route  path='/signup' element={<Signup />}/>
+        
+
+      </Routes>
+      </BrowserRouter>
+
+
     </div>
   );
 }
