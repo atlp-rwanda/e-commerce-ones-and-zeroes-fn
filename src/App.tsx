@@ -1,16 +1,16 @@
 import React from 'react';
-import Task from "./components/Example";
-import './styles/index.scss';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
+import Login from './views/Login';
 
-import TaskList from "./components/ExampleList";
-
-function App() {
-  return (
-    <div className="App">
-      <Task />
-      <TaskList />
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <Router>
+    
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </Router>
+);
 
 export default App;

@@ -1,0 +1,110 @@
+@import './variables';
+@import './mixins';
+
+header {
+    padding: 1rem;
+
+    nav {
+        @include flex-center;
+        justify-content: space-between;
+        position: relative;
+
+        .logo {
+            img {
+                height: 120px;
+                width: 160px;
+            }
+        }
+
+        .hamburger {
+            display: none;
+            
+
+            @media (max-width: 768px) {
+                display: block;
+                cursor: pointer;
+                position: absolute;
+                top: 50%;
+                right: 1rem;
+
+                i {
+                    font-size: 2rem;
+                    color: #0F1848;
+                }
+            }
+        }
+
+        .menu {
+            list-style: none;
+            display: none;
+            
+
+            @media (min-width: 769px) {
+                display: flex;
+            }
+
+            li {
+                margin: 0 1rem;
+                padding: 15px 20px;
+                border-radius: 25px;
+
+                a {
+                    text-decoration: none;
+                    color: $primary-color;
+                    font-family: $font-stack;
+                    font-size: 1.5rem;
+                    font-weight: 50;
+                }
+
+                i {
+                    font-size: 1.4rem;
+                    padding-right: 1rem;
+                    color: #0F1848;
+                }
+            }
+
+            li:hover {
+                background-color: $primary-color;
+
+                a {
+                    color: $secondary-color;
+                }
+
+                i {
+                    color: $secondary-color;
+                }
+            }
+        }
+
+        .menu.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            z-index: 10;
+            width: 90%;
+            border-radius: 15px;
+            
+
+            li {
+                margin: 1rem 0;
+                text-align: center;
+                padding: 10px;
+                width: 100%;
+            }
+
+            li:hover {
+                background-color: $secondary-color;
+                width: 70%;
+                margin-left: 15%;
+                transition: 0.4s ease-in-out;
+                a, i{
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
