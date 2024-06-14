@@ -9,7 +9,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('IsVerified component', () => {
   beforeEach(() => {
-    // Reset the mock implementation before each test
     (useNavigate as jest.Mock).mockClear();
   });
 
