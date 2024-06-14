@@ -1,16 +1,34 @@
-import React from 'react';
-import Task from "./components/Example";
-import './styles/index.scss';
 
-import TaskList from "./components/ExampleList";
 
-function App() {
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import UserDash from "./views/userDash";
+import MyAccount from "./views/MyAccount";
+import UpdateProfile from "./views/updateprofile";
+import UpdateBilling from "./views/updatebilling";
+import Header from "./components/UserHeader";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Home from './views/Home';
+import Login from './views/Login';
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <Task />
-      <TaskList />
-    </div>
+    <Router>
+      {/* <Header /> */}
+      <ToastContainer />
+      <main>
+        <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+          <Route path="/UserDash/:id" element={<UserDash />} />
+
+          <Route path="/MyAccount/:id" element={<MyAccount />} />
+          <Route path="/updateprofile" element={<UpdateProfile />} />
+          <Route path="/updatebilling" element={<UpdateBilling />} />
+        </Routes>
+      </main>
+    </Router>
   );
-}
+};
 
 export default App;

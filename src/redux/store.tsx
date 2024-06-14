@@ -1,17 +1,20 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import userReducer from './slices/userSlices';
 import todoReducer from './slices/exampleSlice';
 
+// Combine all reducers into a single root reducer
 const rootReducer = combineReducers({
-  example:todoReducer,
-  
+  user: userReducer,
+  example: todoReducer,
 });
-const store = configureStore({
-  reducer: 
-    rootReducer,  
-  
+
+// Configure the store with the rootReducer
+export const store = configureStore({
+  reducer: rootReducer,
 });
-export type RootState = ReturnType<typeof rootReducer>;
-// export type RootState = ReturnType<typeof store.getState>;
+
+// Define types for RootState and AppDispatch
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

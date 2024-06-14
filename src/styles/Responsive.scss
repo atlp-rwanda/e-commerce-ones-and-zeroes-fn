@@ -1,0 +1,110 @@
+@media screen and (max-width: 500px) {
+  nav {
+    .logo {
+      padding: 5px;
+      display: block;
+      font-size: smaller;
+      text-align: center;
+      img {
+        width: 55px;
+        height: 40px;
+        padding-left: 1px;
+      }
+      hr {
+        display: none;
+      }
+    }
+    .accountBadge {
+      font-size: small;
+      margin-right: 20px;
+      gap: 10px;
+      .shopNow {
+        width: 100px;
+        font-size: 10px;
+        p {
+          padding: 2px;
+        }
+      }
+      img {
+        width: 15px;
+        height: 15px;
+      }
+      .arrow-down {
+        height: 10px;
+        width: 10px;
+      }
+    }
+    .account-float {
+      font-size: small;
+      width: 200px;
+      height: 80px;
+      right: 10px;
+      .chat-container {
+        margin-top: 8px;
+        .time {
+      margin-left: -20px;
+
+        }
+      }
+    }
+  }
+  .edit-page {
+    width: 100%;
+    .left-side-edit {
+      display: none;
+    }
+    .right-side-edit {
+      width: 100%;
+      font-size: small;
+    }
+    .personal-info-deatails {
+      height: 300px;
+    }
+  }
+  .user-profile {
+    height: fit-content;
+    .personal-info {
+      height: fit-content;
+      width: 90%;
+      font-size: small;
+    }
+    .personal-info-deatails {
+      flex-wrap: wrap;
+      height: 320px;
+      hr {
+        display: none;
+      }
+      .details-part1 {
+        width: 100%;
+        margin: 0;
+        font-size: small;
+       
+      }
+      .details-part2 {
+        width: 100%;
+        margin-top: 0px;
+        font-size: small;
+      }
+    }
+    .billing-address {
+      width: 90%;
+      font-size: small;
+    }
+    .billing-details {
+      flex-wrap: wrap;
+      .billing-details-part1 {
+        width: 100%;
+        .billing-data {
+          margin-left: 26%;
+        }
+      }
+      .billing-details-part2 {
+        width: 100%;
+        margin: auto;
+        .billing-data {
+          margin-left: 31%;
+        }
+      }
+    }
+  }
+}

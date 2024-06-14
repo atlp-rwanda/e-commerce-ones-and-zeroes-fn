@@ -1,12 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -16,12 +18,27 @@ module.exports = {
         use: 'ts-loader',
       },
       {
-        test: /\.css$/,
+        test: /\.css$/,  // Add this rule for CSS files
         use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader', // Injects styles into DOM
+          'css-loader', // Turns CSS into CommonJS
+          'sass-loader' // Compiles Sass to CSS
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'images', // output directory for images
+            },
+          },
+        ],
       },
     ],
   },
@@ -39,5 +56,6 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+    historyApiFallback: true,
   },
 };
