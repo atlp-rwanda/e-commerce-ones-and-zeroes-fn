@@ -1,10 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RootState } from "../../redux/store";
 import { signupUser } from "../../redux/slices/SignupSlice";
+import { googleLoginUser } from "../../redux/slices/googleLoginSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import { useGoogleLogin } from '@react-oauth/google';
 import { AnyAction } from "redux";
 import "./Signup.scss";
 import Spinner from "../../components/Spinner/Spinner";
@@ -37,9 +40,9 @@ const Signup: React.FC = () => {
     confirmPassword: "",
   });
   const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
-  const [showPassword, setShowPassword] = useState(false);
 
   const { firstName, lastName, email, password, confirmPassword } = formData;
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -79,6 +82,27 @@ const Signup: React.FC = () => {
       });
     }
   }, [isSucceeded]);
+
+  const loginViaGoogle = useGoogleLogin({
+    onSuccess: async tokenResponse => {
+        try {
+            const userInfo = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
+                headers: {
+                    Authorization: `Bearer ${tokenResponse.access_token}`
+                }
+            });
+
+            dispatch(googleLoginUser(userInfo.data));
+
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+        }
+    },
+    onError: errorResponse => {
+        console.error('Google login failure:', errorResponse);
+    },
+});
+
 
   return (
     <div className="container">
@@ -141,6 +165,7 @@ const Signup: React.FC = () => {
               className={`form-control`}
               required
             />
+            
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -193,6 +218,8 @@ const Signup: React.FC = () => {
             )}
           </div>
 
+
+
           <button
             type="submit"
             className={`btn ${loading ? "loading" : ""}`}
@@ -203,12 +230,9 @@ const Signup: React.FC = () => {
 
           <p className="or-with-google">Or</p>
           <div className="text-center">
-            <button className="btn btn-google" type="button">
-              <img
-                src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
-                alt=""
-                className="google-icon"
-              />
+            <button className="btn btn-google" type="button" onClick={() => loginViaGoogle()}>
+            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" className="google-icon"/>
+
               Continue with Google
             </button>
           </div>
@@ -222,10 +246,7 @@ const Signup: React.FC = () => {
       {loading && <Spinner />}
       {!loading &&
         (isSucceeded ? (
-          <Toast
-            messageType={"success"}
-            message={`${userInfo?.message} Go and check your email to veify your account`}
-          />
+          <Toast messageType={"success"} message={`${userInfo?.message} Go and check your email to veify your account`} />
         ) : (
           error && <Toast messageType={"error"} message={error.message} />
         ))}

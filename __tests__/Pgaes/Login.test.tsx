@@ -1,12 +1,14 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import {BrowserRouter as Router, MemoryRouter } from 'react-router-dom'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import {BrowserRouter as Router} from 'react-router-dom'
 import configureStore from 'redux-mock-store';
 import Login from '../../src/Pages/Login/Login';
 import { loginUser } from '../../src/redux/slices/loginSlice';
 
 const mockStore = configureStore([]);
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 
 jest.mock('../../src/components/Toast/Toast', () => ({
     __esModule: true,
@@ -40,11 +42,13 @@ describe('Login component', () => {
 
     it('renders without crashing', () => {
         const { getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
                 <Router>
                     <Login />
                 </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
         expect(getByText('Login into your account')).toBeInTheDocument();
     });
@@ -54,11 +58,13 @@ describe('Login component', () => {
         store.dispatch = jest.fn();
         
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Router> 
+                <Router>
                     <Login />
                 </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('Email'), { target: { value: 'john.doe@example.com' } });
@@ -77,11 +83,13 @@ describe('Login component', () => {
         store.dispatch = jest.fn();
         
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-            <Router> 
-                <Login />
-            </Router>
-        </Provider>
+                <Router>
+                    <Login />
+                </Router>
+            </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('Email'), { target: { value: 'john.doe@example.com' } });
@@ -91,5 +99,5 @@ describe('Login component', () => {
         expect(getByText('Password is not strong')).toBeInTheDocument();
 
     });
-       
+   
 });

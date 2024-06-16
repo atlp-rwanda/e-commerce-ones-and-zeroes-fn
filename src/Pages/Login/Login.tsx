@@ -1,18 +1,20 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from "axios";
 import { RootState } from "../../redux/store";
 import { loginUser } from "../../redux/slices/loginSlice";
+import { googleLoginUser } from "../../redux/slices/googleLoginSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import "./Login.scss";
 import Spinner from "../../components/Spinner/Spinner";
 import Toast from "../../components/Toast/Toast";
 
 interface FormData {
-
   email: string;
   password: string;
 }
@@ -28,20 +30,22 @@ const Login: React.FC = () => {
   const { loading, isSucceeded, userInfo, error } = useSelector(
     (state: RootState) => state.login
   );
+  const { isError, isSuccessfully } = useSelector(
+    (state: RootState) => state.googleLogin
+  );
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-   
     email: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
+  const [showPassword, setShowPassword] = useState(false);
 
-  const {  email, password} = formData;
+  const { email, password } = formData;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     const errors: Partial<FormData> = {};
@@ -59,24 +63,42 @@ const Login: React.FC = () => {
       return;
     }
     setFormErrors({});
-    dispatch(loginUser({  email, password }));
+    dispatch(loginUser({ email, password }));
+    
   };
 
+  const loginViaGoogle = useGoogleLogin({
+    onSuccess: async tokenResponse => {
+      try {
+        const userInfo = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.access_token}`
+          }
+        });
+        const { email, given_name, family_name } = userInfo.data;
+        dispatch(googleLoginUser({ email, given_name, family_name }));
+       
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      }
+    },
+    onError: errorResponse => {
+      console.error('Google login failure:', errorResponse);
+    },
+  });
+
   useEffect(() => {
-    if(isSucceeded) {
-      navigate('/')
+    if (isSuccessfully || isSucceeded) {
+      navigate('/', { state: { from: { pathname: '/login' } } });
     }
-  }, [isSucceeded])
 
-
-
+}, [isSuccessfully, isSucceeded])
 
   return (
     <div className="container">
       <div className="form-wrapper">
         <form onSubmit={handleSubmit} className="form">
           <h2 className="form-title">Login into your account</h2>
-          
           
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -90,7 +112,6 @@ const Login: React.FC = () => {
               className={`form-control`}
               required
             />
-            
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -117,8 +138,6 @@ const Login: React.FC = () => {
               <span className="errors">{formErrors.password}</span>
             )}
           </div>
-         
-
 
           <button
             type="submit"
@@ -130,9 +149,8 @@ const Login: React.FC = () => {
 
           <p className="or-with-google">Or</p>
           <div className="text-center">
-            <button className="btn btn-google" type="button">
-            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" className="google-icon"/>
-
+            <button className="btn btn-google" type="button" onClick={() => loginViaGoogle()}>
+              <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" className="google-icon" />
               Continue with Google
             </button>
           </div>
@@ -152,8 +170,8 @@ const Login: React.FC = () => {
         <h2>We Deliver Anywhere in the World</h2>
       </div>
       {loading && <Spinner />}
-      {!loading && error && <Toast messageType={"error"} message={error.message} />
-        }
+      {!loading && error && <Toast messageType={"error"} message={error.message} />}
+      {!loading && isError && <Toast messageType={"error"} message={isError.message} />}
     </div>
   );
 };
