@@ -18,12 +18,16 @@ module.exports = {
         use: 'ts-loader',
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,  // Add this rule for CSS files
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.scss$/,
+        use: [
+          'style-loader', // Injects styles into DOM
+          'css-loader', // Turns CSS into CommonJS
+          'sass-loader' // Compiles Sass to CSS
+        ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/,
@@ -52,6 +56,7 @@ module.exports = {
       systemvars: true, // Load all system variables as well (useful for CI environments)
       silent: true, // If true, all warnings will be suppressed
     }),
+    new Dotenv()
   ],
   devServer: {
     static: {

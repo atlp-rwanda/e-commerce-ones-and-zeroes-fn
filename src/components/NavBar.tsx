@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
-import { connect } from 'react-redux';
-import Toast from './Toast/Toast';
-import '../styles/Header.scss';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { decodeToken } from "react-jwt";
+import Toast from "./Toast/Toast";
+import "../styles/Header.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../redux/store";
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
@@ -14,12 +17,11 @@ interface NavbarState {
   clicked: boolean;
 }
 
-
 const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+  localStorage.removeItem("token");
+  window.location.href = "/";
+};
 
-}
 class Navbar extends Component<NavbarProps, NavbarState> {
   constructor(props: NavbarProps) {
     super(props);
@@ -32,11 +34,15 @@ class Navbar extends Component<NavbarProps, NavbarState> {
     this.setState({ clicked: !this.state.clicked });
   };
 
-
-  
-
   render() {
     const { loggedInSuccessfuly,isSuccessfully, token } = this.props;
+
+    // let userId;
+    const decodedToken = decodeToken<{ userId: string,role:string }>(token);
+    let userId = decodedToken?.userId;
+    let userRole = decodedToken?.role
+   
+    console.log("Decoded userId:", userRole);
 
     return (
       <header>
@@ -52,22 +58,53 @@ class Navbar extends Component<NavbarProps, NavbarState> {
           <div className="hamburger" onClick={this.toggleMenu}>
             <i className="fa-solid fa-bars"></i>
           </div>
-          <ul className={this.state.clicked ? 'menu open' : 'menu'}>
-            <li><Link to="/" onClick={() => this.setState({ clicked: false })}>Home</Link></li>
-            <li><Link to="/shop" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
-            <li><Link to="/pages" onClick={() => this.setState({ clicked: false })}>Pages</Link></li>
+          <ul className={this.state.clicked ? "menu open" : "menu"}>
+            <li>
+              <Link to="/" onClick={() => this.setState({ clicked: false })}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/shop"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/pages"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Pages
+              </Link>
+            </li>
             <li>
               <i className="fa-solid fa-cart-shopping"></i>
-              <Link to="/cart" onClick={() => this.setState({ clicked: false })}>Cart</Link>
+              <Link
+                to="/cart"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Cart
+              </Link>
             </li>
             <li>
               <i className="fa-solid fa-user"></i>
-              {loggedInSuccessfuly || token || isSuccessfully  ? (
-                <>
-                <Link to="/profile" onClick={() => this.setState({ clicked: false })}>Profile</Link>
-                </>
+              {loggedInSuccessfuly || token ? (
+                <Link
+                  to={`/UserDash/${userId}`}
+                  onClick={() => this.setState({ clicked: false })}
+                >
+                  Profile
+                </Link>
               ) : (
-                <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
+                <Link
+                  to="/login"
+                  onClick={() => this.setState({ clicked: false })}
+                >
+                  Login
+                </Link>
               )}
             </li>
               {(loggedInSuccessfuly || token || isSuccessfully) && 
@@ -75,7 +112,9 @@ class Navbar extends Component<NavbarProps, NavbarState> {
               }
           </ul>
         </nav>
-        {loggedInSuccessfuly && <Toast messageType={"success"} message={`Logged in successfully`} />}
+        {loggedInSuccessfuly && (
+          <Toast messageType={"success"} message={`Logged in successfully`} />
+        )}
       </header>
     );
   }
