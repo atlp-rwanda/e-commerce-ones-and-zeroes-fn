@@ -1,2 +1,14 @@
 @import 'example';
 @import 'exampleList';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.errors {
+    color: red;
+    margin-bottom: 1px;
+  }
+  
