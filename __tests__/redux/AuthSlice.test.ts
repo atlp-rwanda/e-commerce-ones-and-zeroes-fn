@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
-import reducer, { signupUser, resetAuthState, AuthState } from '../../src/redux/slices/AuthSlice';
+import reducer, { signupUser, googleLoginUser, resetAuthState, AuthState } from '../../src/redux/slices/AuthSlice';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -67,14 +67,50 @@ describe('authSlice', () => {
       const state = store.getState().auth;
       expect(postSpy).toBeCalledWith('http://localhost:8000/api/users/registerUser', userData);
       expect(state.loading).toBe(false);
-    //   expect(state.isSucceeded).toBe(false);
-    //   expect(state.userInfo).toBe(null);
-    //   expect(state.error).toEqual(errorMessage);
+      expect(state.isSucceeded).toBe(false);
+      expect(state.userInfo).toBe(null);
+      expect(state.error).toEqual(errorMessage);
     });
   });
 
+  describe('googleLoginUser thunk', () => {
+    it('dispatches pending and fulfilled actions on successful Google login', async () => {
+      const googleUserInfo = {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane.doe@example.com',
+      };
+      const response = { data: googleUserInfo };
+      const postSpy = jest.spyOn(axios, 'post').mockResolvedValueOnce(response);
 
-  
+      await (store.dispatch as ThunkDispatch<RootState, void, AnyAction>)(googleLoginUser(googleUserInfo));
+
+      const state = store.getState().auth;
+      expect(postSpy).toBeCalledWith('http://localhost:8000/auth/google/register', { googleUserInfo });
+      expect(state.loading).toBe(false);
+      expect(state.isSucceeded).toBe(true);
+      // expect(state.userInfo).toEqual(googleUserInfo);
+      expect(state.error).toBe(null);
+    });
+
+    it('dispatches pending and rejected actions on failed Google login', async () => {
+      const googleUserInfo = {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane.doe@example.com',
+      };
+      const errorMessage = { message: 'Google login failed' };
+      const postSpy = jest.spyOn(axios, 'post').mockRejectedValueOnce({ response: { data: errorMessage } });
+
+      await (store.dispatch as ThunkDispatch<RootState, void, AnyAction>)(googleLoginUser(googleUserInfo));
+
+      const state = store.getState().auth;
+      expect(postSpy).toBeCalledWith('http://localhost:8000/auth/google/register', { googleUserInfo });
+      expect(state.loading).toBe(false);
+      expect(state.isSucceeded).toBe(false);
+      expect(state.error).toEqual(errorMessage);
+    });
+  });
 
   describe('reducers', () => {
     it('handles resetAuthState', () => {
@@ -121,6 +157,30 @@ describe('authSlice', () => {
     it('handles signupUser.rejected', () => {
       const errorMessage = { message: 'Signup failed' };
       const action = { type: signupUser.rejected.type, payload: errorMessage };
+      const state = reducer(initialState, action);
+      expect(state).toEqual({ ...initialState, error: errorMessage, loading: false, isSucceeded: false });
+    });
+
+    it('handles googleLoginUser.pending', () => {
+      const action = { type: googleLoginUser.pending.type };
+      const state = reducer(initialState, action);
+      expect(state).toEqual({ ...initialState, loading: true });
+    });
+
+    it('handles googleLoginUser.fulfilled', () => {
+      const googleUserInfo = {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane.doe@example.com',
+      };
+      const action = { type: googleLoginUser.fulfilled.type, payload: googleUserInfo };
+      const state = reducer(initialState, action);
+      expect(state).toEqual({ ...initialState, loading: false, isSucceeded: true });
+    });
+
+    it('handles googleLoginUser.rejected', () => {
+      const errorMessage = { message: 'Google login failed' };
+      const action = { type: googleLoginUser.rejected.type, payload: errorMessage };
       const state = reducer(initialState, action);
       expect(state).toEqual({ ...initialState, error: errorMessage, loading: false, isSucceeded: false });
     });

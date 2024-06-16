@@ -12,3 +12,9 @@
     margin-bottom: 1px;
   }
   
+.link {
+    text-decoration: none;
+}
+.link::after {
+    content: none;
+}
