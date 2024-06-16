@@ -1,0 +1,16 @@
+@import '../../styles//variables';
+
+.custom-toast-container {
+    .Toastify__close-button {
+      font-weight: bold;
+      padding: 1px;
+    }
+  
+    .Toastify__close-button:hover {
+      font-weight: bold; 
+      color: red;
+      background-color: $primary-color;
+
+    }
+  }
+  

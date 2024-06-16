@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -25,12 +26,13 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'images', // output directory for images
+              name: '[name].[hash].[ext]',
+              outputPath: 'images',
             },
           },
         ],
@@ -44,6 +46,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      safe: false, // Load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+      systemvars: true, // Load all system variables as well (useful for CI environments)
+      silent: true, // If true, all warnings will be suppressed
+    }),
   ],
   devServer: {
     static: {
@@ -53,4 +61,5 @@ module.exports = {
     port: 9000,
     historyApiFallback: true,
   },
+  
 };

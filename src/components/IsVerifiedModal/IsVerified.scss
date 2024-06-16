@@ -1,0 +1,68 @@
+@import '../../styles/variables.scss';
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  
+    .modal-content {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.3s ease-out;
+       
+      .success-check {
+        width: 64px;
+        height: 64px;
+      }
+  
+      .modal-title {
+        font-size: 1.5rem;
+        color: #333333;
+        margin-bottom: 1rem;
+      }
+  
+      .modal-message {
+        font-size: 1rem;
+        color: #666666;
+        margin-bottom: 2rem;
+      }
+  
+      .modal-login {
+        background-color: $primary-color;
+        color: #ffffff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: $secondary-color;
+        }
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

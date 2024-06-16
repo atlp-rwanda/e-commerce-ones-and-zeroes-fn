@@ -1,0 +1,12 @@
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.gif';
+declare module '*.svg';
+declare module '*.mp4';
+declare module '*.webm';
+declare module '*.ogg';
+declare module '*.mp3';
+declare module '*.wav';
+declare module '*.flac';
+declare module '*.aac';

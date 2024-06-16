@@ -1,17 +1,15 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import todoReducer from './slices/exampleSlice';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import signupReducer from "./slices/SignupSlice";
+import tokenReducer from "./slices/tokenSlice"
 
 const rootReducer = combineReducers({
-  example:todoReducer,
-  
+  signup: signupReducer,
+  token: tokenReducer,
 });
 const store = configureStore({
-  reducer: 
-    rootReducer,  
-  
+  reducer: rootReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
-// export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;
