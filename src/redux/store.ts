@@ -5,18 +5,30 @@ import googleLoginReducer from "./slices/googleLoginSlice";
 import tokenReducer from "./slices/tokenSlice"
 import productsReducer from './slices/availableProductSlice';
 
+import userReducer from './slices/userSlices';
+
+import addressSlice from './slices/addressSlice';
+
+// Combine all reducers into a single root reducer
 const rootReducer = combineReducers({
   signup: signupReducer,
   login: loginReducer,
   products: productsReducer,
   googleLogin: googleLoginReducer,
   token: tokenReducer,
+  user: userReducer,
+  address: addressSlice
 });
 
-const store = configureStore({
+
+
+// Configure the store with the rootReducer
+export const store = configureStore({
   reducer: rootReducer,
 });
-export type RootState = ReturnType<typeof rootReducer>;
+
+// Define types for RootState and AppDispatch
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

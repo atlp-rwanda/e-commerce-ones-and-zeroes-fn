@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
-import { connect } from 'react-redux';
-import Toast from './Toast/Toast';
-import '../styles/Header.scss';
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import Toast from "./Toast/Toast";
+import "../styles/Header.scss";
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
@@ -10,76 +10,86 @@ interface NavbarProps {
   token: string;
 }
 
-interface NavbarState {
-  clicked: boolean;
-}
-
-
-const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
-
-}
-class Navbar extends Component<NavbarProps, NavbarState> {
-  constructor(props: NavbarProps) {
-    super(props);
-    this.state = {
-      clicked: false,
-    };
-  }
-
-  toggleMenu = () => {
-    this.setState({ clicked: !this.state.clicked });
-  };
-
+const Navbar: React.FC<NavbarProps> = ({
+  loggedInSuccessfuly,
+  isSuccessfully,
+  token,
+}) => {
+  const { id } = useParams<{ id: string }>();
+  const [clicked, setClicked] = useState(false);
 
   
+ 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
 
-  render() {
-    const { loggedInSuccessfuly,isSuccessfully, token } = this.props;
+  const toggleMenu = () => {
+    setClicked(!clicked);
+  };
 
-    return (
-      <header>
-        <nav>
-          <div className="logo">
-            <Link to="/">
-              <img
-                src="https://www.logomaker.com/api/main/images/1j_ojFVGOMkX9W_reBe4hGfW0KPDt0YRzAWngnw0KSYV9wIZw39w26cppqgtdkRU7FAPhhEHd8U5jjI7CNQYjAw7qniAOJ0GBSc...i38JVu4GHHYpehbWHujK8Qhpnt9h3c0P7BueBX6hC3KbdNk5MITMxah4C49ppG...NPjY6uWd3XrdQMpbWBZRsgJeoSLVU5m3CGc1XcrTRRN...zHGAc"
-                alt="Logo"
-              />
+  return (
+    <header>
+      <nav>
+        <div className="logo">
+          <Link to="/">
+            <img
+              src="https://www.logomaker.com/api/main/images/1j_ojFVGOMkX9W_reBe4hGfW0KPDt0YRzAWngnw0KSYV9wIZw39w26cppqgtdkRU7FAPhhEHd8U5jjI7CNQYjAw7qniAOJ0GBSc...i38JVu4GHHYpehbWHujK8Qhpnt9h3c0P7BueBX6hC3KbdNk5MITMxah4C49ppG...NPjY6uWd3XrdQMpbWBZRsgJeoSLVU5m3CGc1XcrTRRN...zHGAc"
+              alt="Logo"
+            />
+          </Link>
+        </div>
+        <div className="hamburger" onClick={toggleMenu}>
+          <i className="fa-solid fa-bars"></i>
+        </div>
+        <ul className={clicked ? "menu open" : "menu"}>
+          <li>
+            <Link to="/" onClick={() => setClicked(false)}>
+              Home
             </Link>
-          </div>
-          <div className="hamburger" onClick={this.toggleMenu}>
-            <i className="fa-solid fa-bars"></i>
-          </div>
-          <ul className={this.state.clicked ? 'menu open' : 'menu'}>
-            <li><Link to="/" onClick={() => this.setState({ clicked: false })}>Home</Link></li>
-            <li><Link to="" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
-            <li><Link to="/pages" onClick={() => this.setState({ clicked: false })}>Pages</Link></li>
-            <li>
-              <i className="fa-solid fa-cart-shopping"></i>
-              <Link to="/cart" onClick={() => this.setState({ clicked: false })}>Cart</Link>
+          </li>
+          <li>
+            <Link to="/shop" onClick={() => setClicked(false)}>
+              Shop
+            </Link>
+          </li>
+          <li>
+            <Link to="/pages" onClick={() => setClicked(false)}>
+              Pages
+            </Link>
+          </li>
+          <li>
+            <i className="fa-solid fa-cart-shopping"></i>
+            <Link to="/cart" onClick={() => setClicked(false)}>
+              Cart
+            </Link>
+          </li>
+          <li>
+            <i className="fa-solid fa-user"></i>
+            {loggedInSuccessfuly || token ? (
+              <Link to={`/MyAccount/${id}`} onClick={() => setClicked(false)}>
+                Profile
+              </Link>
+            ) : (
+              <Link to="/login" onClick={() => setClicked(false)}>
+                Login
+              </Link>
+            )}
+          </li>
+          {(loggedInSuccessfuly || token || isSuccessfully) && (
+            <li onClick={handleLogout} className="link">
+              Logout
             </li>
-            <li>
-              <i className="fa-solid fa-user"></i>
-              {loggedInSuccessfuly || token || isSuccessfully  ? (
-                <>
-                <Link to="/profile" onClick={() => this.setState({ clicked: false })}>Profile</Link>
-                </>
-              ) : (
-                <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
-              )}
-            </li>
-              {(loggedInSuccessfuly || token || isSuccessfully) && 
-            <li onClick={handleLogout} className='link'>Logout</li>
-              }
-          </ul>
-        </nav>
-        {loggedInSuccessfuly && <Toast messageType={"success"} message={`Logged in successfully`} />}
-      </header>
-    );
-  }
-}
+          )}
+        </ul>
+      </nav>
+      {loggedInSuccessfuly && (
+        <Toast messageType={"success"} message={`Logged in successfully`} />
+      )}
+    </header>
+  );
+};
 
 const mapStateToProps = (state: any) => ({
   loggedInSuccessfuly: state.login.isSucceeded,

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ESNext",
     "module": "ESNext",
     "lib": ["dom", "dom.iterable", "ESNext"],
     "allowJs": true,
@@ -16,7 +16,8 @@
     "jsx": "react-jsx",
     "types": [
       "jest",
-      "@testing-library/jest-dom"
+      "@testing-library/jest-dom",
+      "node"
     ]
   },
   "include": ["src/**/*","src", "__tests__/*", "declarations.d.ts"],
