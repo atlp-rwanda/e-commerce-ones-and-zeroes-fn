@@ -8,7 +8,8 @@
     "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:storybook/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
@@ -29,8 +30,21 @@
     }
   },
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx",
+          ".jsx"
+        ]
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
