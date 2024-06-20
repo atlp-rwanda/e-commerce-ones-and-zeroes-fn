@@ -26,8 +26,11 @@ export const signupUser = createAsyncThunk<UserData, UserData, { rejectValue: an
     'signup/signupUser',
     async (userData, { rejectWithValue }) => {
         try {
+            const BACKEND_URL= process.env.REACT_APP_BACKEND_URL
             const response = await axios.post(`${BACKEND_URL}/api/users/registerUser`, userData);
             return response.data;
+            
+            
         } catch (error:any) {
             return rejectWithValue(error.response?.data);
         }
