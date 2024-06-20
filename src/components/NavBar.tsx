@@ -54,7 +54,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
           </div>
           <ul className={this.state.clicked ? 'menu open' : 'menu'}>
             <li><Link to="/" onClick={() => this.setState({ clicked: false })}>Home</Link></li>
-            <li><Link to="/shop" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
+            <li><Link to="" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
             <li><Link to="/pages" onClick={() => this.setState({ clicked: false })}>Pages</Link></li>
             <li>
               <i className="fa-solid fa-cart-shopping"></i>

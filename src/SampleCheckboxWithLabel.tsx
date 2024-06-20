@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
+
 interface CheckboxProps {
-  labelOn: string; // Specify the type for labelOn
-  labelOff: string; // Specify the type for labelOff
+  labelOn: string; 
+  labelOff: string; 
 }
 
 export default function CheckboxWithLabel({ labelOn, labelOff }: CheckboxProps) {

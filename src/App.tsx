@@ -11,7 +11,7 @@ import ResetPasswordPage from './Pages/resetPassword/ResetPasswordPage';
 const App: React.FC = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={< Home/>} />
       <Route path="/login" element={<Login />} />
       <Route  path='/signup' element={<Signup />}/>
       <Route  path='/users/isVerified' element={<IsVerified />}/>
