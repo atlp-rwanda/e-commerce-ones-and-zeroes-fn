@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import dotenv from 'dotenv'
+import { toast } from "react-toastify";
 
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL
 // Define an interface for the user object
+
 interface User {
   userId: string;
   firstName: string;
@@ -33,20 +37,66 @@ const initialState: UserState = {
   loading: false,
   error: null,
 };
+
 // Async thunk for fetching user data
 export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) => {
-  const response = await axios.get(`http://localhost:7000/api/users/${id}`);
-  return response.data.data;
+  if (!BACKEND_URL) {
+    console.log('Backend URL is not defined');
+  }
+  console.log("backend url", BACKEND_URL);
+   // Retrieve the token from local storage
+   const token = localStorage.getItem('token');
+
+   if (!token) {
+    //  throw new Error('Bearer token is not available');
+     toast(`session expired`);
+   }
+ 
+   try {
+    const response = await axios.get(`${BACKEND_URL}/api/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw error; // Rethrow the error so it can be caught by the caller
+  }
 });
 // Async thunk for updating user data
 export const updateUser = createAsyncThunk(
   'user/updateUser',
-  async ({ id, user }: { id: string; user: User }) => {
+  async ({ id, user }: { id: string; user: User }, { getState }) => {
+    
+
+    if (!BACKEND_URL) {
+      throw new Error('Backend URL is not defined');
+    }
+
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      //  throw new Error('Bearer token is not available');
+     toast(`session expired`);
+    }
+
     console.log('Updating user with ID:', id);
     console.log('User data being sent:', user);
-    const response = await axios.patch(`http://localhost:7000/api/users/${id}`, user);
-    console.log('Response from server:', response.data);
-    return response.data;
+
+    try {
+      const response = await axios.patch(`${BACKEND_URL}/api/users/${id}`, user, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Response from server:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update user:', error);
+      throw error; // Rethrow the error so it can be caught by the caller
+    }
   }
 );
 // Create a slice for user

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import UpdatePerson from '../src/components/updateperson'; // Adjust the path as per your project structure
+import UpdatePerson from '../src/components/personalInfo/updateperson'; // Adjust the path as per your project structure
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';

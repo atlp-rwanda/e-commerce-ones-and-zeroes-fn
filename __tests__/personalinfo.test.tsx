@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter, Router } from 'react-router-dom';
-import PersonalInfo from '../src/components/personalInfo'
+import PersonalInfo from '../src/components/personalInfo/personalInfo'
 import { fetchUser } from '../src/redux/slices/userSlices'
 import configureMockStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';

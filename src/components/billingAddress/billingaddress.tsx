@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../redux/store';
-import { fetchUser } from '../redux/slices/userSlices';
-import Modal from "./modal";
-
+import { RootState, AppDispatch } from '../../redux/store';
+import { fetchUser } from '../../redux/slices/userSlices';
+import Modal from "../modal/modal";
+import './billingStyles.scss'
 import { format } from 'date-fns';
 import { Link } from "react-router-dom";
 
@@ -37,9 +37,6 @@ const BillingAddress: React.FC = () => {
 
   const closeModal = () => {
     setIsModalVisible(false);
-    // if (id) { 
-    //   dispatch(fetchUser(id));
-    // }
   };
   return (
     <div className="billing">

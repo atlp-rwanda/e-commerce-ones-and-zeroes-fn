@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/UserHeader";
+import Header from "../components/userDashHeader/UserHeader";
 // import SideNavBar from "../components/sideNavBar";
 
 const UserDash: React.FC = () => {

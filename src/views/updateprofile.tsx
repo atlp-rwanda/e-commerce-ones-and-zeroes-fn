@@ -1,5 +1,5 @@
 import React from "react";
-import UpdatePerson from "../components/updateperson";
+import UpdatePerson from "../components/personalInfo/updateperson";
 
 const UpdateProfile: React.FC = () => {
   return (

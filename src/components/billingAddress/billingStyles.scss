@@ -1,0 +1,54 @@
+.billing {
+  width: 100%;
+  background-color: #f5f5f5;
+  font-family: "Inter", sans-serif;
+  margin-top: 20px;
+
+  .billing-address {
+    height: 150px;
+    width: 90%;
+    margin-top: 100px;
+    margin: auto;
+    background-color: white;
+  }
+  .billing-address-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
+  .billing-details {
+    width: 100%;
+    height: 90px;
+    // border: 1px solid red;
+    display: flex;
+    .billing-details-part1 {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+      width: 45%;
+      .billing-data {
+        font-weight: bolder;
+        text-align: end;
+        margin-left: 30%;
+      }
+      .billimg-retrieved-data {
+        font-style: italic;
+      }
+    }
+    .billing-details-part2 {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: last baseline;
+      gap: 10px;
+      width: 45%;
+      .billing-data {
+        font-weight: bolder;
+        text-align: end;
+        margin-left: 20%;
+      }
+      .billimg-retrieved-data {
+        font-style: italic;
+      }
+    }
+  }
+}

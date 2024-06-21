@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store";
-import { fetchUser, updateUser } from "../redux/slices/userSlices";
+import { RootState, AppDispatch } from "../../redux/store";
+import { fetchUser, updateUser } from "../../redux/slices/userSlices";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
-import "../styles/style.scss";
-
+import "./personalInfoStyles.scss";
 
 interface User {
   userId: string;
@@ -27,19 +26,15 @@ interface User {
   password: string;
   passwordLastChanged: string;
 }
-interface ModalProps {
-  isVisible: boolean;
-  message: string;
-  onClose: () => void;
-}
-const UpdatePerson: React.FC = () => {
-  // if (!isVisible) return null;
 
+const UpdatePerson: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user, loading, error } = useSelector(
     (state: RootState) => state.user
   );
   const navigate = useNavigate();
+
+  // Initialize state with empty strings
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -47,19 +42,23 @@ const UpdatePerson: React.FC = () => {
   const [preferredLanguage, setLanguage] = useState("");
   const [preferredCurrency, setCurrency] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
+
+  // Handle loading state
   const [showLoading, setShowLoading] = useState(true);
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
+    // Clear loading state after 5 seconds (example)
     const timeoutId = setTimeout(() => {
       setShowLoading(false);
-    }, 5000); // Set timeout for 5 seconds
+    }, 5000);
 
     return () => clearTimeout(timeoutId); // Cleanup the timeout on unmount
   }, []);
+
   useEffect(() => {
+    // Update local state when user data changes
     if (user) {
-      setFirstName(user.firstName);
+      setFirstName(user.firstName); // Ensure it's not undefined
       setLastName(user.lastName);
       setGender(user.gender);
       setBirthDate(user.birthdate);
@@ -68,7 +67,6 @@ const UpdatePerson: React.FC = () => {
       setBillingAddress(user.billingAddress);
     }
   }, [user]);
-  
 
   const UpdateUser = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +76,7 @@ const UpdatePerson: React.FC = () => {
         updateUser({
           id: user.userId,
           user: {
-            ...user,
+            ...userWithoutEmail, // Use userWithoutEmail to exclude email
             firstName,
             lastName,
             gender,
@@ -86,34 +84,39 @@ const UpdatePerson: React.FC = () => {
             preferredLanguage,
             preferredCurrency,
             billingAddress,
-            email: "",
+            email: ""
           },
         })
       );
 
+      // Show success toast if loading
       if (loading) {
         toast.success("User is being updated!");
       }
-      if (user) {
+
+      // Show modal and success toast after successful update
+      if (!loading && !error) {
         toast.success("User updated successfully!");
-        setIsModalVisible(true); // Open modal after successful update
-        
-          // closeModal();
-        
+        // Example: setIsModalVisible(true);
       }
+
+      // Handle error toast
       if (error) {
-        toast.error("Failed to update user.");
+        toast.error(`Failed to update user. ${error}`);
       }
     }
   };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "dd/MM/yyyy"); // Customize the format as needed
+    return format(date, "yyyy-MM-dd"); // Customize the format as needed
   };
+
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedDate = formatDate(e.target.value);
     setBirthDate(formattedDate);
   };
+
   return (
     <div className="edit-page" data-testid="UpdatePerson">
       <div className="right-side-edit">
@@ -166,7 +169,7 @@ const UpdatePerson: React.FC = () => {
                 id="birthdate"
                 name="birthdate"
                 value={birthdate}
-                onChange={(e) => setBirthDate(e.target.value)}
+                onChange={handleDateChange} // Use handleDateChange function
               />
             </div>
           </div>

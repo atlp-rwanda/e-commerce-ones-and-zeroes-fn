@@ -2,3 +2,6 @@ node_modules
 .env
 coverage/
 dist/
+src/styles/Index.scss
+
+*storybook.log

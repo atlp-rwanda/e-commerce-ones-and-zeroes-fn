@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
-import Modal from '../src/components/modal'
+import Modal from '../src/components/modal/modal'
 import { fetchUser } from '../src/redux/slices/userSlices'
 import configureMockStore from 'redux-mock-store';
 

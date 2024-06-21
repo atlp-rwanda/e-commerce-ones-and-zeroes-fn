@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BillingAddress from '../src/components/billingaddress';
+import BillingAddress from '../src/components/billingAddress/billingaddress';
 import { BrowserRouter } from 'react-router-dom';
 import { RootState } from '../src/redux/store';
 import { AnyAction } from 'redux';
