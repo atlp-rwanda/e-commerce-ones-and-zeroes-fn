@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/style.scss";
+// import "../styles/style.scss";
 
-import updateaddressimg from "../assets/images/address.png";
+import updateaddressimg from "../../assets/images/address.png";
 import { Link } from "react-router-dom";
 
 const UpdateBillingAddress: React.FC = () => {

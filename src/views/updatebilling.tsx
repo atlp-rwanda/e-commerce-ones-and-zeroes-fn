@@ -1,5 +1,5 @@
 import React from "react";
-import UpdateBillingAddress from "../components/updatebillingaddress";
+import UpdateBillingAddress from "../components/billingAddress/updatebillingaddress";
 
 const UpdateBilling: React.FC = () => {
   return (

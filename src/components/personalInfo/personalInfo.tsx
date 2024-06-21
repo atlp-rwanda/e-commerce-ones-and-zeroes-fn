@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store";
-import { fetchUser, updateUser } from "../redux/slices/userSlices";
+import { RootState, AppDispatch } from "../../redux/store";
+import { fetchUser, updateUser } from "../../redux/slices/userSlices";
 import axios from "axios";
-import "../styles/style.scss";
+import "./personalInfoStyles.scss";
 import { useParams } from "react-router-dom";
 
 import { format } from "date-fns";
-import Modal from "./modal";
-import bgPhoto from "../assets/images/bg.png";
+import Modal from "../modal/modal";
+import bgPhoto from "../../assets/images/bg.png";
 import { Link } from "react-router-dom";
-import UpdateProfile from "../views/updateprofile";
+import UpdateProfile from "../../views/updateprofile";
 
 const PersonalInfo: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -66,7 +66,7 @@ const PersonalInfo: React.FC = () => {
 
       {isModalVisible && (
         <Modal onClose={closeModal} >
-          <UpdateProfile />
+          <UpdateProfile  />
         </Modal>
       )}
         </div>
@@ -79,7 +79,8 @@ const PersonalInfo: React.FC = () => {
                   <div>Names:</div>
                 </th>
                 <td>
-                  {user ? `${user.firstName} ${user.lastName}` : "Loading..."}          
+                  {user ? user.firstName : "Loading..."} 
+                  {user ? user.lastName : "Loading..."}          
                 </td>
               </tr>
               <tr>
