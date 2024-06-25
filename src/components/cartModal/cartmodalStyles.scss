@@ -31,9 +31,12 @@
   cursor: pointer;
   color: black;
   font-weight: bold;
-}:hover{
-  color: black;
 }
+
+// :hover{
+//   color: black;
+// }
+
 @media screen and (max-width: 768px) {
   .cart-modal-content {
     width: 95%;

@@ -43,11 +43,11 @@ header {
 
       li {
         margin: 0 1rem;
-        padding: 15px 20px;
         border-radius: 25px;
-        display: flex;
 
         a {
+          display: flex;
+          padding: 15px 20px;
           text-decoration: none;
           color: $primary-color;
           font-family: $font-stack;
@@ -121,8 +121,6 @@ header {
 
       li {
         margin: 1rem 0;
-        text-align: center;
-        padding: 10px;
         width: 100%;
       }
 

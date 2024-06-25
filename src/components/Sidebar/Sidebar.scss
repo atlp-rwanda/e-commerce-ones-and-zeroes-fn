@@ -1,0 +1,81 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+// @import "../../reset";
+
+.SideBar {
+  width: 250px;
+  background-color: #c6cae1;
+  padding: 100px 30px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 10px;
+
+    li {
+      border-bottom: 1px solid #fff;
+
+      a {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        padding: 0 10px;
+        width:100%;
+        text-decoration: none;
+        color: $primary-color;
+
+        &:hover {
+          background-color: rgba($color: #fff, $alpha: 0.3);
+        }
+
+        &.active {
+          background-color: $primary-color;
+          color: #fff;
+        }
+      }
+
+    }
+
+  }
+
+  .side-bar-icons {
+    margin-right: 10px;
+  }
+
+  .logout-link{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    width:100%;
+    text-decoration: none;
+    color: $primary-color;
+  }
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
+
+}
+
+.menuSideBar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+
+  @media (max-width: 1000px) {
+    display: flex;
+  }
+}
+
+.side-bar-menu-icon {
+  font-size: 2rem;
+  color: white;
+  background-color: $primary-color;
+}
