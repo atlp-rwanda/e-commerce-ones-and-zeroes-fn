@@ -1,0 +1,44 @@
+@import './variables';
+@import './mixins';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+table{
+	border-collapse: collapse;
+	font-family:"Inter",sans-serif;
+	font-size: 13px;
+	margin:2rem 0;
+	thead{
+		background-color: #EAEAEA;
+		color: #33363F;
+		margin:0;
+
+		th{
+			padding: 10px 50px;
+		}
+	}
+
+	tbody{
+		td{
+			padding: 10px 0;
+			text-align: center;
+
+			.userProfile{
+				display: flex;
+				gap:10px;
+				img{
+					height:40px;
+					width: auto;
+					border-radius: 40px;
+				}
+			}
+
+			select{
+				background-color:transparent;
+				display:block;
+				margin:auto;
+				border: 0;
+			}
+
+		}
+	}
+}

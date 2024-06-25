@@ -1,0 +1,15 @@
+@import './variables';
+@import './mixins';
+
+.mainContainer{
+
+    .btn{
+        background-color: $secondary-color;
+        color:white;
+        border: 0;
+        border-radius: 3px;
+        padding:10px 20px;
+        cursor: pointer;
+    }
+}
+
