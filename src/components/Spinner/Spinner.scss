@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include flex-center;
+    @include full-height;
+    @include full-width;
+    background-color: rgba(128, 128, 128, 0.5);
+
+    
+
+
+    .spinner-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 6px solid rgba(0, 0, 0, 0.2);
+        border-top: 6px solid $primary-color;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+}
+  
+  
+  
