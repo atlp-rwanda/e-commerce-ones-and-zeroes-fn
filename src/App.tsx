@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './views/Home';
-import Login from './views/Login';
+import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/Signup';
 import IsVerified from './components/IsVerifiedModal/IsVerified';
 import UserVerificationFailed from './components/IsVerifiedModal/UserVerificationFailed';

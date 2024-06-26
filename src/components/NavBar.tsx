@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
+import { connect } from 'react-redux';
+import Toast from './Toast/Toast';
 import '../styles/Header.scss';
+
+interface NavbarProps {
+  loggedInSuccessfuly: boolean;
+  token: string;
+}
 
 interface NavbarState {
   clicked: boolean;
 }
 
-class Navbar extends Component<{}, NavbarState> {
-  constructor(props: {}) {
+
+const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+
+}
+class Navbar extends Component<NavbarProps, NavbarState> {
+  constructor(props: NavbarProps) {
     super(props);
     this.state = {
       clicked: false,
@@ -18,7 +31,12 @@ class Navbar extends Component<{}, NavbarState> {
     this.setState({ clicked: !this.state.clicked });
   };
 
+
+  
+
   render() {
+    const { loggedInSuccessfuly, token } = this.props;
+
     return (
       <header>
         <nav>
@@ -43,13 +61,28 @@ class Navbar extends Component<{}, NavbarState> {
             </li>
             <li>
               <i className="fa-solid fa-user"></i>
-              <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
+              {loggedInSuccessfuly || token ? (
+                <>
+                <Link to="/profile" onClick={() => this.setState({ clicked: false })}>Profile</Link>
+                </>
+              ) : (
+                <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
+              )}
             </li>
+              {(loggedInSuccessfuly || token) && 
+            <li onClick={handleLogout} className='link'>Logout</li>
+              }
           </ul>
         </nav>
+        {loggedInSuccessfuly && <Toast messageType={"success"} message={`Logged in successfully`} />}
       </header>
     );
   }
 }
 
-export default Navbar;
+const mapStateToProps = (state: any) => ({
+  loggedInSuccessfuly: state.login.isSucceeded,
+  token: state.token.token,
+});
+
+export default connect(mapStateToProps)(Navbar);

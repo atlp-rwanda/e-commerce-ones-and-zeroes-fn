@@ -63,6 +63,20 @@ header {
                 }
             }
 
+            .link {
+                text-decoration: none;
+                    color: $primary-color;
+                    font-family: $font-stack;
+                    font-size: 1.5rem;
+                    font-weight: 50;
+                    cursor: pointer;
+            }
+
+            .link:hover {
+                background-color: $primary-color;
+                color: $secondary-color;
+            }
+
             li:hover {
                 background-color: $primary-color;
 
