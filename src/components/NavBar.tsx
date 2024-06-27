@@ -6,6 +6,7 @@ import '../styles/Header.scss';
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
+  isSuccessfully: boolean;
   token: string;
 }
 
@@ -35,7 +36,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
   
 
   render() {
-    const { loggedInSuccessfuly, token } = this.props;
+    const { loggedInSuccessfuly,isSuccessfully, token } = this.props;
 
     return (
       <header>
@@ -61,7 +62,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
             </li>
             <li>
               <i className="fa-solid fa-user"></i>
-              {loggedInSuccessfuly || token ? (
+              {loggedInSuccessfuly || token || isSuccessfully  ? (
                 <>
                 <Link to="/profile" onClick={() => this.setState({ clicked: false })}>Profile</Link>
                 </>
@@ -69,7 +70,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
                 <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
               )}
             </li>
-              {(loggedInSuccessfuly || token) && 
+              {(loggedInSuccessfuly || token || isSuccessfully) && 
             <li onClick={handleLogout} className='link'>Logout</li>
               }
           </ul>
@@ -82,6 +83,7 @@ class Navbar extends Component<NavbarProps, NavbarState> {
 
 const mapStateToProps = (state: any) => ({
   loggedInSuccessfuly: state.login.isSucceeded,
+  isSuccessfully: state.googleLogin.isSuccessfully,
   token: state.token.token,
 });
 

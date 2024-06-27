@@ -2,10 +2,14 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import {BrowserRouter as Router} from 'react-router-dom'
 import Signup from '../../src/Pages/Signup/Signup';
 import { signupUser } from '../../src/redux/slices/SignupSlice';
 import '@testing-library/jest-dom'; 
 
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 const mockStore = configureStore([]);
 
 jest.mock('../../src/components/Toast/Toast', () => ({
@@ -35,9 +39,13 @@ describe('Signup component', () => {
 
     it('renders without crashing', () => {
         const { getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
         expect(getByText('Create new account')).toBeInTheDocument();
     });
@@ -46,9 +54,13 @@ describe('Signup component', () => {
         store.dispatch = jest.fn();
         
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('First Name'), { target: { value: 'John' } });
@@ -71,9 +83,13 @@ describe('Signup component', () => {
         store.dispatch = jest.fn();
         
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('First Name'), { target: { value: ' ' } });
@@ -86,15 +102,20 @@ describe('Signup component', () => {
         expect(getByText('First name is required')).toBeInTheDocument();
         expect(getByText('Last name is required')).toBeInTheDocument();
         expect(getByText('Password is not strong')).toBeInTheDocument();
+        expect(getByText('Passwords do not match')).toBeInTheDocument();
 
     });
-    it('It should display error on invalid submisstion req', async () => {
+    it('It should display error on invalid submisstion', async () => {
         store.dispatch = jest.fn();
         
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('First Name'), { target: { value: ' ' } });
@@ -121,9 +142,13 @@ describe('Signup component', () => {
         });
 
         const { getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
 
         expect(getByText('Processing...')).toBeInTheDocument();
@@ -140,9 +165,13 @@ describe('Signup component', () => {
         });
 
         const { getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
 
         expect(getByText('Signup successful! Go and check your email to veify your account')).toBeInTheDocument();
@@ -159,9 +188,13 @@ describe('Signup component', () => {
         });
 
         const { getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
 
         expect(getByText('Signup failed!')).toBeInTheDocument();
@@ -178,9 +211,13 @@ describe('Signup component', () => {
         });
 
         const { getByLabelText, getByText } = render(
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <Provider store={store}>
-                <Signup />
+                <Router>
+                    <Signup />
+                </Router>
             </Provider>
+            </GoogleOAuthProvider>
         );
     
         fireEvent.change(getByLabelText('First Name'), { target: { value: 'John' } });
@@ -201,9 +238,13 @@ describe('Signup component', () => {
 
         await waitFor(() => {
             const { getByLabelText } = render(
+                <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <Provider store={store}>
-                    <Signup />
+                    <Router>
+                        <Signup />
+                    </Router>
                 </Provider>
+                </GoogleOAuthProvider>
             );
             
            
