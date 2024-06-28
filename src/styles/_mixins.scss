@@ -3,3 +3,13 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin vertical-flex {
+    @include flex-center;
+    flex-direction: column;
+}
+
+@mixin horizontal-flex {
+    @include flex-center;
+    flex-direction: row;
+}
