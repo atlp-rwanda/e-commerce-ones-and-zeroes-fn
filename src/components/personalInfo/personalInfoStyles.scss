@@ -20,7 +20,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
     height: 250px;
     width: 90%;
     margin: auto;
-    margin-top: -70px;
+    margin-top: -100px;
     position: relative;
     z-index: 1;
     background-color: white;
@@ -32,15 +32,15 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
     padding: 5px;
     span{
       border: 1px solid $primarynavcolor;
-      border-radius: 50px;
+      border-radius: 5px;
       padding: 5px;
-      height: 10px;
-      background-color: $primarynavcolor;
-      color: white;
+      height: 20px;
+      color: $primarynavcolor;
       font-size: small;
       
     }span:hover{
         background-color: $secondarycolor;
+        border: none;
       }
   }
 
@@ -130,6 +130,10 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
       flex-direction: column;
       label {
         font-weight: 600;
+      }
+      select{
+        height: 35px;
+        width: 97%;
       }
       .names-input{
         display: flex;

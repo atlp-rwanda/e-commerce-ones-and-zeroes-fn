@@ -5,6 +5,7 @@ import { updateUser } from "../../redux/slices/userSlices";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import Modal from "../modal/modal";
 import "./personalInfoStyles.scss";
 
 interface User {
@@ -33,6 +34,7 @@ const UpdatePerson: React.FC = () => {
     (state: RootState) => state.user
   );
   const navigate = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Initialize state with empty strings
   const [firstName, setFirstName] = useState("");
@@ -45,7 +47,16 @@ const UpdatePerson: React.FC = () => {
 
   // Handle loading state
   const [showLoading, setShowLoading] = useState(true);
+  const openModal = (e: { preventDefault: () => void }) => {
+    e.preventDefault(); // Prevent the default link behavior
+    setIsModalVisible(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalVisible(false);
 
+    // dispatch(fetchAddress());
+  };
   useEffect(() => {
     // Clear loading state after 5 seconds (example)
     const timeoutId = setTimeout(() => {
@@ -84,8 +95,9 @@ const UpdatePerson: React.FC = () => {
             preferredLanguage,
             preferredCurrency,
             billingAddress,
-            email: ""
+            email: "",
           },
+
         })
       );
 
@@ -98,6 +110,7 @@ const UpdatePerson: React.FC = () => {
       if (!loading && !error) {
         toast.success("User updated successfully!");
         // Example: setIsModalVisible(true);
+        
       }
 
       // Handle error toast
@@ -125,7 +138,7 @@ const UpdatePerson: React.FC = () => {
           <hr />
           <div className="names-input">
             <div className="names-div">
-              <label htmlFor="fname">First Name</label>
+              <label htmlFor="fname">First Name:</label>
               <input
                 type="text"
                 id="fname"
@@ -136,7 +149,7 @@ const UpdatePerson: React.FC = () => {
               />
             </div>
             <div className="names-div">
-              <label htmlFor="lname">Last Name</label>
+              <label htmlFor="lname">Last Name:</label>
               <input
                 type="text"
                 id="lname"
@@ -149,7 +162,7 @@ const UpdatePerson: React.FC = () => {
           </div>
           <div className="names-input">
             <div className="names-div">
-              <label htmlFor="gender">Sex</label>
+              <label htmlFor="gender">Sex:</label>
               <select
                 id="gender"
                 name="gender"
@@ -157,13 +170,13 @@ const UpdatePerson: React.FC = () => {
                 onChange={(e) => setGender(e.target.value)}
               >
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
                 <option value="other">Other</option>
               </select>
             </div>
             <div className="names-div">
-              <label htmlFor="birthdate">BirthDate(mm-dd-yy)</label>
+              <label htmlFor="birthdate">BirthDate:</label>
               <input
                 type="date"
                 id="birthdate"
@@ -173,24 +186,30 @@ const UpdatePerson: React.FC = () => {
               />
             </div>
           </div>
-
-          <label htmlFor="language">Preferred Language</label>
-          <input
-            type="text"
+          <label htmlFor="language">Preferred Language:</label>
+          <select
             id="language"
             name="language"
             value={preferredLanguage}
             onChange={(e) => setLanguage(e.target.value)}
-          />
-          <label htmlFor="currency">Preferred Currency</label>
-          <input
-            type="text"
+          >
+            <option value="">Select Language</option>
+            <option value="English">English</option>
+            <option value="French">French</option>
+          </select>
+          <label htmlFor="currency">Preferred Currency:</label>
+          <select
             id="currency"
             name="currency"
             value={preferredCurrency}
             onChange={(e) => setCurrency(e.target.value)}
-          />
-          <label htmlFor="address">Current Address</label>
+          >
+            <option value="">Select Currency</option>
+            <option value="usd">usd</option>
+            <option value="Rwf">Rwf</option>
+          </select>
+
+          <label htmlFor="address">Current Address:</label>
           <input
             type="text"
             id="address"

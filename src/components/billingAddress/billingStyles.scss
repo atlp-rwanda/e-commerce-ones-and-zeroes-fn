@@ -1,3 +1,5 @@
+$primarynavcolor: #0F1848;
+$secondarycolor: #FF6D18;
 .billing {
   width: 100%;
   background-color: #f5f5f5;
@@ -15,6 +17,19 @@
     display: flex;
     justify-content: space-between;
     padding: 5px;
+    span{
+      border: 1px solid $primarynavcolor;
+      border-radius: 5px;
+      padding: 5px;
+      height: 20px;
+      // background-color: ;
+      color: $primarynavcolor;
+      font-size: small;
+      
+    }span:hover{
+        background-color: $secondarycolor;
+        border: none;
+      }
   }
   .billing-details {
     width: 100%;

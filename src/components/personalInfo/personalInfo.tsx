@@ -84,8 +84,8 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <span className="namespan">
-                      <div>{user ? user.firstName : "Loading..."} </div>
-                      <div>{user ? user.lastName : "Loading..."}</div>
+                      <div>{user ? user.firstName : "....No Data....."} </div>
+                      <div>{user ? user.lastName : "....No Data....."}</div>
                     </span>
                   </td>
                 </tr>
@@ -94,7 +94,7 @@ const PersonalInfo: React.FC = () => {
                     <div>Email:</div>
                   </th>
                   <td>
-                    <div id="email">{user ? user.email : "Loading..."}</div>
+                    <div id="email">{user ? user.email : "....No Data....."}</div>
                   </td>
                 </tr>
                 <tr>
@@ -102,7 +102,7 @@ const PersonalInfo: React.FC = () => {
                     <div>Gender:</div>
                   </th>
                   <td>
-                    <div id="gender">{user ? user.gender : "Loading..."}</div>
+                    <div id="gender">{user ? user.gender : "....No Data....."}</div>
                   </td>
                 </tr>
                 <tr>
@@ -115,7 +115,7 @@ const PersonalInfo: React.FC = () => {
                         ? user.birthdate
                           ? formatDate(user.birthdate)
                           : ""
-                        : "Loading..."}
+                        : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -126,7 +126,7 @@ const PersonalInfo: React.FC = () => {
                   <td>
                     <div id="language">
                       {" "}
-                      {user ? user.preferredLanguage : "Loading...."}
+                      {user ? user.preferredLanguage : "....No Data......"}
                     </div>
                   </td>
                 </tr>
@@ -136,7 +136,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="currency">
-                      {user ? user.preferredCurrency : "Loading...."}
+                      {user ? user.preferredCurrency : "....No Data......"}
                     </div>
                   </td>
                 </tr>
@@ -153,7 +153,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="address">
-                      {user ? user.billingAddress : "Loading...."}
+                      {user ? user.billingAddress : "....No Data......"}
                     </div>
                   </td>
                 </tr>
@@ -167,7 +167,7 @@ const PersonalInfo: React.FC = () => {
                         ? user.createdAt
                           ? formatDate(user.createdAt)
                           : ""
-                        : "Loading...."}
+                        : "....No Data......"}
                     </div>
                   </td>
                 </tr>
@@ -176,7 +176,7 @@ const PersonalInfo: React.FC = () => {
                     <div>role:</div>
                   </th>
                   <td>
-                    <div id="currency">{user ? user.role : "Loading...."}</div>
+                    <div id="currency">{user ? user.role : "....No Data......"}</div>
                   </td>
                 </tr>
                 <tr>
@@ -211,7 +211,7 @@ const PersonalInfo: React.FC = () => {
                         ? user.passwordLastChanged
                           ? formatDate(user.passwordLastChanged)
                           : ""
-                        : "Loading...."}
+                        : "....No Data......"}
                     </div>
                   </td>
                 </tr>
@@ -226,7 +226,7 @@ const PersonalInfo: React.FC = () => {
                         ? user.updatedAt
                           ? formatDate(user.updatedAt)
                           : ""
-                        : "Loading..."}
+                        : "....No Data....."}
                     </div>
                   </td>
                 </tr>

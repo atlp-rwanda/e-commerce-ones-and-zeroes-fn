@@ -6,6 +6,7 @@ import { fetchAddress } from "../../redux/slices/addressSlice";
 import "./billingStyles.scss";
 import { format } from "date-fns";
 import UpdateBillingAddress from "./updatebillingaddress";
+import AddBillingAddress from "./addAddress";
 
 const BillingAddress: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,6 +14,8 @@ const BillingAddress: React.FC = () => {
     (state: RootState) => state.address
   );
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+
 
   useEffect(() => {
     dispatch(fetchAddress());
@@ -27,9 +30,17 @@ const BillingAddress: React.FC = () => {
     e.preventDefault(); // Prevent the default link behavior
     setIsModalVisible(true);
   };
-
+  const openModal2 = (e: { preventDefault: () => void }) => {
+    e.preventDefault(); // Prevent the default link behavior
+    setIsModalVisible2(true);
+  };
   const closeModal = () => {
     setIsModalVisible(false);
+
+    dispatch(fetchAddress());
+  };
+  const closeModal2 = () => {
+    setIsModalVisible2(false);
 
     dispatch(fetchAddress());
   };
@@ -38,7 +49,24 @@ const BillingAddress: React.FC = () => {
       <div className="billing-address">
         <div className="billing-address-header">
           <h3>2. Billing Address</h3>
+          <div>
           <span
+            onClick={openModal2}
+            style={{
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+            }}
+          >
+            <img
+              width="15"
+              height="15"
+              src="https://img.icons8.com/pastel-glyph/64/40C057/edit--v1.png"
+              alt="edit--v1"
+            />
+            Create
+          </span>
+            <span
             onClick={openModal}
             style={{
               cursor: "pointer",
@@ -54,6 +82,13 @@ const BillingAddress: React.FC = () => {
             />
             Edit
           </span>
+          </div>
+          {isModalVisible2 && (
+            <Modal
+              onClose={closeModal2}
+              children={<AddBillingAddress />}
+            ></Modal>
+          )}
           {isModalVisible && (
             <Modal
               onClose={closeModal}
@@ -70,7 +105,7 @@ const BillingAddress: React.FC = () => {
                     <div>Country:</div>
                   </th>
                   <td>
-                    <div>{address ? address.country : "Loading..."}</div>
+                    <div>{address ? address.country : "....No Data......"}</div>
                   </td>
                 </tr>
                 <tr>
@@ -78,7 +113,7 @@ const BillingAddress: React.FC = () => {
                     <div>Province:</div>
                   </th>
                   <td>
-                    <div>{address ? address.province : "Loading..."}</div>
+                    <div>{address ? address.province : "....No Data......"}</div>
                   </td>
                 </tr>
                 <tr>
@@ -86,7 +121,7 @@ const BillingAddress: React.FC = () => {
                     <div>District:</div>
                   </th>
                   <td>
-                    <div>{address ? address.district : "Loading..."}</div>
+                    <div>{address ? address.district : "....No Data......"}</div>
                   </td>
                 </tr>
                 <tr>
@@ -94,7 +129,7 @@ const BillingAddress: React.FC = () => {
                     <div>Sector:</div>
                   </th>
                   <td>
-                    <div>{address ? address.sector : "Loading..."}</div>
+                    <div>{address ? address.sector : "....No Data......"}</div>
                   </td>
                 </tr>
               </tbody>
@@ -108,7 +143,7 @@ const BillingAddress: React.FC = () => {
                     <div>Street:</div>
                   </th>
                   <td>
-                    <div>{address ? address.street : "Loading..."}</div>
+                    <div>{address ? address.street : "....No Data......"}</div>
                   </td>
                 </tr>
               </tbody>
