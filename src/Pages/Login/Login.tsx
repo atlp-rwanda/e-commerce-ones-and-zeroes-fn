@@ -13,7 +13,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import "./Login.scss";
 import Spinner from "../../components/Spinner/Spinner";
 import Toast from "../../components/Toast/Toast";
-
 interface FormData {
   email: string;
   password: string;
@@ -138,6 +137,8 @@ const Login: React.FC = () => {
               <span className="errors">{formErrors.password}</span>
             )}
           </div>
+               <Link to={'/reset'}>Forgot password?</Link>
+
 
           <button
             type="submit"
