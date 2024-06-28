@@ -1,0 +1,49 @@
+@import"./mixins";
+@import"./variables";
+
+*{
+ padding:0;
+ margin:0;
+ box-sizing: border-box;
+}
+.SellerNavBar{
+ padding:20px 20px;
+ @include flex-center;
+ background-color: $primary-color;
+ justify-content: space-between;
+ color:white;
+ ul{
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content:space-between;
+    gap:30px;
+    padding:0 20px;
+    align-items: center;
+ }
+ a{
+   text-decoration: none;
+   color: inherit;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .profile-icon{
+  background-color:#02537d;
+  font-size: 32px;
+  color:$primary-color;
+  border-radius: 50%;
+  margin-right: 10px;
+ }
+ .chevron-icon{
+  font-size: 16px ;
+  margin-left: 10px;
+  color:aliceblue
+ }
+ .start-buying-link{
+  border: 1px solid black;
+  padding:10px 40px;
+  border-radius: 16px;
+ }
+}

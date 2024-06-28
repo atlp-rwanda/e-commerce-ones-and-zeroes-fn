@@ -1,0 +1,10 @@
+@import './mixins';
+@import './variables';
+@import './reset';
+
+.add-product-main-container{
+ display: flex;
+ justify-content: space-between;
+ padding-right: 200px;
+    
+}

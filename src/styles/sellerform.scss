@@ -1,0 +1,74 @@
+ @import'./mixins';
+ @import'./variables';
+ @import './reset.scss';
+
+
+.add-product-form-container{
+h2{
+  font-size: 32px;
+  color:black;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+
+}
+
+form{
+    width: 700px;
+    margin-inline: auto;
+    padding: 20px 50px;
+    font-family:$font-stack;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    border: 1px solid #000;
+    border-radius: 8px;
+
+    p{
+      color:red ;
+      margin-top: 5px;
+    }
+     .formControl{
+       input,select{
+        height: 40px;
+        border: 1px solid #D5D7DA;
+        width: 100%;
+        border-radius: 5px;
+        margin-top:5px;
+        outline: none;
+        padding: 5px 10px;
+       }
+     }
+     .two-columns{
+      display: flex;
+      width:100%;
+      gap:30px;
+      justify-content: space-between;
+       .formControl{
+        width: 50%;
+          input,select{
+            width: 100%;
+            color:#D5D7DA;
+          }
+       }
+
+    
+   }
+   .btn{
+    display: flex;
+    justify-content: center;
+     button{
+      outline: none;
+      padding: 10px 40px;
+      width:fit-content;
+      color:white;
+      border: none;
+      border-radius: 8px;
+      background-color:$secondary-color;
+     }
+   }
+}
+
+
