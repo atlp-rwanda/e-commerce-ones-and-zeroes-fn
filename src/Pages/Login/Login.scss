@@ -16,6 +16,14 @@
     background-color: #fff;
     color: #000;
     overflow: hidden;
+    .forgot-link{
+    color: #444;
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
 
     @media (max-width: 920px) {
         width: 100%;

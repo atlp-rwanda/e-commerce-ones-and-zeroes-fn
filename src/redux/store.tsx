@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
   googleLogin: googleLoginReducer,
   token: tokenReducer,
 });
+
 const store = configureStore({
   reducer: rootReducer,
 });
