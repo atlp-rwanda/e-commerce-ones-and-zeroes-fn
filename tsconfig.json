@@ -13,7 +13,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": [
+      "jest",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": ["src/**/*","src", "__tests__/*", "declarations.d.ts"],
   "exclude": ["node_modules", "dist"]

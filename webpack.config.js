@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+dotenv.config()
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
@@ -46,12 +47,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new Dotenv({
-      path: './.env', // Path to .env file (this is the default)
-      safe: false, // Load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
-      systemvars: true, // Load all system variables as well (useful for CI environments)
-      silent: true, // If true, all warnings will be suppressed
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
     }),
+
   ],
   devServer: {
     static: {
