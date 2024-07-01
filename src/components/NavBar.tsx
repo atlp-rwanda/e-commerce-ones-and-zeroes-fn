@@ -3,15 +3,17 @@ import { Link, useNavigate} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Toast from './Toast/Toast';
 import '../styles/Header.scss';
+import Cart from './cart/cart';
+import CartModal from './cartModal/modal';
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
   isSuccessfully: boolean;
   token: string;
 }
-
 interface NavbarState {
   clicked: boolean;
+  isModalVisible: boolean;
 }
 
 
@@ -25,16 +27,24 @@ class Navbar extends Component<NavbarProps, NavbarState> {
     super(props);
     this.state = {
       clicked: false,
+      isModalVisible: false,
     };
   }
 
   toggleMenu = () => {
     this.setState({ clicked: !this.state.clicked });
   };
+  openModal = (e: { preventDefault: () => void }) => {
+    e.preventDefault(); // Prevent the default link behavior
+    this.setState({ isModalVisible: true });
+  };
 
 
   
 
+  closeModal = () => {
+    this.setState({ isModalVisible: false });
+  };
   render() {
     const { loggedInSuccessfuly,isSuccessfully, token } = this.props;
 
@@ -52,13 +62,33 @@ class Navbar extends Component<NavbarProps, NavbarState> {
           <div className="hamburger" onClick={this.toggleMenu}>
             <i className="fa-solid fa-bars"></i>
           </div>
-          <ul className={this.state.clicked ? 'menu open' : 'menu'}>
-            <li><Link to="/" onClick={() => this.setState({ clicked: false })}>Home</Link></li>
-            <li><Link to="/shop" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
-            <li><Link to="/pages" onClick={() => this.setState({ clicked: false })}>Pages</Link></li>
+          <ul className={this.state.clicked ? "menu open" : "menu"}>
+            <li>
+              <Link to="/" onClick={() => this.setState({ clicked: false })}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/shop"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/pages"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Pages
+              </Link>
+            </li>
             <li>
               <i className="fa-solid fa-cart-shopping"></i>
-              <Link to="/cart" onClick={() => this.setState({ clicked: false })}>Cart</Link>
+              <Link to="/cart" onClick={this.openModal}>
+                Cart
+              </Link>
             </li>
             <li>
               <i className="fa-solid fa-user"></i>
@@ -69,6 +99,12 @@ class Navbar extends Component<NavbarProps, NavbarState> {
               ) : (
                 <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
               )}
+              <Link
+                to="/login"
+                onClick={() => this.setState({ clicked: false })}
+              >
+                Login
+              </Link>
             </li>
               {(loggedInSuccessfuly || token || isSuccessfully) && 
             <li onClick={handleLogout} className='link'>Logout</li>
@@ -76,6 +112,9 @@ class Navbar extends Component<NavbarProps, NavbarState> {
           </ul>
         </nav>
         {loggedInSuccessfuly && <Toast messageType={"success"} message={`Logged in successfully`} />}
+        {this.state.isModalVisible && (
+          <CartModal onClose={this.closeModal} children={< Cart/>} />
+        )}
       </header>
     );
   }

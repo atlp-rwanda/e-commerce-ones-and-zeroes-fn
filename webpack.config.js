@@ -52,6 +52,7 @@ module.exports = {
       systemvars: true, // Load all system variables as well (useful for CI environments)
       silent: true, // If true, all warnings will be suppressed
     }),
+    new Dotenv()
   ],
   devServer: {
     static: {

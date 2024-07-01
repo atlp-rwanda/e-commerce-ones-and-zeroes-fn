@@ -5,6 +5,7 @@ import  store  from './redux/store'
 import { Provider } from 'react-redux'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './styles/index.scss'
+import { ToastContainer } from 'react-toastify'
 
 // declaring google client id
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <Provider store={store}>
       <App />
+      <ToastContainer />
     </Provider>
     </GoogleOAuthProvider>
   </React.StrictMode>,

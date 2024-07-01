@@ -1,0 +1,91 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: fit-content;
+  width: 90%;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+}:hover{
+  color: black;
+}
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 70%;
+    height: 440px;
+  }
+  .edit-page {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    .right-side-edit {
+
+      hr {
+        width: 150px;
+        border: 1px solid black;
+        margin-top: 05px;
+        margin-bottom: 20px;
+      }
+      form {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        label {
+          font-weight: 600;
+        }
+        .names-input{
+          display: flex;
+          flex-direction: column;
+          .names-div{
+            display: flex;
+            flex-direction: column;
+          }
+          input{
+            width: 99%;          }
+          select{
+            width: 100%;
+            height: 26px;
+          }
+          
+        }
+        input{
+          height: 25px;
+          .names{
+            width: 100px;
+          }
+        }
+        button {
+          height: 30px;
+          margin-top: 30px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  
+}

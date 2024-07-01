@@ -3,12 +3,14 @@ import signupReducer from "./slices/SignupSlice";
 import loginReducer from "./slices/loginSlice";
 import googleLoginReducer from "./slices/googleLoginSlice";
 import tokenReducer from "./slices/tokenSlice"
+import cartSlice from "./slices/cartSlice";
 
 const rootReducer = combineReducers({
   signup: signupReducer,
   login: loginReducer,
   googleLogin: googleLoginReducer,
   token: tokenReducer,
+  cart: cartSlice
 });
 const store = configureStore({
   reducer: rootReducer,

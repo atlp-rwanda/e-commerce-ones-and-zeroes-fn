@@ -1,0 +1,115 @@
+@import "../../styles/variables";
+.cart-body {
+  width: 100%;
+  padding: 10px;
+  .cart-header {
+    // width: 100%;
+    margin-left: 50px;
+    margin-right: 50px;
+    .cart-header-contents {
+      // width: 100%;
+
+      margin-right: 80px;
+      //border: 1px solid red;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: bolder;
+    }
+  }
+
+  .cart-data {
+    // width: 100%;
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 57vh;
+    // border: 1px solid red;
+    overflow-x: hidden; /* Allows horizontal scrolling */
+    overflow-y: auto;
+
+    .retrieved-data {
+      width: 100%;
+
+      .cart-retrieved-data {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin-bottom: 4px;
+        padding: 5px;
+        img {
+          height: 150px;
+          width: 200px;
+        }
+        .product-data {
+          // border: 1px solid red;
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .left-quantity {
+            color: red;
+          }
+
+          .product-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            hr {
+              width: 2px;
+              height: 30px;
+            }
+            form {
+              display: flex;
+              gap: 10px;
+
+              .qty-input {
+                background-color: grey;
+                display: flex;
+                border-radius: 10px;
+                align-items: center;
+                padding: 03px;
+                input {
+                  width: 45px;
+                  height: 30px;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 5px;
+                  // background-color: grey;
+                }
+              }
+              button {
+                background-color: $primary-color;
+              }
+              button:hover {
+                background-color: $secondary-color;
+                color: white;
+              }
+            }
+          }
+        }
+        .product-price {
+          width: 10%;
+          font-weight: bold;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  .cart-footer {
+    // border: 1px solid red;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 05px;
+    button {
+      background-color: $primary-color;
+    }
+    button:hover {
+      background-color: $secondary-color;
+      color: white;
+    }
+  }
+}
