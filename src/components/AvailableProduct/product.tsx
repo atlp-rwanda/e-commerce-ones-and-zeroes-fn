@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import defaultImage from '../../assets/images/default2.png';
 import { addToWishlist } from '../services/wishlistService';
 import Toast from '../Toast/Toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { addProductInCart, fetchProductsInCart } from '../../redux/slices/cartSlice';
 
 interface ProductProps {
   productId: string;
@@ -19,7 +22,13 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const navigate = useNavigate();
+
+  const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
   const token = localStorage.getItem('token');
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { cart, loading } = useSelector((state: RootState) => state.cart);
+
 
   const handleMouseEnter = () => {
     if (images.length > 1) {
@@ -57,6 +66,20 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
     }
   };
 
+  const handleAddProductInCart = async (productId: string) => {
+    const quantity = 1;
+    setLoadingStates(prevState => ({ ...prevState, [productId]: true }));
+
+    try {
+      await dispatch(addProductInCart({ productId, quantity }));
+      await dispatch(fetchProductsInCart());
+    } catch (error) {
+      console.error('Failed to add product to cart:', error);
+    } finally {
+      setLoadingStates(prevState => ({ ...prevState, [productId]: false }));
+    }
+  };
+
   return (
     <div className="product-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {discount && (
@@ -79,8 +102,15 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
         </p>
       </div>
       <div className="button-container">
-        <button className="btn view-more" onClick={handleViewMore}>View More</button>
-        <button className="btn add-to-cart">Add to cart</button>
+        <button className="btn view-more">View More</button>
+        <button
+          className="btn add-to-cart"
+          type="button"
+          onClick={() => handleAddProductInCart(productId)}
+          disabled={loadingStates[productId]}
+        >
+          {loadingStates[productId] ? 'Adding...' : 'Add to Cart'}
+        </button>
       </div>
       <Toast message={message} messageType={messageType} />
     </div>

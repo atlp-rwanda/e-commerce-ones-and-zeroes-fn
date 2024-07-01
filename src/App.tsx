@@ -10,8 +10,6 @@ import ResetPasswordPage from './Pages/resetPassword/ResetPasswordPage';
 import WishlistPage from './components/wishlist/wishlistPage'
 import Header from "./components/userDashHeader/UserHeader";
 import RecommendProduct from './components/productReco/productRecommand';
-
-import FakeLogin from "./views/fakeLogin";
 import BillingAddress from "./components/billingAddress/billingaddress";
 
 import UserDash from "./views/userDash";
@@ -20,6 +18,10 @@ import UpdateProfile from "./views/updateprofile";
 import UpdateBilling from "./views/updatebilling";
 import SampleAdmin from './views/sampleAdmin';
 import SampleSeller from './views/sampleSeller';
+import Cart from './components/cart/cart';
+import FakeProduct from './components/cart/fakeproduct';
+import FakeLogin from './views/fakeLogin';
+
 
 const App: React.FC = () => (
   <Router>
