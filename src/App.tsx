@@ -7,15 +7,20 @@ import IsVerified from './components/IsVerifiedModal/IsVerified';
 import UserVerificationFailed from './components/IsVerifiedModal/UserVerificationFailed';
 
 
+import './styles/index.scss';
+import Product from './components/AvailableProduct/product';
+import ProductsPage from './components/AvailableProduct/productPage';
+
 const App: React.FC = () => (
   <Router>
     
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={< Home/>} />
       <Route path="/login" element={<Login />} />
       <Route  path='/signup' element={<Signup />}/>
       <Route  path='/users/isVerified' element={<IsVerified />}/>
       <Route  path='/users/userVerifyFailed' element={<UserVerificationFailed />}/>
+      <Route path=""/>
     </Routes>
   </Router>
 );

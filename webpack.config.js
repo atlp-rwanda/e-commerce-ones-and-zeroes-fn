@@ -41,6 +41,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      // Add other aliases as needed
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -52,6 +57,7 @@ module.exports = {
       systemvars: true, // Load all system variables as well (useful for CI environments)
       silent: true, // If true, all warnings will be suppressed
     }),
+    new Dotenv()
   ],
   devServer: {
     static: {
