@@ -4,6 +4,7 @@ import { RootState } from '../redux/store';
 import { faShippingFast, faLock, faUndo, faHeadset, faSearch } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Home.scss';
 import Header from '../components/Header';
+import Page from '../components/AvailableProduct/productPage';
 import Carousel from '../components/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Toast from '../components/Toast/Toast';
@@ -74,6 +75,9 @@ const Home: React.FC = () => {
         </div>
         {showToast && isSuccessfully || isSucceeded && <Toast messageType={"success"} message={'Successfully logged in'} />}
       </div>
+      <div>
+     <Page/>
+    </div>
     </div>
   );
 };

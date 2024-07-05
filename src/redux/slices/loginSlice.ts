@@ -24,6 +24,7 @@ export const loginUser = createAsyncThunk<UserData, UserData, { rejectValue: any
     'login/loginUser',
     async (userData, { rejectWithValue }) => {
         try {
+            const BACKEND_URL= process.env.REACT_APP_BACKEND_URL
             const response = await axios.post(`${BACKEND_URL}/api/users/login`, userData);
             localStorage.setItem('token', response.data.token);
             return response.data;
