@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import  store  from './redux/store'
-import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import './styles/index.scss'
+import App from './App';
+import store from './redux/store';
+import './styles/index.scss';
 
 // declaring google client id
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "389689063131-chan42cub5t69u7qetv7otafqfb31bhm.apps.googleusercontent.com"

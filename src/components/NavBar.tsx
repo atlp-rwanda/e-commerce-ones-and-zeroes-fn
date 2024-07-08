@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Toast from './Toast/Toast';
 import '../styles/Header.scss';
@@ -14,12 +14,10 @@ interface NavbarState {
   clicked: boolean;
 }
 
-
 const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
-
-}
+  localStorage.removeItem('token');
+  window.location.href = '/';
+};
 class Navbar extends Component<NavbarProps, NavbarState> {
   constructor(props: NavbarProps) {
     super(props);
@@ -32,11 +30,8 @@ class Navbar extends Component<NavbarProps, NavbarState> {
     this.setState({ clicked: !this.state.clicked });
   };
 
-
-  
-
   render() {
-    const { loggedInSuccessfuly,isSuccessfully, token } = this.props;
+    const { loggedInSuccessfuly, isSuccessfully, token } = this.props;
 
     return (
       <header>
@@ -50,32 +45,29 @@ class Navbar extends Component<NavbarProps, NavbarState> {
             </Link>
           </div>
           <div className="hamburger" onClick={this.toggleMenu}>
-            <i className="fa-solid fa-bars"></i>
+            <i className="fa-solid fa-bars" />
           </div>
           <ul className={this.state.clicked ? 'menu open' : 'menu'}>
             <li><Link to="/" onClick={() => this.setState({ clicked: false })}>Home</Link></li>
             <li><Link to="" onClick={() => this.setState({ clicked: false })}>Shop</Link></li>
             <li><Link to="/pages" onClick={() => this.setState({ clicked: false })}>Pages</Link></li>
             <li>
-              <i className="fa-solid fa-cart-shopping"></i>
+              <i className="fa-solid fa-cart-shopping" />
               <Link to="/cart" onClick={() => this.setState({ clicked: false })}>Cart</Link>
             </li>
             <li>
-              <i className="fa-solid fa-user"></i>
-              {loggedInSuccessfuly || token || isSuccessfully  ? (
-                <>
+              <i className="fa-solid fa-user" />
+              {loggedInSuccessfuly || token || isSuccessfully ? (
                 <Link to="/profile" onClick={() => this.setState({ clicked: false })}>Profile</Link>
-                </>
               ) : (
                 <Link to="/login" onClick={() => this.setState({ clicked: false })}>Login</Link>
               )}
             </li>
-              {(loggedInSuccessfuly || token || isSuccessfully) && 
-            <li onClick={handleLogout} className='link'>Logout</li>
-              }
+            {(loggedInSuccessfuly || token || isSuccessfully)
+            && <li onClick={handleLogout} className="link">Logout</li>}
           </ul>
         </nav>
-        {loggedInSuccessfuly && <Toast messageType={"success"} message={`Logged in successfully`} />}
+        {loggedInSuccessfuly && <Toast messageType="success" message="Logged in successfully" />}
       </header>
     );
   }

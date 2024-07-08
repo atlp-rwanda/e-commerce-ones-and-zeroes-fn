@@ -2,8 +2,9 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import signupReducer from "./slices/SignupSlice";
 import loginReducer from "./slices/loginSlice";
 import googleLoginReducer from "./slices/googleLoginSlice";
-import tokenReducer from "./slices/tokenSlice"
+import tokenReducer from "./slices/tokenSlice";
 import productsReducer from './slices/availableProductSlice';
+import ProductReviewsReducer from './slices/productSlice';
 
 const rootReducer = combineReducers({
   signup: signupReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   googleLogin: googleLoginReducer,
   token: tokenReducer,
+  productReviews: ProductReviewsReducer,
 });
 
 const store = configureStore({

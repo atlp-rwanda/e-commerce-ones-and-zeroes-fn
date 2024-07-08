@@ -12,7 +12,7 @@ const IsVerified: React.FC = () => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <img src='https://res.cloudinary.com/dyfw0di8x/image/upload/v1718780876/success_check_ipk7cc.png' alt=""  className='success-check'/>
+        <img src="https://res.cloudinary.com/dyfw0di8x/image/upload/v1718780876/success_check_ipk7cc.png" alt="" className="success-check" />
         <h2 className="modal-title">Your email has been successfully verified</h2>
         <p className="modal-message">
           Click button below to navigate to login page to start using your account
@@ -21,6 +21,6 @@ const IsVerified: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default IsVerified;

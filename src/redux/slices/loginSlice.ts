@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BACKEND_URL } from '../../constants/api';
 
-
-
 interface UserData {
     email: string;
     password: string;
@@ -35,39 +33,39 @@ export const loginUser = createAsyncThunk<UserData, UserData, { rejectValue: any
 );
 
 const loginSlice = createSlice({
-    name: 'login',
-    initialState: {
-        userInfo: null,
-        loading: false,
-        error: null,
-        isSucceeded: false,
-    } as AuthState,
-    reducers: {
-        resetAuthState: (state) => {
-            state.loading = false;
-            state.isSucceeded = false;
-            state.error = null;
-            state.userInfo = null;
-        },
+  name: 'login',
+  initialState: {
+    userInfo: null,
+    loading: false,
+    error: null,
+    isSucceeded: false,
+  } as AuthState,
+  reducers: {
+    resetAuthState: (state) => {
+      state.loading = false;
+      state.isSucceeded = false;
+      state.error = null;
+      state.userInfo = null;
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(loginUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-                state.isSucceeded = false;
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.userInfo = action.payload;
-                state.loading = false;
-                state.isSucceeded = true;
-            })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.error = action.payload;
-                state.loading = false;
-                state.isSucceeded = false;
-            });
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.isSucceeded = false;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.userInfo = action.payload;
+        state.loading = false;
+        state.isSucceeded = true;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+        state.isSucceeded = false;
+      });
+  },
 });
 
 export const { resetAuthState } = loginSlice.actions;
