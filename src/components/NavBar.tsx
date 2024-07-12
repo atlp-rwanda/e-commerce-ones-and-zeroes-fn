@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Toast from "./Toast/Toast";
@@ -18,8 +18,6 @@ const Navbar: React.FC<NavbarProps> = ({
   const { id } = useParams<{ id: string }>();
   const [clicked, setClicked] = useState(false);
 
-  
- 
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -28,6 +26,8 @@ const Navbar: React.FC<NavbarProps> = ({
   const toggleMenu = () => {
     setClicked(!clicked);
   };
+
+  const isLoggedIn = loggedInSuccessfuly || token;
 
   return (
     <header>
@@ -65,9 +65,17 @@ const Navbar: React.FC<NavbarProps> = ({
               Cart
             </Link>
           </li>
+          {isLoggedIn && (
+            <li>
+              <i className="fa-solid fa-heart"></i>
+              <Link to="/wishlist" onClick={() => setClicked(false)}>
+                My Wishlist
+              </Link>
+            </li>
+          )}
           <li>
             <i className="fa-solid fa-user"></i>
-            {loggedInSuccessfuly || token ? (
+            {isLoggedIn ? (
               <Link to={`/MyAccount/${id}`} onClick={() => setClicked(false)}>
                 Profile
               </Link>
@@ -77,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </Link>
             )}
           </li>
-          {(loggedInSuccessfuly || token || isSuccessfully) && (
+          {isLoggedIn && (
             <li onClick={handleLogout} className="link">
               Logout
             </li>
