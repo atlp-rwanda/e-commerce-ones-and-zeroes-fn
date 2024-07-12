@@ -36,7 +36,8 @@ const ProductsPage: React.FC = () => {
           <div className="product-list">
             {products.map((product) => (
               <Product 
-                key={product.id} 
+                
+                productId={product.productId} 
                 name={product.name} 
                 category={product.category}
                 price={product.price} 

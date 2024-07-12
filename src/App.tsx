@@ -7,6 +7,7 @@ import IsVerified from './components/IsVerifiedModal/IsVerified';
 import UserVerificationFailed from './components/IsVerifiedModal/UserVerificationFailed';
 import ResetPassword from './Pages/resetPassword/ResetPassword';
 import ResetPasswordPage from './Pages/resetPassword/ResetPasswordPage';
+import WishlistPage from './components/wishlist/wishlistPage'
 import Header from "./components/userDashHeader/UserHeader";
 
 
@@ -30,7 +31,8 @@ const App: React.FC = () => (
       <Route  path='/users/isVerified' element={<IsVerified />}/>
       <Route  path='/users/userVerifyFailed' element={<UserVerificationFailed />}/>
       <Route path='/reset' element={<ResetPassword/>} />
-      <Route path='/reset/new-password' element={<ResetPasswordPage/>} />
+      <Route path='/reset/new-password' element={<ResetPasswordPage />} />
+      <Route path='/wishlist' element={<WishlistPage />} />
       
       
 
