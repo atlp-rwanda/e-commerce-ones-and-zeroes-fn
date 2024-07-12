@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -73,7 +74,6 @@ const Home: React.FC = () => {
             <p>24/7 SUPPORT</p>
           </div>
         </div>
-        {showToast && isSuccessfully || isSucceeded && <Toast messageType={"success"} message={'Successfully logged in'} />}
       </div>
       <div>
      <Page/>

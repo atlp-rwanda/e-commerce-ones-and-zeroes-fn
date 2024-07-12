@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BACKEND_URL } from '../../constants/api';
-
-
 
 interface UserData {
     email: string;
     password: string;
 }
 
-interface UserInfoInterface extends UserData {
+interface UserInfoInterface {
+    email: string;
+    password: string;
     message?: string;
 }
 
@@ -24,11 +23,11 @@ export const loginUser = createAsyncThunk<UserData, UserData, { rejectValue: any
     'login/loginUser',
     async (userData, { rejectWithValue }) => {
         try {
-            const BACKEND_URL= process.env.REACT_APP_BACKEND_URL
+            const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
             const response = await axios.post(`${BACKEND_URL}/api/users/login`, userData);
             localStorage.setItem('token', response.data.token);
             return response.data;
-        } catch (error:any) {
+        } catch (error: any) {
             return rejectWithValue(error.response?.data);
         }
     }
@@ -48,6 +47,11 @@ const loginSlice = createSlice({
             state.isSucceeded = false;
             state.error = null;
             state.userInfo = null;
+        },
+        logoutUser: (state) => {
+            state.isSucceeded = false;
+            state.userInfo = null;
+            localStorage.removeItem('token');
         },
     },
     extraReducers: (builder) => {
@@ -70,6 +74,6 @@ const loginSlice = createSlice({
     },
 });
 
-export const { resetAuthState } = loginSlice.actions;
+export const { resetAuthState, logoutUser } = loginSlice.actions;
 
 export default loginSlice.reducer;
