@@ -9,7 +9,7 @@ import ResetPassword from './Pages/resetPassword/ResetPassword';
 import ResetPasswordPage from './Pages/resetPassword/ResetPasswordPage';
 import WishlistPage from './components/wishlist/wishlistPage'
 import Header from "./components/userDashHeader/UserHeader";
-
+import RecommendProduct from './components/productReco/productRecommand';
 
 import FakeLogin from "./views/fakeLogin";
 import BillingAddress from "./components/billingAddress/billingaddress";
@@ -33,7 +33,7 @@ const App: React.FC = () => (
       <Route path='/reset' element={<ResetPassword/>} />
       <Route path='/reset/new-password' element={<ResetPasswordPage />} />
       <Route path='/wishlist' element={<WishlistPage />} />
-      
+      <Route path='/product/:productId' element={<RecommendProduct/>}/>
       
 
       <Route path="/login" element={<Login />} />
