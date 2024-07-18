@@ -40,10 +40,9 @@ const ProductsPage: React.FC = () => {
                 productId={product.productId} 
                 name={product.name} 
                 category={product.category}
-                price={product.price} 
-                images={product.images} 
-                discount={product.discount} 
-              />
+                price={product.price}
+                images={product.images}
+                discount={product.discount}             />
             ))}
           </div>
           <Pagination

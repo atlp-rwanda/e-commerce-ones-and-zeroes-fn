@@ -10,6 +10,7 @@ import Carousel from '../components/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Toast from '../components/Toast/Toast';
 import { useLocation } from 'react-router-dom';
+import FakeProduct from '../components/cart/fakeproduct';
 
 const Home: React.FC = () => {
   const location = useLocation();
@@ -81,5 +82,8 @@ const Home: React.FC = () => {
     </div>
   );
 };
+   
+ 
+
 
 export default Home;

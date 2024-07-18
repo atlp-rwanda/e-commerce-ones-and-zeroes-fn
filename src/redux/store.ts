@@ -4,6 +4,8 @@ import loginReducer from "./slices/loginSlice";
 import googleLoginReducer from "./slices/googleLoginSlice";
 import tokenReducer from "./slices/tokenSlice"
 import productsReducer from './slices/availableProductSlice';
+import cartSlice from "./slices/cartSlice";
+import navbarSlice from "./slices/navbarSlice";
 
 import userReducer from './slices/userSlices';
 
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
   googleLogin: googleLoginReducer,
   token: tokenReducer,
   user: userReducer,
-  address: addressSlice
+  address: addressSlice,
+  cart: cartSlice,
+  navbarSlice:navbarSlice
 });
 
 
