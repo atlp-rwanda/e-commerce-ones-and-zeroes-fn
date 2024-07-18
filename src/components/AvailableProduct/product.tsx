@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import defaultImage from '../../assets/images/default2.png';
 import { addToWishlist } from '../services/wishlistService';
 import Toast from '../Toast/Toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { addProductInCart, fetchProductsInCart } from '../../redux/slices/cartSlice';
 
 interface ProductProps {
   productId: string;
@@ -13,13 +16,34 @@ interface ProductProps {
   category: string;
 }
 
-const Product: React.FC<ProductProps> = ({ productId, name, price, images, discount, category }) => {
+const Product: React.FC<ProductProps> = ({
+  name,
+  price,
+  images,
+  discount,
+  category,
+  productId
+}) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
+
   const [currentImage, setCurrentImage] = useState(images[0] || defaultImage);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const navigate = useNavigate();
+
   const token = localStorage.getItem('token');
+
+  const { cart, loading } = useSelector((state: RootState) => state.cart);
+
+
+  const dispatch = useDispatch<AppDispatch>();
+
+ 
+
+  useEffect(() => {
+    // dispatch(fetchProductsInCart())
+  }, [dispatch]);
 
   const handleMouseEnter = () => {
     if (images.length > 1) {
@@ -33,13 +57,13 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
     setIsHovered(false);
   };
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
     event.currentTarget.src = defaultImage;
   };
 
-  const handleViewMore = () => {
-    navigate(`/product/${productId}`);
-  };
+
 
   const handleAddToWishlist = async () => {
     if (!token) {
@@ -54,6 +78,20 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
     } catch (error: any) {
       setMessage(error.response?.data?.message || 'Failed to add product to wishlist');
       setMessageType('error');
+    }
+  };
+
+  const handleAddProductInCart = async (productId: string) => {
+    const quantity = 1;
+    setLoadingStates(prevState => ({ ...prevState, [productId]: true }));
+
+    try {
+      await dispatch(addProductInCart({ productId, quantity }));
+      await dispatch(fetchProductsInCart());
+    } catch (error) {
+      console.error('Failed to add product to cart:', error);
+    } finally {
+      setLoadingStates(prevState => ({ ...prevState, [productId]: false }));
     }
   };
 
@@ -79,8 +117,15 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
         </p>
       </div>
       <div className="button-container">
-        <button className="btn view-more" onClick={handleViewMore}>View More</button>
-        <button className="btn add-to-cart">Add to cart</button>
+        <button className="btn view-more"><Link to={`/product/${productId}`}>View More</Link></button>
+        <button
+          className="btn add-to-cart"
+          type="button"
+          onClick={() => handleAddProductInCart(productId)}
+          disabled={loadingStates[productId]}
+        >
+          {loadingStates[productId] ? 'Adding...' : 'Add to Cart'}
+        </button>
       </div>
       <Toast message={message} messageType={messageType} />
     </div>

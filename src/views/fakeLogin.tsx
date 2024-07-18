@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-const BACKEND_URL= process.env.REACT_APP_BACKEND_URL
+const BACKEND_URL= 'http://localhost:2000'
 // Utility function to decode JWT
 const decodeJwt = (token: string): { [key: string]: any } => {
   const base64Url = token.split('.')[1];

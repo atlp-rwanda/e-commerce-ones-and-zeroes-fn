@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BACKEND_URL } from '../../constants/api';
 
-
-
 interface UserData {
     firstName: string;
     lastName: string;
@@ -38,39 +36,39 @@ export const signupUser = createAsyncThunk<UserData, UserData, { rejectValue: an
 );
 
 const signupSlice = createSlice({
-    name: 'signup',
-    initialState: {
-        userInfo: null,
-        loading: false,
-        error: null,
-        isSucceeded: false,
-    } as AuthState,
-    reducers: {
-        resetAuthState: (state) => {
-            state.loading = false;
-            state.isSucceeded = false;
-            state.error = null;
-            state.userInfo = null;
-        },
+  name: 'signup',
+  initialState: {
+    userInfo: null,
+    loading: false,
+    error: null,
+    isSucceeded: false,
+  } as AuthState,
+  reducers: {
+    resetAuthState: (state) => {
+      state.loading = false;
+      state.isSucceeded = false;
+      state.error = null;
+      state.userInfo = null;
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(signupUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-                state.isSucceeded = false;
-            })
-            .addCase(signupUser.fulfilled, (state, action) => {
-                state.userInfo = action.payload;
-                state.loading = false;
-                state.isSucceeded = true;
-            })
-            .addCase(signupUser.rejected, (state, action) => {
-                state.error = action.payload;
-                state.loading = false;
-                state.isSucceeded = false;
-            });
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(signupUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.isSucceeded = false;
+      })
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.userInfo = action.payload;
+        state.loading = false;
+        state.isSucceeded = true;
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+        state.isSucceeded = false;
+      });
+  },
 });
 
 export const { resetAuthState } = signupSlice.actions;

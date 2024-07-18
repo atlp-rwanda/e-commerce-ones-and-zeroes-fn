@@ -3,3 +3,9 @@ node_modules
 coverage/
 dist/
 *storybook.log
+=======
+
+*storybook.log
+
+.idea/
+

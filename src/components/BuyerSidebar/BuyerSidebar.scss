@@ -1,0 +1,51 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+// @import "../../reset";
+
+.sellerSideBar{
+  width:250px;
+  height:100vh;
+  background-color:#c6cae1;
+  padding: 100px 30px 30px 40px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-top:40px;
+    gap:10px;
+  }
+  a{
+    text-decoration: none;
+    color:$primary-color;
+   
+  }
+  .side-bar-icons{
+    margin-right: 10px;
+  }
+   ul li {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    border-bottom: 1px solid #fff;
+  }
+  ul li:hover{
+
+    background-color: rgba($color: #fff, $alpha: 0.1);
+  }
+  .active{
+    background-color: $secondary-color;
+     border-radius: 16px;
+
+  }
+
+}
+.side-bar-menu-icon{
+  font-size: 2rem;
+  color:white;
+  background-color: $primary-color;
+}

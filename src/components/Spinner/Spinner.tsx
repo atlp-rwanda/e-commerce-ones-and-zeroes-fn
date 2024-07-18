@@ -1,13 +1,13 @@
-
 import './Spinner.scss';
 
-const Spinner = () => {
+function Spinner() {
   return (
-  <div className="wrapper">
-    
-      <div className="spinner-circle"></div>
+    <div className="wrapper">
 
-  </div>
-)}
+      <div className="spinner-circle" />
+
+    </div>
+  );
+}
 
 export default Spinner;

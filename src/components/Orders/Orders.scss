@@ -1,0 +1,158 @@
+.orders-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    thead {
+      background-color: #f4f4f4;
+
+      th {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        td {
+          padding: 15px;
+          border-bottom: 1px solid #ddd;
+
+          button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #0F1848;
+
+            &:hover {
+              background-color: #FF6D18;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .orders-table {
+      thead {
+        display: none;
+      }
+
+      tbody {
+        tr {
+          display: block;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+
+          td {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+
+            &:before {
+              content: attr(data-label);
+              font-weight: bold;
+            }
+
+            button {
+              margin-top: 10px;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+ 
+}
+
+.popup-modal {
+  
+
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1000;
+  
+  &-content {
+    padding: 20px;
+    
+    h3 {
+      margin-top: 20px ;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    
+    p {
+      margin: 0.5rem 0;
+      color: #555;
+      
+      strong {
+        color: #333;
+      }
+    }
+    
+    .product {
+      margin: 1rem 0;
+      padding: 0.5rem;
+      background: #f9f9f9;
+      border-radius: 5px;
+      
+      p {
+        margin: 0.3rem 0;
+      }
+    }
+    
+    .close-btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      background: #0F1848 !important;
+      color: #fff !important;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      
+      &:hover {
+        background: #FF6D18 !important;
+        color: #000 !important;
+      }
+    }
+  }
+}
+
+
+
+#pageSize {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.page-size-btn {
+  background-color: #0F1848;
+}
+.page-size-btn:hover {
+  background-color: #FF6D18;
+}

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Toast from "./Toast/Toast";
 import "../styles/Header.scss";
+import { toast } from "react-toastify";
+import { fetchProductsInCart } from "../redux/slices/cartSlice";
+import { AppDispatch, RootState } from "../redux/store";
+import Cart from "./cart/cart";
+import CartModal from "./cartModal/modal";
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
   isSuccessfully: boolean;
   token: string;
+  products: any[];
+  fetchProductsInCart: () => void;
+  
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -16,7 +24,26 @@ const Navbar: React.FC<NavbarProps> = ({
   token,
 }) => {
   const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch<AppDispatch>();
+  const { products = [], loading } = useSelector(
+    (state: RootState) => state.cart
+  );
   const [clicked, setClicked] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [products, setProducts] = useState([]);
+
+  const openModal = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleToast = () => {
+    toast.error("Login to see your Cart");
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -26,6 +53,11 @@ const Navbar: React.FC<NavbarProps> = ({
   const toggleMenu = () => {
     setClicked(!clicked);
   };
+
+  useEffect(() => {
+    dispatch(fetchProductsInCart())
+    
+  }, [dispatch]);
 
   const isLoggedIn = loggedInSuccessfuly || token;
 
@@ -60,16 +92,29 @@ const Navbar: React.FC<NavbarProps> = ({
             </Link>
           </li>
           <li>
-            <i className="fa-solid fa-cart-shopping"></i>
-            <Link to="/cart" onClick={() => setClicked(false)}>
-              Cart
-            </Link>
+            {loggedInSuccessfuly || token || isSuccessfully ? (
+              <>
+                <i className="fa-solid fa-cart-shopping">
+                  <div className="cartbadge">{products.length}</div>
+                </i>
+                <Link to="/" onClick={openModal}>
+                  Cart
+                </Link>
+              </>
+            ) : (
+              <>
+                <i className="fa-solid fa-cart-shopping"></i>
+                <Link to="/" onClick={handleToast}>
+                  Cart
+                </Link>
+              </>
+            )}
           </li>
           {isLoggedIn && (
             <li>
               <i className="fa-solid fa-heart"></i>
               <Link to="/wishlist" onClick={() => setClicked(false)}>
-                My Wishlist
+                MyWishlist
               </Link>
             </li>
           )}
@@ -95,14 +140,22 @@ const Navbar: React.FC<NavbarProps> = ({
       {loggedInSuccessfuly && (
         <Toast messageType={"success"} message={`Logged in successfully`} />
       )}
+      {isModalVisible && (
+        <CartModal onClose={closeModal} children={<Cart />} />
+      )}
     </header>
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedInSuccessfuly: state.login.isSucceeded,
   isSuccessfully: state.googleLogin.isSuccessfully,
   token: state.token.token,
+  products: state.cart.products,
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  fetchProductsInCart: () => dispatch(fetchProductsInCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
