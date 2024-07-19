@@ -13,7 +13,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    background-color: #007bff;
+    background-color: #0F1848;
     color: #fff;
     border: 1px solid #007bff;
     padding: 10px 15px;
@@ -22,10 +22,11 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
 .back-btn:hover {
-    background-color: #0056b3;
+    background-color: #FF6D18;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
@@ -123,7 +124,7 @@
     display: block;
     padding: 10px 20px;
     margin-top: 20px;
-    background-color: #007bff;
+    background-color: #0F1848;
     color: #fff;
     border: 2px solid transparent;
     border-radius: 5px;
@@ -133,7 +134,7 @@
 }
 
 .checkout-btn:hover {
-    background-color: #0056b3;
+    background-color: #FF6D18;
     transform: scale(1.05);
 }
 
@@ -233,7 +234,7 @@
     display: inline-block;
     width: auto;
     padding: 12px 30px;
-    background-color: #007bff;
+    background-color: #0F1848;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -244,7 +245,7 @@
 }
 
 .submit-btn:hover {
-    background-color: #0056b3;
+    background-color: #FF6D18;
     transform: scale(1.05);
 }
 

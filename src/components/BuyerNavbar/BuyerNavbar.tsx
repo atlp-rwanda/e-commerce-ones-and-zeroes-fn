@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaUserCircle, FaChevronDown } from "react-icons/fa";
 import "./BuyerNavbar.scss";
 import { IconContext } from "react-icons";
-import SellerSideBar from "../BuyerSidebar/BuyerSidebar";
 import { TiThMenu } from "react-icons/ti";
 import { useClickAway } from "react-use";
 const SellerNavBar: React.FC = () => {

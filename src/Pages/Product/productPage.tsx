@@ -83,7 +83,7 @@ fetchRecommendedProducts()
       <>
       <NavBar />
         <div className="single-product-container">
-            <button className="back-btn"><Link to={'/'}>&#8592; Back</Link> </button>
+            <button className="back-btn"><Link to={'/'} className='navLink'>&#8592; Back</Link> </button>
             {
                 product && 
                 <div className="product-section">

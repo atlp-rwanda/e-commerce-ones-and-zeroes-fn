@@ -117,7 +117,7 @@ const Product: React.FC<ProductProps> = ({
         </p>
       </div>
       <div className="button-container">
-        <button className="btn view-more"><Link to={`/product/${productId}`}>View More</Link></button>
+        <button className="btn view-more"><Link to={`/product/${productId}`} className='navLink'>View More</Link></button>
         <button
           className="btn add-to-cart"
           type="button"

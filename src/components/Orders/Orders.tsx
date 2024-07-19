@@ -126,7 +126,7 @@ const Orders: React.FC = () => {
                     <td data-label="Created At">{new Date(order.createdAt).toLocaleString()}</td>
                     <td data-label="Updated At">{new Date(order.updatedAt).toLocaleString()}</td>
                     <td data-label="Actions">
-                      <button onClick={() => viewDetails(order.orderId)} className='btn'>View Details</button>
+                      <button  className='btn'>View Details</button>
                     </td>
                     <td data-label="Actions">
                       <button className='btn'>Cancel Order</button>

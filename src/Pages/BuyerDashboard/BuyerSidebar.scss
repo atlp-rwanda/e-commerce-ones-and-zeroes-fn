@@ -1,12 +1,10 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
-// @import "../../reset";
 
 .sellerSideBar{
   width:250px;
   height:100vh;
   background-color:#c6cae1;
-  padding: 100px 30px 30px 40px;
   border-bottom-right-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -49,3 +47,4 @@
   color:white;
   background-color: $primary-color;
 }
+
