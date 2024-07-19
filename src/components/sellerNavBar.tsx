@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store";
-import { fetchUser, updateUser } from "../../redux/slices/userSlices";
+import { RootState, AppDispatch } from "../redux/store";
+import { fetchUser, updateUser } from "../redux/slices/userSlices";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.jpg";
-import account from "../../assets/images/acc.png";
-import "./styles.scss";
+import logo from "../assets/images/logo.jpg";
+import account from "../assets/images/acc.png";
+import "../styles/sellerNavBar.scss";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
-import { logoutUser } from "../../redux/slices/loginSlice";
-// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { logoutUser } from "../redux/slices/loginSlice";
+import { resetToken } from "../redux/slices/tokenSlice";
+
 
 const Header: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,6 +44,13 @@ const Header: React.FC = () => {
       navigate("/");
     }, 2000); // 2 second delay
   };
+
+  
+  function handleLogout() {
+    dispatch(logoutUser())
+    dispatch(resetToken())
+    navigate("/");
+  }
 
   return (
     <div className="nav">
@@ -109,9 +117,8 @@ const Header: React.FC = () => {
                 MyAccount
               </Link>
             </div>
-
-            <div className="pin" onClick={logout}>
-              Sign Out
+            <div className="pin" onClick={handleLogout}>
+            Logout
             </div>
           </div>
         </div>

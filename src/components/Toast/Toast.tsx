@@ -5,7 +5,7 @@ import "./Toast.scss";
 
 interface ToastProps {
   message: string | undefined;
-  messageType: string;
+  messageType: any;
 }
 
 function Toast({ messageType, message }: ToastProps) {

@@ -1,0 +1,10 @@
+@import './mixins';
+@import './variables';
+@import './reset';
+
+.main-container{
+ display: flex;
+ justify-content: space-between;
+//  padding-right: 400px;
+    
+}

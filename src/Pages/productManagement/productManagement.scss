@@ -1,0 +1,166 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  padding-top: 30px;
+  align-items: center;
+}
+
+h3 {
+  white-space: nowrap;
+}
+
+button {
+  background-color: #0F1848;
+  color: white;
+  white-space: nowrap;
+  border-radius: 5px;
+  padding: 7px 16px;
+}
+
+button:hover{
+  background-color: red;
+}
+
+
+img {
+  border-radius: 8px;
+}
+
+.products-grid {
+  display: grid;
+  position: relative;
+  top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 70%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+.sideBarActive{
+  left: -100px;
+  height: 100%;
+  background-color: #0F1848;
+}
+
+.product-management-container {
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  width: 100%;
+
+
+.product-management-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 70%;
+  max-width: 1200px;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+}
+
+.product-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: 20px;
+  background-color: #fff;
+  border-radius: 8px; 
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: flex-start;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+}
+
+p.no-products {
+  font-size: 38px;
+  color: #999;
+  text-align: center;
+  margin-top: 40px;
+}
+}
+
+
+/* Tablet view */
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  .product-management-header {
+    width: 90%; 
+  }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .product-management-header {
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .search {
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+
+  .products-grid {
+    width: 100%; 
+    gap: 10px; 
+  }
+
+  .product-item {
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .product-image {
+    width: 100%; 
+    padding: 30px;
+    height: auto; 
+    margin-bottom: 10px; 
+    border-radius: 20px;
+    display: block;
+  }
+
+  .product-details{
+    width: 100%; 
+    padding: 30px;
+  }
+  .product-actions {
+    flex-direction: row; 
+    justify-content: flex-start; 
+    margin-left: 0; 
+  }
+
+  button {
+    width: 100%; 
+    margin-top: 10px; 
+  }
+}

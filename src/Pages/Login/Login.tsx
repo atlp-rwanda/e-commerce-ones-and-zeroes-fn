@@ -6,7 +6,7 @@ import axios from "axios";
 import { RootState } from "../../redux/store";
 import { loginUser } from "../../redux/slices/loginSlice";
 import { googleLoginUser } from "../../redux/slices/googleLoginSlice";
-import { decodeToken } from "react-jwt"; // Import decodeToken function
+import { decodeToken } from "react-jwt"; 
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { AnyAction } from "redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +30,12 @@ interface DecodedToken {
   userId: string;
   role: string;
 }
+
+const isValidToken = (token: string | null): boolean => {
+  if (!token) return false;
+  const parts = token.split(".");
+  return parts.length === 3;
+};
 
 const Login: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
@@ -79,14 +85,14 @@ const Login: React.FC = () => {
           navigate(`/verify/${resultAction.payload.userId}`);
         } else {
           const token = localStorage.getItem("token");
-          if (token) {
-            const decodedToken = decodeToken<DecodedToken>(token);
+          if (isValidToken(token)) {
+            const decodedToken = decodeToken<DecodedToken>(token as string);
             if (decodedToken) {
               if (decodedToken.role === "buyer") {
                 navigate(`/${decodedToken.userId}`);
               }
               if (decodedToken.role === "seller") {
-                navigate(`/sellerDash/${decodedToken.userId}`);
+                navigate(`/seller/${decodedToken.userId}`);
               }
               if (decodedToken.role === "admin") {
                 navigate(`/adminDash/${decodedToken.userId}`);
@@ -125,25 +131,22 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (isSuccessfully || isSucceeded) {
       // Decode token here and redirect
-      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-      if (token) {
-        const decodedToken = decodeToken<DecodedToken>(token);
+      const token = localStorage.getItem("token"); 
+      if (isValidToken(token)) {
+        const decodedToken = decodeToken<DecodedToken>(token as string);
         if (decodedToken) {
           if (decodedToken.role === "buyer") {
             navigate(`/${decodedToken.userId}`);
-          }
-          if (decodedToken.role === "seller") {
-            navigate(`/sellerDash/${decodedToken.userId}`);
-          }
-          if (decodedToken.role === "admin") {
+          } else if (decodedToken.role === "seller") {
+            navigate(`/productManagement/${decodedToken.userId}`);
+          } else if (decodedToken.role === "admin") {
             navigate(`/adminDash/${decodedToken.userId}`);
           }
         } else {
-          // Handle invalid token or decoding failure
           console.error("Failed to decode token.");
         }
       } else {
-        console.error("Token not found in localStorage.");
+        console.error("Token not found in localStorage or invalid token format.");
       }
     }
   }, [isSuccessfully, isSucceeded, navigate]);
@@ -192,8 +195,7 @@ const Login: React.FC = () => {
             <span className="errors">{formErrors.password}</span>
           )}
         </div>
-        <Link to={'/reset'} className="forgot-link">Forgot password?</Link>
-
+             <Link to={'/reset'} className="forgot-link">Forgot password?</Link>
         <button
           type="submit"
           className={`btn ${loading ? "loading" : ""}`}

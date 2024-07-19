@@ -58,17 +58,12 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
       text-decoration: none;
     }
     .shopNow {
-      border: 1px solid white;
-      border-radius: 50px;
-      width: 200px;
-      text-align: center;
-      p {
-        padding: 5px;
-      }
-      
-      &:hover {
-        background-color: $secondarycolor;
-      }
+      color: white;
+      text-decoration: none;
+      border: 1px solid black;
+      padding: 10px 40px;
+      border-radius: 16px;
+      margin: auto;
     }  
     .badge {
       display: flex;
@@ -142,9 +137,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
           color: white;
           text-decoration: none;
           
-          &:hover {
-            color: $secondarycolor;
-          }
+         
         }
       }
       
@@ -164,10 +157,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
         margin-top: -25px;
         margin-left: 5px;
         font-size: smaller;
-        
-        &:hover {
-          color: $secondarycolor;
-        }
+       
       }
     }
   }

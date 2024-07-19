@@ -1,26 +1,32 @@
-import React from 'react';
-import './Pagination.scss';
+import './Pagination.scss'
+import ReactPaginate from 'react-paginate'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+interface Props {
+	pageCount: number,
+	updatePage: (page: number) => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
-  const handlePageChange = (page: number) => {
-    if (page > 0 && page <= totalPages) {
-      onPageChange(page);
-    }
-  };
+function Pagination({ pageCount, updatePage }: Props) {
 
-  return (
-    <div className="pagination">
-      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-      <span>Page {currentPage} of {totalPages}</span>
-      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
-    </div>
-  );
-};
+	function handlePageClick(event: any) {
+		console.log(`Selected: ${event.selected}`)
+		updatePage(event.selected)
+	}
 
-export default Pagination;
+	return (
+		<ReactPaginate
+			className='react-paginate'
+			previousLabel={<FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>}
+			breakLabel="..."
+			nextLabel={<FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>}
+			pageCount={pageCount}
+			onPageChange={handlePageClick}
+			pageRangeDisplayed={5}
+			renderOnZeroPageCount={null}
+		></ReactPaginate>
+	)
+}
+
+export default Pagination

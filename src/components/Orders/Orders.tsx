@@ -57,7 +57,7 @@ const Orders: React.FC = () => {
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    setCurrentPage(page + 1);
   };
 
   const handlePageSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,9 +134,9 @@ const Orders: React.FC = () => {
                   </tr>
                 ))}
               </tbody>
-            </table>
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-          </div>
+              </table>
+              <Pagination pageCount={totalPages} updatePage={handlePageChange} />
+            </div>
         )}
       </div>
 

@@ -56,7 +56,7 @@ const OtpVerification: React.FC = () => {
               if (decodedToken.role === "buyer") {
                 navigate(`/${decodedToken.userId}`);
               } else if (decodedToken.role === "seller") {
-                navigate(`/sellerDash/${decodedToken.userId}`);
+                navigate(`/seller/${decodedToken.userId}`);
               } else if (decodedToken.role === "admin") {
                 navigate(`/adminDash/${decodedToken.userId}`);
               }

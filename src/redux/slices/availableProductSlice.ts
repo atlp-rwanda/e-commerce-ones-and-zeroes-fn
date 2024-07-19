@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface ProductState {
+  [x: string]: any;
   products: any[];
   loading: boolean;
   error: string | null;
@@ -38,7 +39,7 @@ const availableProductSlice = createSlice({
       })
       .addCase(fetchAvailableProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload.data || [];
+        state.products = action.payload.allAvailableProducts || [];
         if (action.payload.pagination) {
           state.totalPages = action.payload.pagination.totalPages;
           state.currentPage = action.payload.pagination.currentPage;

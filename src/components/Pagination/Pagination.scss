@@ -1,31 +1,54 @@
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  
-    button {
-      padding: 5px 10px;
-      margin: 0 5px;
-      background-color: #0F1848;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
+@import '../../styles/variables';
 
-      &:hover {
-        background-color: #FF6D18;
-        color: #000;
-      }
+.react-paginate {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0 5rem;
+  font-size: 14px;
+  gap: 10px;
+  width: fit-content;
+  margin:0 auto;
   
-      &:disabled {
-        background-color: #c0c0c0;
-        cursor: not-allowed;
-      }
-    }
-  
-    span {
-      margin: 0 10px;
+
+  li {
+    a {
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: gray 1px solid;
+      cursor: pointer;
     }
   }
-  
+
+  .previous,
+  .next,
+  .break {
+    a {
+      border-color: transparent;
+    }
+  }
+
+  .selected {
+    a {
+      background-color: $primary-color;
+      border-color: transparent;
+      color: white;
+      min-width: 32px;
+    }
+  }
+
+  .disabled {
+    a {
+      color: grey;
+    }
+  }
+
+  .disable,
+  .disabled {
+    a {
+      cursor: default;
+    }
+  }
+}

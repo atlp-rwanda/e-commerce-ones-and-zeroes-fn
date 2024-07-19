@@ -1,0 +1,283 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/reset.scss';
+
+.add-product-form-container {
+  position: relative;
+  top: 50px;
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  flex-direction: row; 
+
+  h2 {
+    font-size: 32px;
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .form-and-image-container {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+}
+
+.imagepage {
+  width: 400px;
+  height: 450px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+
+  .carousel {
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 100%;
+
+      .carousel-item {
+        min-width: 100%;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  .carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 10px;
+
+    &.prev {
+      left: 10px;
+    }
+
+    &.next {
+      right: 10px;
+    }
+  }
+
+  .carousel-item {
+    position: relative;
+  }
+
+  .carousel-number {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .delete-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+}
+
+form {
+  p {
+    color: red;
+    margin-top: 5px;
+  }
+
+  .formControl {
+    input,
+    select {
+      height: 30px;
+      border: 1px solid #D5D7DA;
+      width: 60%;
+      border-radius: 5px;
+      margin-top: 5px;
+      outline: none;
+      padding: 5px 10px;
+    }
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+
+    button {
+      padding: 7px;
+      background-color: #FF6D18;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.0em;
+      cursor: pointer;
+      align-self: flex-end;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: darken(#007bff, 10%);
+      }
+    }
+  }
+}
+
+.right-section {
+  flex: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  padding: 20px;
+  top: -20px;
+  left: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .product-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    gap: 1px;
+
+    label {
+      flex: 1;
+      font-size: 1em;
+      color: #555;
+    }
+
+    input,
+    select {
+      flex: 2;
+      padding: 8px;
+      font-size: 0.9em;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+    }
+
+    &.updated {
+      border: 2px solid #FF6D18;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .add-product-form-container {
+    width: 100%;
+    padding: 25px;
+
+    .form-and-image-container {
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+    }
+
+    .imagepage {
+      width: 90%;
+      height: 500px;
+    }
+
+    .right-section {
+      width: 100%;
+      padding: 10px;
+      left: 20px;
+    }
+
+    .carousel-button {
+      width: 2px;
+    }
+
+    .delete-button {
+      width: 60px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .add-product-form-container {
+    flex-direction: column; 
+    width: 100%;
+    padding: 10px;
+
+    .form-and-image-container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .imagepage {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 10px; 
+    }
+
+    .right-section {
+      width: 100%;
+      padding: 5px;
+      left: 0;
+      order: 1; 
+
+      h2 {
+        font-size: 1.2em;
+      }
+
+      .product-field {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        label {
+          width: 100%;
+        }
+
+        input,
+        select {
+          width: 100%;
+        }
+      }
+    }
+
+    .btn {
+      button {
+        width: 100%;
+        font-size: 1em;
+      }
+    }
+  }
+}

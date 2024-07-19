@@ -1,0 +1,77 @@
+@import './mixins';
+@import './variables';
+@import './reset';
+
+.sellerSideBar {
+  position: fixed;
+  top: 20px;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  background-color: #c6cae1;
+  padding: 100px 30px 30px 40px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: $primary-color;
+  }
+
+  .side-bar-icons {
+    margin-right: 10px;
+  }
+
+  ul li {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+
+  ul li:hover {
+    background-color: rgba($color: #fff, $alpha: 0.3);
+  }
+
+  .active {
+    background-color: $primary-color;
+    border-radius: 0px;
+    color: #fff;
+  }
+
+  .logout-button {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: $primary-color;
+
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: 0.3);
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.side-bar-menu-icon {
+  font-size: 2rem;
+  color: white;
+  background-color: $primary-color;
+  display: none; 
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}

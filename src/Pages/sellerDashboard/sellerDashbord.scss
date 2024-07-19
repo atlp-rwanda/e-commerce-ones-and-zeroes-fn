@@ -1,0 +1,123 @@
+body {
+  overflow-x: hidden;
+  margin-bottom: 50px;
+}
+
+
+.dashboard {
+    position:absolute;
+    top: 100px;
+    width: 1450px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    
+    &__title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+  
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+  
+      .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        width: 250px;
+        padding: 30px;
+        text-align: center;
+  
+        h2 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+          color: #555;
+        }
+  
+        p {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+    }
+  
+    &__orders {
+      margin-top: 20px;
+      text-align: center;
+     
+  
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+  
+      .orders-table {
+        width: 65%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        margin-bottom: 20px;
+  
+        th, td {
+          padding: 10px;
+          border: 1px solid #ddd;
+          text-align: center;
+        }
+  
+        th {
+          background-color: #f4f4f4;
+          font-weight: bold;
+        }
+      }
+    }
+  
+    // Media queries for responsive design
+    @media (max-width: 768px) {
+      padding: 10px;
+  
+      &__cards {
+        flex-direction: column;
+        align-items: center;
+  
+        .card {
+          width: 90%;
+          margin-bottom: 20px;
+        }
+      }
+  
+      .orders-table {
+        th, td {
+          padding: 8px;
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 5px;
+  
+      &__title {
+        font-size: 1.5rem;
+      }
+  
+      &__cards {
+        .card {
+          width: 100%;
+        }
+      }
+  
+      .orders-table {
+        th, td {
+          padding: 6px;
+        }
+      }
+    }
+  }
+  
+  

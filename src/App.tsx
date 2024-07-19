@@ -31,7 +31,9 @@ import Orders from './components/Orders/Orders';
 import SingleProductPage from './Pages/SingleProductPage/SingleProductPage';
 import BuySingleItem from './Pages/BuySingleItem/BuySingleItem';
 import AddProduct from './Pages/BuyerDashboard/BuyerDashboard';
-
+import ProductManagement from './Pages/productManagement/productManagementSeller';
+import SingleProduct from './views/SingleProduct';
+import SellerDashboard from './views/sellerDashboardView';
 
 const App: React.FC = () => (
   <Router>
@@ -69,6 +71,9 @@ const App: React.FC = () => (
       <Route path='/adminDash/:id' element={<SampleAdmin/>} />
       <Route path='/sellerDash/:id' element={<SampleSeller/>} />
 
+      <Route path='/productManagement/:userId' element={<ProductManagement/>} />
+      <Route path='/singleproduct/:id' element={<SingleProduct/>} />
+      <Route path='/seller/:userId' element={<SellerDashboard/>} />
     </Routes>
   </Router>
 );
