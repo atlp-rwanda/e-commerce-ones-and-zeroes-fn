@@ -8,10 +8,11 @@ import cartSlice from "./slices/cartSlice";
 import navbarSlice from "./slices/navbarSlice";
 
 import userReducer from './slices/userSlices';
-
+import singleItemOrderReducer from "./slices/singleItemOrderSlice";
+import productReviewReducer from './slices/productSlice'
+import cartCheckoutReducer from "./slices/cartCheckoutSlice";
 import addressSlice from './slices/addressSlice';
 
-// Combine all reducers into a single root reducer
 const rootReducer = combineReducers({
   signup: signupReducer,
   login: loginReducer,
@@ -21,17 +22,18 @@ const rootReducer = combineReducers({
   user: userReducer,
   address: addressSlice,
   cart: cartSlice,
-  navbarSlice:navbarSlice
+  navbarSlice:navbarSlice,
+  cartCheckout: cartCheckoutReducer,
+  singleItemOrder: singleItemOrderReducer,
+  productReviews: productReviewReducer
 });
 
 
 
-// Configure the store with the rootReducer
 export const store = configureStore({
   reducer: rootReducer,
 });
 
-// Define types for RootState and AppDispatch
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

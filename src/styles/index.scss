@@ -1,6 +1,6 @@
 @import 'example';
 @import 'exampleList';
-
+@import 'product';
 * {
     margin: 0;
     padding: 0;
@@ -16,4 +16,8 @@
     margin-bottom: 1px;
   }
   
-@import 'product';
+  .navLink {
+    text-decoration: none;
+    color: unset;
+  }
+

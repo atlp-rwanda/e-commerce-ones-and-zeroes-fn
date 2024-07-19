@@ -13,6 +13,9 @@ interface NavbarProps {
   loggedInSuccessfuly: boolean;
   isSuccessfully: boolean;
   token: string;
+  products: any[];
+  fetchProductsInCart: () => void;
+  
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -144,10 +147,15 @@ const Navbar: React.FC<NavbarProps> = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   loggedInSuccessfuly: state.login.isSucceeded,
   isSuccessfully: state.googleLogin.isSuccessfully,
   token: state.token.token,
+  products: state.cart.products,
 });
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  fetchProductsInCart: () => dispatch(fetchProductsInCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

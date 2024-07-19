@@ -20,9 +20,7 @@ function Toast({ messageType, message }: ToastProps) {
   }, [messageType, message]);
 
   return (
-    <>
-      <ToastContainer className="custom-toast-container" />
-    </>
+    <ToastContainer className="custom-toast-container" />
   );
 }
 

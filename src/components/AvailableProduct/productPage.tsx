@@ -36,13 +36,13 @@ const ProductsPage: React.FC = () => {
           <div className="product-list">
             {products.map((product) => (
               <Product 
-                key={product.productId} 
-                productId={product.productId} 
-                name={product.name} 
+                key={product.productId}
+                name={product.name}
                 category={product.category}
                 price={product.price}
                 images={product.images}
-                discount={product.discount}             />
+                discount={product.discount}
+                 productId={product.productId}              />
             ))}
           </div>
           <Pagination

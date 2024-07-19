@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import defaultImage from '../../assets/images/default2.png';
 import { addToWishlist } from '../services/wishlistService';
 import Toast from '../Toast/Toast';
@@ -16,19 +16,34 @@ interface ProductProps {
   category: string;
 }
 
-const Product: React.FC<ProductProps> = ({ productId, name, price, images, discount, category }) => {
+const Product: React.FC<ProductProps> = ({
+  name,
+  price,
+  images,
+  discount,
+  category,
+  productId
+}) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
+
   const [currentImage, setCurrentImage] = useState(images[0] || defaultImage);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const navigate = useNavigate();
 
-  const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
   const token = localStorage.getItem('token');
 
-  const dispatch = useDispatch<AppDispatch>();
   const { cart, loading } = useSelector((state: RootState) => state.cart);
 
+
+  const dispatch = useDispatch<AppDispatch>();
+
+ 
+
+  useEffect(() => {
+    // dispatch(fetchProductsInCart())
+  }, [dispatch]);
 
   const handleMouseEnter = () => {
     if (images.length > 1) {
@@ -42,13 +57,13 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
     setIsHovered(false);
   };
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
     event.currentTarget.src = defaultImage;
   };
 
-  const handleViewMore = () => {
-    navigate(`/product/${productId}`);
-  };
+
 
   const handleAddToWishlist = async () => {
     if (!token) {
@@ -102,7 +117,7 @@ const Product: React.FC<ProductProps> = ({ productId, name, price, images, disco
         </p>
       </div>
       <div className="button-container">
-        <button className="btn view-more">View More</button>
+        <button className="btn view-more"><Link to={`/product/${productId}`} className='navLink'>View More</Link></button>
         <button
           className="btn add-to-cart"
           type="button"
