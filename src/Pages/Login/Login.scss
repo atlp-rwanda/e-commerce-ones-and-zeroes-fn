@@ -72,6 +72,11 @@
     .form-group {
         margin-bottom: 15px;
         display: block;
+        .otpLabel{
+            margin: 1rem auto;
+            line-height: 1.6;
+        }
+        
 
         label {
             display: block;

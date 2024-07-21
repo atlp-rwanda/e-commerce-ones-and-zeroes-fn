@@ -25,6 +25,7 @@ interface User {
   isGoogle: boolean;
   isVerified: boolean;
   password: string;
+  use2FA: boolean;
   passwordLastChanged: string;
 }
 interface UpdateProfileProps {
