@@ -15,8 +15,6 @@ import "./Login.scss";
 import Spinner from "../../components/Spinner/Spinner";
 import Toast from "../../components/Toast/Toast";
 
-import "./Login.scss";
-
 interface FormData {
   email: string;
   password: string;
@@ -63,7 +61,7 @@ const Login: React.FC = () => {
     return errors;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
@@ -71,7 +69,35 @@ const Login: React.FC = () => {
       return;
     }
     setFormErrors({});
-    dispatch(loginUser({ email, password }));
+    try {
+      const resultAction = await dispatch(loginUser({
+        email, password,
+        userId: undefined
+      }));
+      if (loginUser.fulfilled.match(resultAction)) {
+        if (resultAction.payload.userId) {
+          navigate(`/verify/${resultAction.payload.userId}`);
+        } else {
+          const token = localStorage.getItem("token");
+          if (token) {
+            const decodedToken = decodeToken<DecodedToken>(token);
+            if (decodedToken) {
+              if (decodedToken.role === "buyer") {
+                navigate(`/${decodedToken.userId}`);
+              }
+              if (decodedToken.role === "seller") {
+                navigate(`/sellerDash/${decodedToken.userId}`);
+              }
+              if (decodedToken.role === "admin") {
+                navigate(`/adminDash/${decodedToken.userId}`);
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      // Handle error
+    }
   };
 
   const loginViaGoogle = useGoogleLogin({
@@ -166,8 +192,7 @@ const Login: React.FC = () => {
             <span className="errors">{formErrors.password}</span>
           )}
         </div>
-             <Link to={'/reset'} className="forgot-link">Forgot password?</Link>
-
+        <Link to={'/reset'} className="forgot-link">Forgot password?</Link>
 
         <button
           type="submit"

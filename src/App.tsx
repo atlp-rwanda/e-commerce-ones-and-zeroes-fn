@@ -11,7 +11,7 @@ import WishlistPage from './components/wishlist/wishlistPage'
 import Header from "./components/userDashHeader/UserHeader";
 import RecommendProduct from './components/productReco/productRecommand';
 import BillingAddress from "./components/billingAddress/billingaddress";
-
+import OtpVerification from './Pages/Login/OtpVerification';
 import UserDash from "./views/userDash";
 import MyAccount from "./views/MyAccount";
 import UpdateProfile from "./views/updateprofile";
@@ -29,6 +29,7 @@ const App: React.FC = () => (
       <Route path="/" element={< Home/>} />
       <Route path="/:id" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/verify/:userId" element={<OtpVerification />} />
       <Route  path='/signup' element={<Signup />}/>
       <Route  path='/users/isVerified' element={<IsVerified />}/>
       <Route  path='/users/userVerifyFailed' element={<UserVerificationFailed />}/>

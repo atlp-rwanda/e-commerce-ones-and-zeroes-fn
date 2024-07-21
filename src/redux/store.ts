@@ -6,6 +6,7 @@ import tokenReducer from "./slices/tokenSlice"
 import productsReducer from './slices/availableProductSlice';
 import cartSlice from "./slices/cartSlice";
 import navbarSlice from "./slices/navbarSlice";
+import otpReducer from './slices/otpSlice'; // Add this line
 
 import userReducer from './slices/userSlices';
 
@@ -21,7 +22,9 @@ const rootReducer = combineReducers({
   user: userReducer,
   address: addressSlice,
   cart: cartSlice,
-  navbarSlice:navbarSlice
+  navbarSlice:navbarSlice,
+  otp: otpReducer, 
+
 });
 
 

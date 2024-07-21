@@ -7,9 +7,22 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import Modal from "../modal/modal";
 import bgPhoto from "../../assets/images/bg.png";
-import nodata from "../../assets/images/nodata.png"
+import nodata from "../../assets/images/nodata.png";
 import { Link } from "react-router-dom";
 import UpdateProfile from "../../views/updateprofile";
+import { BACKEND_URL } from "../../constants/api";
+import axios from "axios";
+interface ToggleSwitchProps {
+  checked: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => (
+  <label className="switch">
+    <input type="checkbox" checked={checked} onChange={onChange} />
+    <span className="slider round"></span>
+  </label>
+);
 
 const PersonalInfo: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,8 +31,9 @@ const PersonalInfo: React.FC = () => {
   );
   const { id } = useParams<{ id?: string }>();
 
-  const [firstName, setFirstName] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [is2FAEnabled, setIs2FAEnabled] = useState(false);
+
   const bgPhotoSrc = bgPhoto.toString();
 
   const formatDate = (dateString: string) => {
@@ -38,12 +52,34 @@ const PersonalInfo: React.FC = () => {
       dispatch(fetchUser(id));
     }
   };
+
+  const handleToggle2FA = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (user && id) {
+      const updatedUse2FA = event.target.checked;
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${BACKEND_URL}/api/users/toggle2fa`,
+          { use2FA: updatedUse2FA },{
+             headers: {
+        Authorization: `Bearer ${token}`,
+      }
+          });
+        setIs2FAEnabled(updatedUse2FA);
+      } catch (error) {
+        console.log("Error toggling 2FA:", error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (isSuccess) {
       closeModal();
     }
 
-  },[isSuccess]);
+    if (user) {
+      setIs2FAEnabled(user.use2FA);
+    }
+  }, [isSuccess, user]);
 
   return (
     <div className="user-profile">
@@ -52,7 +88,7 @@ const PersonalInfo: React.FC = () => {
       </div>
       <div className="personal-info">
         <div className="personal-info-header">
-          <h3>1.Personal Information</h3>
+          <h3>1. Personal Information</h3>
           <span
             onClick={openModal}
             style={{
@@ -70,7 +106,7 @@ const PersonalInfo: React.FC = () => {
             </Modal>
           )}
         </div>
-        <div className="personal-info-deatails">
+        <div className="personal-info-details">
           <div className="details-part1">
             <table>
               <tbody>
@@ -80,10 +116,8 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <span className="namespan">
-                      <div>{user ? user.firstName? user.firstName
-                          : (<div>---</div>) : "....No Data....."} </div>
-                      <div>{user ? user.lastName? user.lastName
-                          : (<div>---</div>) : "....No Data....."}</div>
+                      <div>{user ? (user.firstName || "---") : "....No Data....."}</div>
+                      <div>{user ? (user.lastName || "---") : "....No Data....."}</div>
                     </span>
                   </td>
                 </tr>
@@ -93,8 +127,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="email">
-                      {user ? user.email? user.email
-                          : (<div>---</div>)  : "....No Data....."}
+                      {user ? (user.email || "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -104,8 +137,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="gender">
-                      {user ? user.gender? user.gender
-                          : (<div>---</div>)  : "....No Data....."}
+                      {user ? (user.gender || "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -115,11 +147,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="birthdate">
-                      {user
-                        ? user.birthdate
-                          ? formatDate(user.birthdate)
-                          : (<div>---</div>)
-                        : "....No Data....."}
+                      {user ? (user.birthdate ? formatDate(user.birthdate) : "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -129,9 +157,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="language">
-                      {" "}
-                      {user ? user.preferredLanguage? user.preferredLanguage
-                          : (<div>---</div>)  : "....No Data......"}
+                      {user ? (user.preferredLanguage || "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -141,8 +167,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="currency">
-                      {user ? user.preferredCurrency? user.preferredCurrency
-                          : (<div>---</div>)  : "....No Data......"}
+                      {user ? (user.preferredCurrency || "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -159,8 +184,7 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="address">
-                      {user ? user.billingAddress? user.billingAddress
-                          : (<div>---</div>)  : "....No Data......"}
+                      {user ? (user.billingAddress || "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
@@ -170,30 +194,26 @@ const PersonalInfo: React.FC = () => {
                   </th>
                   <td>
                     <div id="joinedAt">
-                      {user
-                        ? user.createdAt
-                          ? formatDate(user.createdAt)
-                          : ""
-                        : "....No Data......"}
+                      {user ? (user.createdAt ? formatDate(user.createdAt) : "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <th>
-                    <div>role:</div>
+                    <div>Role:</div>
                   </th>
                   <td>
-                    <div id="currency">
-                      {user ? user.role : "....No Data......"}
+                    <div id="role">
+                      {user ? user.role : "....No Data....."}
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <th>
-                    <div>password:</div>
+                    <div>Password:</div>
                   </th>
                   <td>
-                    <div id="birthdate">
+                    <div id="password">
                       <span>**********</span>
                       <span className="update-password">
                         <Link to="">
@@ -211,31 +231,34 @@ const PersonalInfo: React.FC = () => {
                 </tr>
                 <tr>
                   <th>
-                    <div>password Last Changed:</div>
+                    <div>Password Last Changed:</div>
                   </th>
                   <td>
-                    <div id="language">
-                      {" "}
-                      {user
-                        ? user.passwordLastChanged
-                          ? formatDate(user.passwordLastChanged)
-                          : ""
-                        : "....No Data......"}
+                    <div id="passwordLastChanged">
+                      {user ? (user.passwordLastChanged ? formatDate(user.passwordLastChanged) : "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
-
+                {user && user.role === 'seller' && (
+                  <tr>
+                    <th>
+                      <div>2FA Authentication:</div>
+                    </th>
+                    <td>
+                      <ToggleSwitch
+                        checked={is2FAEnabled}
+                        onChange={handleToggle2FA}
+                      />
+                    </td>
+                  </tr>
+                )}
                 <tr>
                   <th>
-                    <div>profile Last Updated:</div>
+                    <div>Profile Last Updated:</div>
                   </th>
                   <td>
-                    <div id="address">
-                      {user
-                        ? user.updatedAt
-                          ? formatDate(user.updatedAt)
-                          : ""
-                        : "....No Data....."}
+                    <div id="profileLastUpdated">
+                      {user ? (user.updatedAt ? formatDate(user.updatedAt) : "---") : "....No Data....."}
                     </div>
                   </td>
                 </tr>
