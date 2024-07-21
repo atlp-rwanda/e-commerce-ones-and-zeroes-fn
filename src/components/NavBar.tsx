@@ -54,6 +54,10 @@ const Navbar: React.FC<NavbarProps> = ({
     setClicked(!clicked);
   };
 
+  const handleShopClick = () => {
+    window.location.hash = 'product-page';
+  };
+
   useEffect(() => {
     dispatch(fetchProductsInCart())
     
@@ -82,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({
             </Link>
           </li>
           <li>
-            <Link to="/shop" onClick={() => setClicked(false)}>
+            <Link to="" onClick={handleShopClick}>
               Shop
             </Link>
           </li>

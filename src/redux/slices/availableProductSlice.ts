@@ -19,9 +19,24 @@ const initialState: ProductState = {
 
 export const fetchAvailableProducts = createAsyncThunk(
   'products/fetchAvailableProducts',
-  async (page: number) => {
+  async ({ page, searchKeyword, minPrice, maxPrice }: { page: number; searchKeyword?: string; minPrice?: number; maxPrice?: number }) => {
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-    const response = await axios.get(`${BACKEND_URL}/api/products/available?page=${page}`);
+    let url = `${BACKEND_URL}/api/products/available?page=${page}`;
+    
+    if (searchKeyword) {
+      url = `${BACKEND_URL}/api/products/${encodeURIComponent(searchKeyword)}?searchKeyword=${encodeURIComponent(searchKeyword)}&page=${page}`;
+    } else {
+      url = `${BACKEND_URL}/api/products/available?page=${page}`;
+    }
+
+    if (minPrice !== undefined) {
+      url += `&minPrice=${minPrice}`;
+    }
+    if (maxPrice !== undefined) {
+      url += `&maxPrice=${maxPrice}`;
+    }
+
+    const response = await axios.get(url);
     return response.data;
   }
 );
