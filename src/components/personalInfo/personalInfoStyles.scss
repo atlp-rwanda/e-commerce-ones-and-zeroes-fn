@@ -24,6 +24,8 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
     position: relative;
     z-index: 1;
     background-color: white;
+    // border: 1px solid red;
+    
   }
 
   .personal-info-header {
@@ -48,6 +50,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
     width: 100%;
     height: auto;
     display: flex;
+    // border: 1px solid yellow;
     .details-part1 {
       width: 45%;
       height: 90px;
@@ -58,6 +61,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
       margin: auto;
       font-size: large;
       table {
+        margin-top: -30px;
         th {
           text-align: right;
         }
@@ -86,6 +90,7 @@ $primaryFontFamily: "Nunito Sans", sans-serif;
       margin: auto;
       font-size: large;
       table {
+        margin-top: -30px;
         th {
           text-align: right;
         }

@@ -75,8 +75,8 @@ export const fetchProductsInCart = createAsyncThunk(
     const token = localStorage.getItem("token");
 
     if (!token) {
-       throw new Error('Bearer token is not available');
-       toast.error("login first")
+      throw new Error("Bearer token is not available");
+      toast.error("login first");
     }
     try {
       const response = await axios.get(`${BACKEND_URL}/api/carts`, {
@@ -106,7 +106,6 @@ export const fetchTotalInCart = createAsyncThunk(
 
     if (!token) {
       //  throw new Error('Bearer token is not available');
-       
     }
     try {
       const response = await axios.get(`${BACKEND_URL}/api/carts`, {
@@ -134,7 +133,6 @@ export const updateProductQuantityInCart = createAsyncThunk(
     const token = localStorage.getItem("token");
 
     if (!token) {
-     
       throw new Error("Bearer token is not available");
     }
 
@@ -162,18 +160,17 @@ export const updateProductQuantityInCart = createAsyncThunk(
 );
 export const deleteProductInCart = createAsyncThunk(
   "cart/deleteproduct",
-  async ({ productId}: { productId: string;}) => {
+  async ({ productId }: { productId: string }) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-     
       throw new Error("Bearer token is not available");
     }
 
     try {
       const response = await axios.delete(
         `${BACKEND_URL}/api/carts/product/${productId}`,
-       
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -198,14 +195,13 @@ export const clearCart = createAsyncThunk(
     const token = localStorage.getItem("token");
 
     if (!token) {
-     
       throw new Error("Bearer token is not available");
     }
 
     try {
       const response = await axios.delete(
         `${BACKEND_URL}/api/carts/clear`,
-       
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -279,40 +275,36 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || "Failed to fetch total in cart";
       })
-    .addCase(updateProductQuantityInCart.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(
-      updateProductQuantityInCart.fulfilled,
-      (state, action: PayloadAction<any>) => {
-
-        state.products = action.payload.Products;
+      .addCase(updateProductQuantityInCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        updateProductQuantityInCart.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.products = action.payload.Products;
+          state.loading = false;
+        }
+      )
+      .addCase(updateProductQuantityInCart.rejected, (state, action) => {
         state.loading = false;
-      }
-    )
-    .addCase(updateProductQuantityInCart.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message || "Failed to update quantity in cart";
-    })
-    .addCase(clearCart.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(
-      clearCart.fulfilled,
-      (state, action: PayloadAction<any>) => {
-
+        state.error =
+          action.error.message || "Failed to update quantity in cart";
+      })
+      .addCase(clearCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(clearCart.fulfilled, (state, action: PayloadAction<any>) => {
         state.products = [];
         state.total = 0;
         state.loading = false;
-      }
-    )
-    .addCase(clearCart.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message || "Failed to update quantity in cart";
-    })
-    
+      })
+      .addCase(clearCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || "Failed to update quantity in cart";
+      });
   },
 });
 
