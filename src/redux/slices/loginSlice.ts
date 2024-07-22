@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface UserData {
+    userId: any;
     email: string;
     password: string;
 }
@@ -18,13 +19,15 @@ export interface AuthState {
     error: any;
     isSucceeded: boolean;
 }
-
 export const loginUser = createAsyncThunk<UserData, UserData, { rejectValue: any }>(
     'login/loginUser',
     async (userData, { rejectWithValue }) => {
         try {
             const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
             const response = await axios.post(`${BACKEND_URL}/api/users/login`, userData);
+            if (response.data.message === "Check your email for the 2FA token") {
+                return { userId: response.data.userId };
+            }
             localStorage.setItem('token', response.data.token);
             return response.data;
         } catch (error: any) {

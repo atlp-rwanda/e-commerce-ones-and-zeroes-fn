@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 interface User {
+  use2FA: any;
   userId: string;
   firstName: string;
   lastName: string;
@@ -54,7 +55,9 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) =
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    
     });
+    console.log(response.data.data)
     return response.data.data;
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -88,6 +91,9 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+
+
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -116,22 +122,23 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
-        state.isSuccess=false;
+        state.isSuccess = false;
         state.error = null;
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.loading = false;
-        state.isSuccess=true;
+        state.isSuccess = true;
         state.isModalVisible = false;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
-        state.isSuccess=false;
+        state.isSuccess = false;
         state.error = action.error.message || 'Failed to update user';
-      });
+      })
   },
 });
+
 
 export const { openModal, closeModal } = userSlice.actions;
 export default userSlice.reducer;
