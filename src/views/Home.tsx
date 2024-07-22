@@ -1,10 +1,9 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   faShippingFast, faLock, faUndo, faHeadset, faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import { RootState } from '../redux/store';
+import { RootState, AppDispatch } from '../redux/store';
 import '../styles/Home.scss';
 import Header from '../components/Header';
 import Page from '../components/AvailableProduct/productPage';
@@ -12,10 +11,12 @@ import Carousel from '../components/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Toast from '../components/Toast/Toast';
 import { useLocation } from 'react-router-dom';
-import FakeProduct from '../components/cart/fakeproduct';
+import { fetchAvailableProducts } from '../redux/slices/availableProductSlice';
 
 const Home: React.FC = () => {
   const location = useLocation();
+  const dispatch: AppDispatch = useDispatch();
+  const productPageRef = useRef<HTMLDivElement>(null);
 
   const { isSuccessfully } = useSelector(
     (state: RootState) => state.googleLogin,
@@ -25,6 +26,7 @@ const Home: React.FC = () => {
   );
 
   const [showToast, setShowToast] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     const state = location.state as { from?: { pathname: string } };
@@ -34,6 +36,17 @@ const Home: React.FC = () => {
     }
   }, [location, isSuccessfully, isSucceeded]);
 
+  const handleSearch = () => {
+    dispatch(fetchAvailableProducts({ page: 1, searchKeyword }));
+  };
+
+  const handleSearchAndScroll = () => {
+    handleSearch();
+    if (productPageRef.current) {
+      productPageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -41,8 +54,14 @@ const Home: React.FC = () => {
         <div className="main-content">
           <div className="sidebar">
             <div className="search-box-wrapper">
-              <input type="text" placeholder="Search..." className="search-box" />
-              <button className="search-button">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="search-box"
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+              />
+              <button className="search-button" onClick={handleSearchAndScroll}>
                 <FontAwesomeIcon icon={faSearch} />
               </button>
             </div>
@@ -75,14 +94,11 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
-     <Page/>
-    </div>
+      <div id="product-page" ref={productPageRef}>
+        <Page />
+      </div>
     </div>
   );
 };
-   
- 
-
 
 export default Home;
