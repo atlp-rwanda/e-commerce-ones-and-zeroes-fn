@@ -38,7 +38,7 @@
     margin-bottom: 20px;
 }
 
-.product-image {
+.singleProduct-image {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,7 +106,7 @@
 
 }
 
-.product-image img {
+.singleProduct-image img {
     width: 100%;
     border-radius: 10px;
 }
@@ -308,7 +308,7 @@
         flex-direction: column;
     }
 
-    .product-image {
+    .singleProduct-image {
         margin-bottom: 20px;
     }
 
@@ -318,6 +318,5 @@
     }
 }
 
-  
 
-  
+
