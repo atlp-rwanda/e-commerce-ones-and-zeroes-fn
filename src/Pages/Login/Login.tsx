@@ -120,12 +120,15 @@ const Login: React.FC = () => {
                 navigate(`/update/new-password?q=${token}`);
               }else{
                 if (decodedToken.role === "buyer") {
+                  localStorage.setItem("userId", `${decodedToken.userId}`);
                 navigate(`/${decodedToken.userId}`);
               }
               if (decodedToken.role === "seller") {
+                localStorage.setItem("userId", `${decodedToken.userId}`);
                 navigate(`/sellerDash/${decodedToken.userId}`);
               }
               if (decodedToken.role === "admin") {
+                localStorage.setItem("userId", `${decodedToken.userId}`);
                 navigate(`/adminDash/${decodedToken.userId}`);
               }
               }

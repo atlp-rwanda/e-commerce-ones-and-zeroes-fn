@@ -39,6 +39,8 @@ const Header: React.FC = () => {
     setIsLoading(true);
     setTimeout(() => {
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+
       dispatch(logoutUser());
       setIsLoading(false);
       navigate("/");
@@ -83,40 +85,12 @@ const Header: React.FC = () => {
               width={35}
               height={35}
             />
-            <h4 onClick={toggleVisibility}>MyAccount</h4>
-            <img
-              width={13}
-              height={13}
-              src="https://img.icons8.com/ios-glyphs/30/FFFFFF/chevron-down.png"
-              alt="chevron-down"
-              onClick={toggleVisibility}
-              className="arrow-down"
-            />
+            <h4 onClick={toggleVisibility}>{user ? user.firstName : "Loading..."}</h4>
+            
           </div>
         </div>
       </div>
-      <div className={`account-float ${isVisible ? "visible" : "hidden"}`}>
-        <div className="chat-container">
-          <div className="chat">
-            <div className="profile">
-              <img src={account} alt="Profile" />
-            </div>
-            <div className="name">
-              <h4>Hello,</h4>
-            </div>
-            <div className="time">{user ? user.firstName : "Loading..."}</div>
-            <div className="message">
-              <Link to={`/MyAccount/${id}`} className="linkStyle">
-                MyAccount
-              </Link>
-            </div>
-
-            <div className="pin" onClick={logout}>
-              Sign Out
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };
