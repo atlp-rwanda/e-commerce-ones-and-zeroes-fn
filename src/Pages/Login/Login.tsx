@@ -29,6 +29,8 @@ const validatePassword = (password: string): boolean => {
 interface DecodedToken {
   userId: string;
   role: string;
+  passwordLastChanged: string;
+  expirationPeriod: number;
 }
 
 const Login: React.FC = () => {
@@ -70,10 +72,13 @@ const Login: React.FC = () => {
     }
     setFormErrors({});
     try {
-      const resultAction = await dispatch(loginUser({
-        email, password,
-        userId: undefined
-      }));
+      const resultAction = await dispatch(
+        loginUser({
+          email,
+          password,
+          userId: undefined,
+        })
+      );
       if (loginUser.fulfilled.match(resultAction)) {
         if (resultAction.payload.userId) {
           navigate(`/verify/${resultAction.payload.userId}`);
@@ -82,7 +87,39 @@ const Login: React.FC = () => {
           if (token) {
             const decodedToken = decodeToken<DecodedToken>(token);
             if (decodedToken) {
-              if (decodedToken.role === "buyer") {
+              const lastPasswordChangeDate = new Date(
+                decodedToken.passwordLastChanged
+              );
+
+              const minutes = process.env
+                .REACT_APP_PASSWORD_EXPIRATION_PERIOD_MINUTES
+                ? parseInt(
+                    process.env.REACT_APP_PASSWORD_EXPIRATION_PERIOD_MINUTES,
+                    10
+                  )
+                : 0;
+              // const expirationPeriod = minutes ? parseInt(minutes, 10) : 0;
+              console.log(
+                "password expiration",
+                process.env.REACT_APP_PASSWORD_EXPIRATION_PERIOD_MINUTES
+              );
+              console.log("lastpassword changed", lastPasswordChangeDate);
+
+              const currentTime = new Date();
+              const timeInMillis = minutes * 60 * 1000; // Correct conversion from minutes to milliseconds
+              console.log("current time", currentTime);
+              console.log("time in mills", timeInMillis);
+              console.log(
+                "different in time",
+                currentTime.getTime() - lastPasswordChangeDate.getTime()
+              );
+              if (
+                currentTime.getTime() - lastPasswordChangeDate.getTime() >
+                timeInMillis
+              ) {
+                navigate(`/update/new-password?q=${token}`);
+              }else{
+                if (decodedToken.role === "buyer") {
                 navigate(`/${decodedToken.userId}`);
               }
               if (decodedToken.role === "seller") {
@@ -91,6 +128,9 @@ const Login: React.FC = () => {
               if (decodedToken.role === "admin") {
                 navigate(`/adminDash/${decodedToken.userId}`);
               }
+              }
+
+              
             }
           }
         }
@@ -122,112 +162,102 @@ const Login: React.FC = () => {
     },
   });
 
-  useEffect(() => {
-    if (isSuccessfully || isSucceeded) {
-      // Decode token here and redirect
-      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-      if (token) {
-        const decodedToken = decodeToken<DecodedToken>(token);
-        if (decodedToken) {
-          if (decodedToken.role === "buyer") {
-            navigate(`/${decodedToken.userId}`);
-          }
-          if (decodedToken.role === "seller") {
-            navigate(`/sellerDash/${decodedToken.userId}`);
-          }
-          if (decodedToken.role === "admin") {
-            navigate(`/adminDash/${decodedToken.userId}`);
-          }
-        } else {
-          // Handle invalid token or decoding failure
-          console.error("Failed to decode token.");
-        }
-      } else {
-        console.error("Token not found in localStorage.");
-      }
-    }
-  }, [isSuccessfully, isSucceeded, navigate]);
+ 
 
   return (
     <div className="container">
-    <div className="form-wrapper">
-      <form onSubmit={handleSubmit} className="form">
-        <h2 className="form-title">Login into your account</h2>
-        
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            placeholder="Email"
-            onChange={handleChange}
-            className={`form-control`}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <div className="password-wrapper">
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit} className="form">
+          <h2 className="form-title">Login into your account</h2>
+
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
             <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Password"
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              placeholder="Email"
               onChange={handleChange}
-              className={`form-control ${
-                formErrors.password ? "is-invalid" : ""
-              }`}
+              className={`form-control`}
               required
             />
-            <FontAwesomeIcon
-              icon={showPassword ? faEyeSlash : faEye}
-              className="eye-icon"
-              onClick={() => setShowPassword(!showPassword)}
-            />
           </div>
-          {formErrors.password && (
-            <span className="errors">{formErrors.password}</span>
-          )}
-        </div>
-        <Link to={'/reset'} className="forgot-link">Forgot password?</Link>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={handleChange}
+                className={`form-control ${
+                  formErrors.password ? "is-invalid" : ""
+                }`}
+                required
+              />
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </div>
+            {formErrors.password && (
+              <span className="errors">{formErrors.password}</span>
+            )}
+          </div>
+          <Link to={"/reset"} className="forgot-link">
+            Forgot password?
+          </Link>
 
-        <button
-          type="submit"
-          className={`btn ${loading ? "loading" : ""}`}
-          disabled={loading}
-        >
-          {loading ? "Processing..." : "Login"}
-        </button>
-
-        <p className="or-with-google">Or</p>
-        <div className="text-center">
-          <button className="btn btn-google" type="button" onClick={() => loginViaGoogle()}>
-            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" className="google-icon" />
-            Continue with Google
+          <button
+            type="submit"
+            className={`btn ${loading ? "loading" : ""}`}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Login"}
           </button>
-        </div>
-        <div className="text-right">
-          <p>
-            Don't have an account? <Link to={'/signup'}>Signup</Link>
-          </p>
-        </div>
-      </form>
+
+          <p className="or-with-google">Or</p>
+          <div className="text-center">
+            <button
+              className="btn btn-google"
+              type="button"
+              onClick={() => loginViaGoogle()}
+            >
+              <img
+                src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+                alt=""
+                className="google-icon"
+              />
+              Continue with Google
+            </button>
+          </div>
+          <div className="text-right">
+            <p>
+              Don't have an account? <Link to={"/signup"}>Signup</Link>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div className="left-wrapper">
+        <h2>Welcome to OnesAndZeroes</h2>
+        <img
+          src="https://res.cloudinary.com/dyfw0di8x/image/upload/v1717535042/boproiezpxcdxmxs93rm.png"
+          alt="This is vendor svg"
+        />
+        <h2>We Deliver Anywhere in the World</h2>
+      </div>
+      {loading && <Spinner />}
+      {!loading && error && (
+        <Toast messageType={"error"} message={error.message} />
+      )}
+      {!loading && isError && (
+        <Toast messageType={"error"} message={isError.message} />
+      )}
     </div>
-    <div className="left-wrapper">
-      <h2>Welcome to OnesAndZeroes</h2>
-      <img
-        src="https://res.cloudinary.com/dyfw0di8x/image/upload/v1717535042/boproiezpxcdxmxs93rm.png"
-        alt="This is vendor svg"
-      />
-      <h2>We Deliver Anywhere in the World</h2>
-    </div>
-    {loading && <Spinner />}
-    {!loading && error && <Toast messageType={"error"} message={error.message} />}
-    {!loading && isError && <Toast messageType={"error"} message={isError.message} />}
-  </div>
   );
 };
 

@@ -31,6 +31,7 @@ import Orders from './components/Orders/Orders';
 import SingleProductPage from './Pages/SingleProductPage/SingleProductPage';
 import BuySingleItem from './Pages/BuySingleItem/BuySingleItem';
 import AddProduct from './Pages/BuyerDashboard/BuyerDashboard';
+import UpdatePasswordAfterXAmountOfTime from './Pages/resetPassword/updatePassXAmount';
 
 
 const App: React.FC = () => (
@@ -50,6 +51,8 @@ const App: React.FC = () => (
       <Route path='/order' element={<Orders />} />
       <Route path='/reset' element={<ResetPassword/>} />
       <Route path='/reset/new-password' element={<ResetPasswordPage />} />
+      <Route path='/update/new-password' element={<UpdatePasswordAfterXAmountOfTime />} />
+
       <Route path='/wishlist' element={<WishlistPage />} />
       <Route path='/product/:productId' element={<ProductPage/>}/>
       

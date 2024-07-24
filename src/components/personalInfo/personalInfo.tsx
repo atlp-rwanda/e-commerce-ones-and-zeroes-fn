@@ -106,7 +106,7 @@ const PersonalInfo: React.FC = () => {
             </Modal>
           )}
         </div>
-        <div className="personal-info-details">
+        <div className="personal-info-deatails">
           <div className="details-part1">
             <table>
               <tbody>

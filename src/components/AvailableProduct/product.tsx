@@ -67,19 +67,24 @@ const Product: React.FC<ProductProps> = ({
 
   const handleAddToWishlist = async () => {
     if (!token) {
-      setMessage('Please Login to continue');
+      setMessage('Please log in to continue');
       setMessageType('error');
       return;
     }
     try {
-      const response = await addToWishlist(productId, token);
-      setMessage(response.data.message);
+      // Call the addToWishlist function
+      await addToWishlist(productId, token);
+  
+      // If successful, set the success message
+      setMessage('Product added to wishlist successfully');
       setMessageType('success');
     } catch (error: any) {
+      // Handle errors and set error message
       setMessage(error.response?.data?.message || 'Failed to add product to wishlist');
       setMessageType('error');
     }
   };
+  
 
   const handleAddProductInCart = async (productId: string) => {
     const quantity = 1;
@@ -127,7 +132,7 @@ const Product: React.FC<ProductProps> = ({
           {loadingStates[productId] ? 'Adding...' : 'Add to Cart'}
         </button>
       </div>
-      <Toast message={message} messageType={messageType} />
+      {/* <Toast message={message} messageType={messageType} /> */}
     </div>
   );
 };

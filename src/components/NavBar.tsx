@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { connect, useDispatch, useSelector } from "react-redux";
 import Toast from "./Toast/Toast";
 import "../styles/Header.scss";
@@ -8,6 +8,7 @@ import { fetchProductsInCart } from "../redux/slices/cartSlice";
 import { AppDispatch, RootState } from "../redux/store";
 import Cart from "./cart/cart";
 import CartModal from "./cartModal/modal";
+import { decodeToken } from "react-jwt";
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
@@ -15,7 +16,12 @@ interface NavbarProps {
   token: string;
   products: any[];
   fetchProductsInCart: () => void;
+ 
   
+}
+interface decodedToken {
+  userId: string;
+  role: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -23,14 +29,15 @@ const Navbar: React.FC<NavbarProps> = ({
   isSuccessfully,
   token,
 }) => {
-  const { id } = useParams<{ id: string }>();
+  const  id  = localStorage.getItem('userId');
   const dispatch = useDispatch<AppDispatch>();
   const { products = [], loading } = useSelector(
     (state: RootState) => state.cart
   );
   const [clicked, setClicked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [products, setProducts] = useState([]);
+
+ 
 
   const openModal = (e: { preventDefault: () => void }) => {
     e.preventDefault();
