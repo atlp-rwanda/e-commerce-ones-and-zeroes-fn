@@ -34,10 +34,10 @@ const SingleProductPage = () => {
             dispatch(fetchProduct(productId));
         }
 
-        
+
     }, [productId]);
 
- 
+
 
     const handleReviewChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setReviewText(e.target.value);
@@ -46,7 +46,7 @@ const SingleProductPage = () => {
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
-  
+
     const handleBuySingleProduct = async () => {
       try {
         await dispatch(createSingleItemOrder({ productId: productId || '', quantity }));
@@ -54,7 +54,7 @@ const SingleProductPage = () => {
         console.error('Error during checkout:', error);
       }
     };
-  
+
     const handlePopupSubmit = () => {
       setIsPopupOpen(false);
       handleBuySingleProduct();
@@ -70,6 +70,7 @@ const SingleProductPage = () => {
         // setError('Failed to fetch recommended products');
       }
     };
+
     useEffect(() => {
 fetchRecommendedProducts()
     }, [productId])
@@ -85,9 +86,9 @@ fetchRecommendedProducts()
         <div className="single-product-container">
             <button className="back-btn"><Link to={'/'} className='navLink'>&#8592; Back</Link> </button>
             {
-                product && 
+                product &&
                 <div className="product-section">
-                <div className="product-image">
+                <div className="singleProduct-image">
                     <img src={product.data.images?.[0] || productImage} alt="Product Image"/>
                     <button className="checkout-btn" onClick={() => setIsPopupOpen(true)}>Proceed to checkout</button>
                 </div>
@@ -100,11 +101,10 @@ fetchRecommendedProducts()
                     <p>Discount: {product.data.discount || 'No discount'}</p>
                     <p>Description: {product.data.description || 'No description available'}</p>
                     <p>Quantity: <input type="number" min="1" value={product.data.quantity || 1} readOnly/></p>
-                    <p>Availability: <input type="checkbox" checked={product.data.isAvailable} disabled/></p>
                 </div>
-            </div> 
+            </div>
             }
-            
+
             <div className="reviews-section">
                 <div className="reviews-left">
                     <h2>Rating & Reviews</h2>
@@ -145,25 +145,25 @@ fetchRecommendedProducts()
             </div>
 
             {
-              recommendedProducts && 
+              recommendedProducts &&
               <div className="product-container">
   <h3>You might also like this</h3>
   <div className="product-list">
     {recommendedProducts.map((recommendedProduct) => (
-      <Product 
-        key={recommendedProduct.productId} 
-        productId={recommendedProduct.productId} 
-        name={recommendedProduct.name} 
+      <Product
+        key={recommendedProduct.productId}
+        productId={recommendedProduct.productId}
+        name={recommendedProduct.name}
         category={recommendedProduct.category}
-        price={recommendedProduct.price} 
-        images={recommendedProduct.images} 
-        discount={recommendedProduct.discount} 
+        price={recommendedProduct.price}
+        images={recommendedProduct.images}
+        discount={recommendedProduct.discount}
       />
     ))}
   </div>
 </div>
             }
-            
+
             {isPopupOpen && (
         <div className='popup-modal'>
           <div className='popup-content-modal'>
