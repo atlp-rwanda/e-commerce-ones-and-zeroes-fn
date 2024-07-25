@@ -7,6 +7,7 @@ interface UserData {
     lastName: string;
     email: string;
     password: string;
+    isSeller:boolean
 }
 
 interface UserInfoInterface extends UserData {
