@@ -1,19 +1,17 @@
-import React, {
-  useState, ChangeEvent, FormEvent, useEffect,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import { useGoogleLogin } from '@react-oauth/google';
-import { AnyAction } from 'redux';
-import { RootState } from '../../redux/store';
-import { signupUser } from '../../redux/slices/SignupSlice';
-import { googleLoginUser } from '../../redux/slices/googleLoginSlice';
-import './Signup.scss';
-import Spinner from '../../components/Spinner/Spinner';
-import Toast from '../../components/Toast/Toast';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { useGoogleLogin } from "@react-oauth/google";
+import { AnyAction } from "redux";
+import { RootState } from "../../redux/store";
+import { signupUser } from "../../redux/slices/SignupSlice";
+import { googleLoginUser } from "../../redux/slices/googleLoginSlice";
+import "./Signup.scss";
+import Spinner from "../../components/Spinner/Spinner";
+import Toast from "../../components/Toast/Toast";
 
 interface FormData {
   firstName: string;
@@ -21,32 +19,36 @@ interface FormData {
   email: string;
   password: string;
   confirmPassword: string;
+  isSeller: boolean;
 }
 
 const validatePassword = (password: string): boolean => {
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
 };
 
 const Signup: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-  const {
-    loading, isSucceeded, userInfo, error,
-  } = useSelector(
-    (state: RootState) => state.signup,
+  const { loading, isSucceeded, userInfo, error } = useSelector(
+    (state: RootState) => state.signup
   );
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setFormData({ ...formData, isSeller: !isChecked });
+};
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    isSeller:false
   });
   const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
 
-  const {
-    firstName, lastName, email, password, confirmPassword,
-  } = formData;
+  const { firstName, lastName, email, password, confirmPassword,isSeller } = formData;
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,11 +57,13 @@ const Signup: React.FC = () => {
 
   const validateForm = () => {
     const errors: Partial<FormData> = {};
-    if (!firstName.trim()) errors.firstName = 'First name is required';
-    if (!lastName.trim()) errors.lastName = 'Last name is required';
-    if (!password.trim()) errors.password = 'Password is required';
-    else if (!validatePassword(password)) errors.password = 'Password is not strong';
-    if (password !== confirmPassword) errors.confirmPassword = 'Passwords do not match';
+    if (!firstName.trim()) errors.firstName = "First name is required";
+    if (!lastName.trim()) errors.lastName = "Last name is required";
+    if (!password.trim()) errors.password = "Password is required";
+    else if (!validatePassword(password))
+      errors.password = "Password is not strong";
+    if (password !== confirmPassword)
+      errors.confirmPassword = "Passwords do not match";
     return errors;
   };
 
@@ -71,39 +75,51 @@ const Signup: React.FC = () => {
       return;
     }
     setFormErrors({});
-    dispatch(signupUser({
-      firstName, lastName, email, password,
-    }));
+    dispatch(
+      signupUser({
+        firstName,
+        lastName,
+        email,
+        password,
+        isSeller
+      })
+      
+    );
   };
 
   useEffect(() => {
     if (isSucceeded) {
       setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+       isSeller:false
       });
+      setIsChecked(false)
     }
   }, [isSucceeded]);
 
   const loginViaGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const userInfo = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
-          headers: {
-            Authorization: `Bearer ${tokenResponse.access_token}`,
-          },
-        });
+        const userInfo = await axios.get(
+          "https://www.googleapis.com/oauth2/v1/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${tokenResponse.access_token}`,
+            },
+          }
+        );
 
         dispatch(googleLoginUser(userInfo.data));
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     },
     onError: (errorResponse) => {
-      console.error('Google login failure:', errorResponse);
+      console.error("Google login failure:", errorResponse);
     },
   });
 
@@ -130,7 +146,7 @@ const Signup: React.FC = () => {
               placeholder="First Name"
               onChange={handleChange}
               className={`form-control ${
-                formErrors.firstName ? 'is-invalid' : ''
+                formErrors.firstName ? "is-invalid" : ""
               }`}
               required
             />
@@ -148,7 +164,7 @@ const Signup: React.FC = () => {
               placeholder="Last Name"
               onChange={handleChange}
               className={`form-control ${
-                formErrors.lastName ? 'is-invalid' : ''
+                formErrors.lastName ? "is-invalid" : ""
               }`}
               required
             />
@@ -168,20 +184,19 @@ const Signup: React.FC = () => {
               className="form-control"
               required
             />
-
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <div className="password-wrapper">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={password}
                 placeholder="Password"
                 onChange={handleChange}
                 className={`form-control ${
-                  formErrors.password ? 'is-invalid' : ''
+                  formErrors.password ? "is-invalid" : ""
                 }`}
                 required
               />
@@ -199,14 +214,14 @@ const Signup: React.FC = () => {
             <label htmlFor="confirmPassword">Confirm Password</label>
             <div className="password-wrapper">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
                 value={confirmPassword}
                 placeholder="Confirm Password"
                 onChange={handleChange}
                 className={`form-control ${
-                  formErrors.confirmPassword ? 'is-invalid' : ''
+                  formErrors.confirmPassword ? "is-invalid" : ""
                 }`}
                 required
               />
@@ -220,36 +235,57 @@ const Signup: React.FC = () => {
               <span className="errors">{formErrors.confirmPassword}</span>
             )}
           </div>
-
-          <button
+          <div className="seller-checkbox">
+            <label htmlFor="checkbox">
+            <input
+               type="checkbox" 
+               name="checkbox"
+               checked={isChecked} 
+               onChange={handleCheckboxChange} 
+            />
+            Check this box if you want to sell products.
+          </label>
+          </div>
+          <div className="signup-buttons">
+            <button
             type="submit"
-            className={`btn ${loading ? 'loading' : ''}`}
+            className={`btn ${loading ? "loading" : ""}`}
             disabled={loading}
           >
-            {loading ? 'Processing...' : 'Sign Up'}
+            {loading ? "Processing..." : "Sign Up"}
           </button>
 
           <p className="or-with-google">Or</p>
-          <div className="text-center">
-            <button className="btn btn-google" type="button" onClick={() => loginViaGoogle()}>
-              <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="" className="google-icon" />
-
+          {/* <div className="text-center"> */}
+            <button
+              className="btn btn-google"
+              type="button"
+              onClick={() => loginViaGoogle()}
+            >
+              <img
+                src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+                alt=""
+                className="google-icon"
+              />
               Continue with Google
             </button>
           </div>
+          {/* </div> */}
+          
           <div className="text-right">
             <p>
-              Already have an account?
-              {' '}
-              <a href="/login">Login</a>
+              Already have an account? <a href="/login">Login</a>
             </p>
           </div>
         </form>
       </div>
       {loading && <Spinner />}
-      {!loading
-        && (isSucceeded ? (
-          <Toast messageType="success" message={`${userInfo?.message} Go and check your email to veify your account`} />
+      {!loading &&
+        (isSucceeded ? (
+          <Toast
+            messageType="success"
+            message={`${userInfo?.message} Go and check your email to veify your account`}
+          />
         ) : (
           error && <Toast messageType="error" message={error.message} />
         ))}
