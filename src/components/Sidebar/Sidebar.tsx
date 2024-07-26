@@ -36,8 +36,6 @@ const SideBar: React.FC<SideBarProps> = ({children,className}) => {
     navigate('/')
   }
 
-  const { id } = useParams<{ id?: string }>();
-
   return (
     <>
       <nav ref={ref} className={`SideBar ${className}`}>

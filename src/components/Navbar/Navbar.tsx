@@ -13,26 +13,20 @@ import { fetchUser } from "../../redux/slices/userSlices";
 import { logoutUser } from "../../redux/slices/loginSlice";
 import { resetToken } from "../../redux/slices/tokenSlice";
 
-interface Props{
+interface Props {
   sideBarActive: boolean,
-  updateSideBarActive: ((state:boolean)=>void)
+  updateSideBarActive: ((state: boolean) => void)
 }
 
 
-const NavBar: React.FC<Props> = ({sideBarActive,updateSideBarActive}) => {
+const NavBar: React.FC<Props> = ({ sideBarActive, updateSideBarActive }) => {
 
-  const [profileActive, setProfileActive] = useState<boolean>(false)  
+  const [profileActive, setProfileActive] = useState<boolean>(false)
 
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
   const token: string | null = localStorage.getItem('token')
-
-  const { id } = useParams<{ id?: string | undefined }>();
-
-  if(!id || id==="undefined"){
-    navigate('/login')
-  }
 
   function handleResize() {
     if (window.innerWidth >= 1000) {
@@ -46,16 +40,12 @@ const NavBar: React.FC<Props> = ({sideBarActive,updateSideBarActive}) => {
     navigate("/");
   }
 
-  function handleProfileClick(event: any){
-    setProfileActive(prev=>!prev)
+  function handleProfileClick(event: any) {
+    setProfileActive(prev => !prev)
   }
 
-  function handleProfileRedirect(event: any){
-    navigate(`/MyAccount/${id}`)
-  }
-
-  function handleClickOutsideProfile(event: any){
-    if(!event.target.closest(".accountContainer")) setProfileActive(false)
+  function handleClickOutsideProfile(event: any) {
+    if (!event.target.closest(".accountContainer")) setProfileActive(false)
   }
 
   interface User {
@@ -78,7 +68,6 @@ const NavBar: React.FC<Props> = ({sideBarActive,updateSideBarActive}) => {
   }, [])
 
   const { user } = useSelector((state: RootState) => state.user);
-  
 
   return (
     <>
@@ -89,7 +78,7 @@ const NavBar: React.FC<Props> = ({sideBarActive,updateSideBarActive}) => {
           <hr />
           <h4>OnesAndZeros</h4>
         </div>
-        <Link to={`/${id}`} className="start-buying-link">
+        <Link to={`/${user?.userId}`} className="start-buying-link">
           Start buying
         </Link>
         <div className="accountContainer">
@@ -105,7 +94,7 @@ const NavBar: React.FC<Props> = ({sideBarActive,updateSideBarActive}) => {
           {
             profileActive ?
               <div className="profileContainer">
-                <div className="userDetails" onClick={handleProfileRedirect}>
+                <div className="userDetails" onClick={() => navigate(`/MyAccount/${user?.userId}`)}>
                   <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
                   <p>{user ? `${user.firstName}` : `Account`}</p>
                 </div>
