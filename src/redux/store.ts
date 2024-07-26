@@ -8,6 +8,7 @@ import cartSlice from "./slices/cartSlice";
 import navbarSlice from "./slices/navbarSlice";
 import otpReducer from './slices/otpSlice'; // Add this line
 
+import chatReducer from './slices/chatSlice';
 import userReducer from './slices/userSlices';
 import singleItemOrderReducer from "./slices/singleItemOrderSlice";
 import productReviewReducer from './slices/productSlice'
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   otp: otpReducer, 
   cartCheckout: cartCheckoutReducer,
   singleItemOrder: singleItemOrderReducer,
-  productReviews: productReviewReducer
+  productReviews: productReviewReducer,
+  chat: chatReducer
 });
 
 
