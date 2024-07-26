@@ -1,15 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./views/Home";
-import Login from "./Pages/Login/Login";;
-import Signup from "./Pages/Signup/Signup";
-import IsVerified from "./components/IsVerifiedModal/IsVerified";
-import UserVerificationFailed from "./components/IsVerifiedModal/UserVerificationFailed";
-import ResetPassword from "./Pages/resetPassword/ResetPassword";
-import ResetPasswordPage from "./Pages/resetPassword/ResetPasswordPage";
-import WishlistPage from "./components/wishlist/wishlistPage";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
+import Login from './Pages/Login/Login';
+import Signup from './Pages/Signup/Signup';
+import IsVerified from './components/IsVerifiedModal/IsVerified';
+import UserVerificationFailed from './components/IsVerifiedModal/UserVerificationFailed';
+import ResetPassword from './Pages/resetPassword/ResetPassword';
+import ResetPasswordPage from './Pages/resetPassword/ResetPasswordPage';
+import WishlistPage from './components/wishlist/wishlistPage'
 import Header from "./components/userDashHeader/UserHeader";
-import RecommendProduct from "./components/productReco/productRecommand";
+import RecommendProduct from './components/productReco/productRecommand';
 import BillingAddress from "./components/billingAddress/billingaddress";
 import OtpVerification from './Pages/Login/OtpVerification';
 import UserDash from "./views/userDash";
@@ -33,14 +33,13 @@ import SingleProductPage from './Pages/SingleProductPage/SingleProductPage';
 import BuySingleItem from './Pages/BuySingleItem/BuySingleItem';
 import AddProduct from './Pages/BuyerDashboard/BuyerDashboard';
 import UpdatePasswordAfterXAmountOfTime from './Pages/resetPassword/updatePassXAmount';
-import SampleAdmin from "./views/sampleAdmin";
 
 
 const App: React.FC = () => (
   <Router>
     
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route path="/" element={< Home/>} />
       <Route path="/:id" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/verify/:userId" element={<OtpVerification />} />
@@ -71,9 +70,9 @@ const App: React.FC = () => (
       <Route path="/MyAccount/:id" element={<MyAccount />} />
       <Route path="/updateprofile" element={<UpdateProfile />} />
       <Route path="/updatebilling" element={<UpdateBilling />} />
-      <Route path='/adminDash/:id' element={<SampleAdmin/>} />
+      <Route path='/adminDash/:id' element={<AdminDashboard/>} />
       <Route path='/sellerDash/:id' element={<SampleSeller/>} />
-
+      <Route path="/adminDash/:id/users" element={<UsersAdminDash />} />
     </Routes>
   </Router>
 );

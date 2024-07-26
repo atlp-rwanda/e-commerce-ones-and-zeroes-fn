@@ -23,7 +23,6 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => (
     <span className="slider round"></span>
   </label>
 );
-import FloatingButton from "../chatButton/button";
 
 const PersonalInfo: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -268,7 +267,6 @@ const PersonalInfo: React.FC = () => {
           </div>
         </div>
       </div>
-      <FloatingButton/>
     </div>
   );
 };

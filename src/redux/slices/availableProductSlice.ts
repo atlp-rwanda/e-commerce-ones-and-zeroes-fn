@@ -24,7 +24,7 @@ export const fetchAvailableProducts = createAsyncThunk(
     let url = `${BACKEND_URL}/api/products/available?page=${page}`;
     
     if (searchKeyword) {
-      url = `${BACKEND_URL}/api/products/search/${encodeURIComponent(searchKeyword)}?searchKeyword=${encodeURIComponent(searchKeyword)}&page=${page}`;
+      url = `${BACKEND_URL}/api/products/${encodeURIComponent(searchKeyword)}?searchKeyword=${encodeURIComponent(searchKeyword)}&page=${page}`;
     } else {
       url = `${BACKEND_URL}/api/products/available?page=${page}`;
     }

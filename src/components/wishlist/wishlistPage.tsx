@@ -3,7 +3,6 @@ import { getWishlist, deleteFromWishlist, clearWishlist } from '../services/wish
 import Header from '../Header';
 import Toast from '../Toast/Toast'; 
 import "./wishlist.scss"
-import FloatingButton from '../chatButton/button';
 
 const WishlistPage: React.FC = () => {
   const [message, setMessage] = useState('');
@@ -85,7 +84,6 @@ const WishlistPage: React.FC = () => {
         </ul>
         <Toast message={message} messageType={messageType} />
       </div>
-      <FloatingButton/>
     </div>
   );
 };

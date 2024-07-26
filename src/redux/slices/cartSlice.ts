@@ -113,7 +113,7 @@ export const fetchTotalInCart = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log(response.data);
+      console.log(response.data);
       //  console.log('total in cart', response.data.total);
       const total = response.data.total;
 
