@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { addProductInCart, fetchProductsInCart } from '../../redux/slices/cartSlice';
 
-
 interface ProductProps {
   productId: string;
   name: string;

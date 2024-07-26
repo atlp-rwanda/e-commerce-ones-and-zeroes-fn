@@ -164,9 +164,9 @@ const Navbar: React.FC<NavbarProps> = ({
           )}
         </ul>
       </nav>
-      {/* {loggedInSuccessfuly && (
+      {loggedInSuccessfuly && (
         <Toast messageType={"success"} message={`Logged in successfully`} />
-      )} */}
+      )}
       {isModalVisible && (
         <CartModal onClose={closeModal} children={<Cart />} />
       )}
