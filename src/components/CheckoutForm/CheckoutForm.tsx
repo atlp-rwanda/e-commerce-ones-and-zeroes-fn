@@ -78,7 +78,7 @@ export default function CheckoutForm() {
         setShowToast(true);
       }
 
-      window.location.href = `${CLIENT_URL}/users/dashboard`;
+      window.location.href = `${CLIENT_URL}/order`;
     }
 
     setIsProcessing(false);
