@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+html,body,#root{
+    height: 100%;
+}
+
+.userAdminPageContainer {
+    height:100%;
+    display: flex;
+    flex-direction: column;
+
+    .userAdminDashContainer {
+        position: relative;
+        display: flex;
+        flex: 1;
+
+        .usersTableContainer {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 2rem;
+            overflow:auto;
+        }
+    }
+
+    .btn {
+        border: 0;
+        border-radius: 3px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+}

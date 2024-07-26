@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import Cart from "./cart/cart";
 import CartModal from "./cartModal/modal";
 import { decodeToken } from "react-jwt";
+import { DecodedToken } from "../Pages/Login/Login";
 
 interface NavbarProps {
   loggedInSuccessfuly: boolean;
@@ -36,8 +37,14 @@ const Navbar: React.FC<NavbarProps> = ({
   );
   const [clicked, setClicked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [products, setProducts] = useState([]);
 
- 
+  const userInfo: DecodedToken | null = decodeToken(token)
+
+  function redirectUrl(role: string, id: string) {
+    if (role === "admin") return `adminDash/${id}`
+    else return `sellerDash/${id}`
+  }
 
   const openModal = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -69,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
   useEffect(() => {
     dispatch(fetchProductsInCart())
-    
+
   }, [dispatch]);
 
   const isLoggedIn = loggedInSuccessfuly || token;
@@ -100,59 +107,66 @@ const Navbar: React.FC<NavbarProps> = ({
             </Link>
           </li>
           <li>
-            <Link to="/pages" onClick={() => setClicked(false)}>
-              Pages
-            </Link>
-          </li>
-          <li>
             {loggedInSuccessfuly || token || isSuccessfully ? (
               <>
-                <i className="fa-solid fa-cart-shopping">
-                  <div className="cartbadge">{products.length}</div>
-                </i>
                 <Link to="/" onClick={openModal}>
-                  Cart
+                  <i className="fa-solid fa-cart-shopping">
+                    <div className="cartbadge">{products.length}</div>
+                  </i>
+                  <span>Cart</span>
                 </Link>
               </>
             ) : (
               <>
-                <i className="fa-solid fa-cart-shopping"></i>
                 <Link to="/" onClick={handleToast}>
-                  Cart
+                  <i className="fa-solid fa-cart-shopping"></i>
+                  <span>Cart</span>
                 </Link>
               </>
             )}
           </li>
           {isLoggedIn && (
             <li>
-              <i className="fa-solid fa-heart"></i>
               <Link to="/wishlist" onClick={() => setClicked(false)}>
-                MyWishlist
+                <i className="fa-solid fa-heart"></i>
+                <span>MyWishlist</span>
               </Link>
             </li>
           )}
           <li>
-            <i className="fa-solid fa-user"></i>
             {isLoggedIn ? (
               <Link to={`/MyAccount/${id}`} onClick={() => setClicked(false)}>
-                Profile
+                <i className="fa-solid fa-user"></i>
+                <span>Profile</span>
               </Link>
             ) : (
               <Link to="/login" onClick={() => setClicked(false)}>
-                Login
+                <i className="fa-solid fa-user"></i>
+                <span>Login</span>
               </Link>
             )}
           </li>
+          {
+            userInfo && userInfo.role !== "buyer" ?
+              <li>
+                <Link to={`/${redirectUrl(userInfo.role, userInfo.userId)}`}>
+                  Dashboard
+                </Link>
+              </li>
+              : ''
+          }
           {isLoggedIn && (
-            <li onClick={handleLogout} className="link">
-              Logout
+            <li onClick={handleLogout}>
+              <Link to={''}>
+                Logout
+              </Link>
             </li>
           )}
         </ul>
       </nav>
-      {loggedInSuccessfuly && (
+      {/* {loggedInSuccessfuly && (
         <Toast messageType={"success"} message={`Logged in successfully`} />
-      )}
+      )} */}
       {isModalVisible && (
         <CartModal onClose={closeModal} children={<Cart />} />
       )}

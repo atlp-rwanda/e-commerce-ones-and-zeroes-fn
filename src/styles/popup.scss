@@ -1,0 +1,50 @@
+@import './variables';
+
+.fullContainer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(78, 78, 78, 0.5);
+}
+
+.popupContainer {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 40px;
+    border: 1px solid rgb(232, 231, 231);
+    border-radius: 10px;
+    background-color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    // backdrop-filter: blur(52px)!important;
+
+    .topBar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .closeBtn{
+            font-size: 15px;
+            color:#515151;
+            padding:10px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .closeBtn:hover{
+            background-color: #EFEFEFEF;
+        }
+    }
+
+    button{
+        background-color: $primary-color;
+        width:fit-content;
+        font-weight: 600;
+    }
+}

@@ -57,7 +57,6 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (id: string) =
       },
     
     });
-    console.log(response.data.data)
     return response.data.data;
   } catch (error) {
     console.error('Failed to fetch user:', error);

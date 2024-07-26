@@ -19,6 +19,7 @@ export interface AuthState {
     error: any;
     isSucceeded: boolean;
 }
+
 export const loginUser = createAsyncThunk<UserData, UserData, { rejectValue: any }>(
     'login/loginUser',
     async (userData, { rejectWithValue }) => {

@@ -79,7 +79,7 @@ const Signup: React.FC = () => {
   useEffect(() => {
     if (isSucceeded) {
       setFormData({
-        firstName: '',
+        firstName: "",
         lastName: '',
         email: '',
         password: '',

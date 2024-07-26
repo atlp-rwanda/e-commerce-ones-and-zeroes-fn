@@ -1,0 +1,14 @@
+@import '../../styles/popup';
+
+.roleContainer{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+
+    select{
+        padding:12px;
+        border: 0;
+        border-radius: 5px;
+        background-color: #f5f5f5;
+    }
+}

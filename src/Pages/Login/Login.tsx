@@ -26,7 +26,7 @@ const validatePassword = (password: string): boolean => {
   return passwordRegex.test(password);
 };
 
-interface DecodedToken {
+export interface DecodedToken {
   userId: string;
   role: string;
   passwordLastChanged: string;

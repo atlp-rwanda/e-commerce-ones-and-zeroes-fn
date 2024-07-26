@@ -5,6 +5,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 10;
     @include flex-center;
     @include full-height;
     @include full-width;
