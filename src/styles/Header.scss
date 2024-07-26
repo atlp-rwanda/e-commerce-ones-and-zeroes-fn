@@ -126,6 +126,7 @@ header {
 
       li:hover {
         background-color: $secondary-color;
+
         width: 70%;
         margin-left: 15%;
         transition: 0.4s ease-in-out;
@@ -133,6 +134,7 @@ header {
         i {
           color: $primary-color;
         }
+        
       }
     }
   }
