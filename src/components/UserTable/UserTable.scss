@@ -1,0 +1,44 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+//@import '../../styles/tables.scss';
+
+
+.tableContainer {
+	@include flex-center;
+	width: 100%;
+	margin: 5rem 0;
+
+	table{
+		width: 80%;
+	}
+}
+
+.userProfile {
+	display: flex;
+	align-items: center;
+
+	.userIcon {
+		color: #323C47;
+		margin-right: 20px;
+	}
+}
+
+.ellipsis {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	height: 30px;
+	width: 30px;
+	border-radius: 5px;
+	background-color: #fbfbfb;
+
+	.ellipsisBtn {
+		font-size: 20px;
+	}
+
+}
+
+.ellipsis:hover {
+	border: 1px solid #dbe0e3;
+}

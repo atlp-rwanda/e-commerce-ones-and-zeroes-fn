@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store";
-import { fetchUser, updateUser } from "../../redux/slices/userSlices";
+import { fetchUser } from "../../redux/slices/userSlices";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.jpg";
 import account from "../../assets/images/acc.png";

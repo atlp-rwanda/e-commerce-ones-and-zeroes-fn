@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+@import '../../styles/popup';
+
+.reasonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    textarea {
+        padding: 5px;
+        height: 100px;
+    }
+}

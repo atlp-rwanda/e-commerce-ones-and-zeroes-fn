@@ -16,8 +16,9 @@ import UserDash from "./views/userDash";
 import MyAccount from "./views/MyAccount";
 import UpdateProfile from "./views/updateprofile";
 import UpdateBilling from "./views/updatebilling";
-import SampleAdmin from './views/sampleAdmin';
 import SampleSeller from './views/sampleSeller';
+import UsersAdminDash from './Pages/UsersAdminDash/UsersAdminDash';
+import AdminDashboard from './Pages/AdminDashboard/AdminDashboard';
 
 import ProductPage from "./Pages/Product/productPage";
 
@@ -69,9 +70,9 @@ const App: React.FC = () => (
       <Route path="/MyAccount/:id" element={<MyAccount />} />
       <Route path="/updateprofile" element={<UpdateProfile />} />
       <Route path="/updatebilling" element={<UpdateBilling />} />
-      <Route path='/adminDash/:id' element={<SampleAdmin/>} />
+      <Route path='/adminDash/:id' element={<AdminDashboard/>} />
       <Route path='/sellerDash/:id' element={<SampleSeller/>} />
-
+      <Route path="/adminDash/:id/users" element={<UsersAdminDash />} />
     </Routes>
   </Router>
 );
