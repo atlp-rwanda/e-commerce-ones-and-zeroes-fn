@@ -116,10 +116,10 @@ const Product: React.FC<ProductProps> = ({
       <div className="description">
         <h2>{name}</h2>
         <p>{price} $</p>
-        <p>
+        {/* <p>
           <span className="bonus">Category: </span>
           {category}
-        </p>
+        </p> */}
       </div>
       <div className="button-container">
         <button className="btn view-more"><Link to={`/product/${productId}`} className='navLink'>View More</Link></button>
