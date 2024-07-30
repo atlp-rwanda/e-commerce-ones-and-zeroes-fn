@@ -57,6 +57,7 @@
     "redux-thunk": "^3.1.0",
     "sass": "^1.77.5",
     "sass-loader": "^14.2.1",
+    "socket.io-client": "^4.7.5",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "style-loader": "^4.0.0",

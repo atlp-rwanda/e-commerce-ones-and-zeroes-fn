@@ -1,0 +1,78 @@
+.chat-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  z-index: 1000;
+  
+}
+.cancel{
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: rgb(244, 235, 235);
+  font-weight: bold;
+  margin-bottom: 900px;
+  // position: fixed;
+  top: 80%;
+  left: 70%;
+  width: 45px;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-modal-content {
+  padding-top: 40px;
+  // padding: 20px;
+  height: 60px;
+  border-radius: 5px;
+  position: relative;
+  width: fit-content;
+  
+}
+.chat-modal-close-button img{
+  width: 30px;
+  height: 30px;
+  background-color: #0F1848;
+  border-radius: 5px;
+  
+ 
+}
+
+.chat-modal-close-button {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  padding: 5px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: rgb(11, 11, 11);
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .chat-modal-content {
+    width: 95%;
+    height: 350px;
+  }
+  .chat-modal-close-button{
+    top: 30px;
+    right: 20px;
+    padding: 3px;
+    font-size: 16px;
+  }
+
+  
+  
+}
+@media only screen and (min-width: 768px) {
+  .chat-modal-content {
+    width: 30%;
+    height: 450px;
+  }
+ 
+}

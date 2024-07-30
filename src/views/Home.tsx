@@ -13,6 +13,12 @@ import Toast from '../components/Toast/Toast';
 import { useLocation } from 'react-router-dom';
 import { fetchAvailableProducts } from '../redux/slices/availableProductSlice';
 
+import "../styles/Home.scss";
+
+import FakeProduct from "../components/cart/fakeproduct";
+import Chat from "../components/chat/chat";
+import FloatingButton from "../components/chatButton/button";
+
 const Home: React.FC = () => {
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
@@ -31,7 +37,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const state = location.state as { from?: { pathname: string } };
     const previousRoute = state?.from?.pathname;
-    if (previousRoute === '/login') {
+    if (previousRoute === "/login") {
       setShowToast(true);
     }
   }, [location, isSuccessfully, isSucceeded]);
@@ -94,10 +100,13 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div id="product-page" ref={productPageRef}>
+      <div>
         <Page />
       </div>
-    </div>
+      
+        <FloatingButton/>
+       
+      </div>
   );
 };
 
